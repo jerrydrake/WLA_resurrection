@@ -1,0 +1,53 @@
+private ["_mar","_mar2"];
+waitUntil {sleep 1; !isNil"StartMission"};
+sleep 15;
+if (!isNil"SAOKRESUME") exitWith {PAIKKAMARKERIT = 1;};
+//AmbientCiv = [];&& {count AmbientCiv > 0}
+_p = SAOKMAPSIZE * 0.5;
+{
+_mar = format ["CityM%1",NUMM];
+NUMM=NUMM+1;
+_mar2 = createMarker [_mar,locationposition _x];
+_mar2 setMarkerShape "ELLIPSE";
+//_mar2 setMarkerType "Empty";
+_mar2 setMarkerAlpha 0.35;
+_mar2 setMarkerBrush "FDiagonal";
+_mar2 setMarkerSize (size _x);
+_mar2 setMarkerDir (direction _x);
+_mar2 setMarkerText "";
+_ran = ["None","Medical","AntiAir","AntiTank","MachineGunners"]call RETURNRANDOM;
+_ran2 = ["Hostile","Hostile","Angry","Friendly","Neutral","Neutral"]call RETURNRANDOM;
+_mar2 setMarkerColor (_ran2 CALL SAOKRELTOCOLOR);
+//AmbientCiv pushback _mar;
+SAOKDATAB setvariable [str _x, [_mar2,_ran,_ran2]];
+//[_x,"B",_ran] CALL SAOKVILSET;
+//[_x,"A",_ran2] CALL SAOKVILSET;
+sleep 0.01;
+} foreach (nearestLocations [[_p,_p,0], ["NameVillage","NameCity","NameCityCapital"], SAOKMAPSIZE*0.7]); 
+{
+if !(text _x in ["military","airbase","Terminal","AAC airfield"]) then {
+_mar = format ["CityM%1",NUMM];
+NUMM=NUMM+1;
+_mar2 = createMarker [_mar,locationposition _x];
+_mar2 setMarkerShape "ELLIPSE";
+//_mar2 setMarkerType "Empty";
+_mar2 setMarkerAlpha 0.35;
+_mar2 setMarkerBrush "BDiagonal";
+_mar2 setMarkerSize (size _x);
+_mar2 setMarkerDir (direction _x);
+_mar2 setMarkerText "";
+_ran = ["None","Medical","AntiAir","AntiTank","MachineGunners"]call RETURNRANDOM;
+//[(_mar+"B"),_ran] CALL SAOKVILSET;
+_ran2 = ["Hostile","Hostile","Angry","Friendly","Neutral","Neutral"]call RETURNRANDOM;
+//[(_mar+"A"),_ran2] CALL SAOKVILSET;
+_mar2 setMarkerColor (_ran2 CALL SAOKRELTOCOLOR);
+//AmbientCiv pushback _mar;
+SAOKDATAB setvariable [str _x, [_mar2,_ran,_ran2]];
+//[_x,"B",_ran] CALL SAOKVILSET;
+//[_x,"A",_ran2] CALL SAOKVILSET;
+sleep 0.01;
+};
+} foreach (nearestLocations [[_p,_p,0], ["NameLocal"], SAOKMAPSIZE*0.7]); 
+//AmbientCivN = + AmbientCiv; 
+//[] CALL SAOKVILAD;
+PAIKKAMARKERIT = 1;

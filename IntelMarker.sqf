@@ -1,0 +1,15 @@
+private ["_mar3","_name","_start2","_size","_text","_pos"];
+_pos = + (_this select 0);
+_text = _this select 1;
+_start2 = [(_pos select 0)+(random 60)-(random 60) ,(_pos select 1) +(random 60)-(random 60) ,0];
+_size = [60+(random 70),60+(random 70)];
+_name = format ["INTELmar%1",NUMM];
+NUMM=NUMM+1;
+_mar3 = createMarker [_name,_start2];
+_mar3 setMarkerShape "ICON";
+_mar3 setMarkerType _text;
+_mar3 setMarkerSize [0.8,0.8];
+_mar3 setMarkerColor "ColorCIV";
+_mar3 setMarkerText " CIV INTEL";
+sleep 600;
+deletemarker _mar3;

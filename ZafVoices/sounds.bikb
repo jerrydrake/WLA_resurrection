@@ -1,0 +1,446 @@
+class Sentences
+{	
+	class Intro1
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Intro1.ogg"};
+		class Arguments {};
+    };
+	class Intro2
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Intro2.ogg"};
+		class Arguments {};
+    };
+	class Intro3
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Intro3.ogg"};
+		class Arguments {};
+    };
+	class Intro4
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Intro4.ogg"};
+		class Arguments {};
+    };
+	class Intro5
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Intro5.ogg"};
+		class Arguments {};
+    };
+	class Intro6
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Intro6.ogg"};
+		class Arguments {};
+    };
+	class Intro7
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Intro7.ogg"};
+		class Arguments {};
+    };
+	class Intro8
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Intro8.ogg"};
+		class Arguments {};
+    };
+	class Intro9
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Intro9.ogg"};
+		class Arguments {};
+    };
+	class Intro10
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Intro10.ogg"};
+		class Arguments {};
+    };
+	class Intro11
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Intro11.ogg"};
+		class Arguments {};
+    };
+	class Intro12
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Intro12.ogg"};
+		class Arguments {};
+    };
+	class Intro13
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Intro13.ogg"};
+		class Arguments {};
+    };
+	class Intro14
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Intro14.ogg"};
+		class Arguments {};
+    };
+	class Intro15
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Intro15.ogg"};
+		class Arguments {};
+    };
+	class Intro16
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Intro16.ogg"};
+		class Arguments {};
+    };
+	class Intro17
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Intro17.ogg"};
+		class Arguments {};
+    };
+	class Intro18
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Intro18.ogg"};
+		class Arguments {};
+    };
+	class Pow1
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Pow1.ogg"};
+		class Arguments {};
+    };
+	class Pow2
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Pow2.ogg"};
+		class Arguments {};
+    };
+	class Pow3
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Pow3.ogg"};
+		class Arguments {};
+    };
+	class Pow4
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Pow4.ogg"};
+		class Arguments {};
+    };
+	class Pow5
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Pow5.ogg"};
+		class Arguments {};
+    };
+	class Pow6
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Pow6.ogg"};
+		class Arguments {};
+    };
+	class Pow7
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Pow7.ogg"};
+		class Arguments {};
+    };
+	class Pow8
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Pow8.ogg"};
+		class Arguments {};
+    };
+	class CivS1
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\CivS1.ogg"};
+		class Arguments {};
+    };
+	class CivS2
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\CivS2.ogg"};
+		class Arguments {};
+    };
+	class CivS3
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\CivS3.ogg"};
+		class Arguments {};
+    };
+	class CivS4
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\CivS4.ogg"};
+		class Arguments {};
+    };
+	class CivS5
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\CivS5.ogg"};
+		class Arguments {};
+    };
+	class CivS6
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\CivS6.ogg"};
+		class Arguments {};
+    };
+	class CivS7
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\CivS7.ogg"};
+		class Arguments {};
+    };
+	class CivS8
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\CivS8.ogg"};
+		class Arguments {};
+    };
+	class CivS9
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\CivS9.ogg"};
+		class Arguments {};
+    };
+	class CivS10
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\CivS10.ogg"};
+		class Arguments {};
+    };
+	class CivS11
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\CivS11.ogg"};
+		class Arguments {};
+    };
+	class CivS12
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\CivS12.ogg"};
+		class Arguments {};
+    };
+	class CivS13
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\CivS13.ogg"};
+		class Arguments {};
+    };
+	class CivS14
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\CivS14.ogg"};
+		class Arguments {};
+    };
+	class CivS15
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\CivS15.ogg"};
+		class Arguments {};
+    };
+	class Sol1
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Sol1.ogg"};
+		class Arguments {};
+    };
+	class Sol1b
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Sol1b.ogg"};
+		class Arguments {};
+    };
+	class Sol1c
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Sol1c.ogg"};
+		class Arguments {};
+    };
+	class Sol1d
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Sol1d.ogg"};
+		class Arguments {};
+    };
+		class Sol2
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Sol2.ogg"};
+		class Arguments {};
+    };
+	class Sol2b
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Sol2b.ogg"};
+		class Arguments {};
+    };
+	class Sol2c
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Sol2c.ogg"};
+		class Arguments {};
+    };
+	class Sol2d
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Sol2d.ogg"};
+		class Arguments {};
+    };
+		class Sol3
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Sol3.ogg"};
+		class Arguments {};
+    };
+	class Sol3b
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Sol3b.ogg"};
+		class Arguments {};
+    };
+	class Sol3c
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Sol3c.ogg"};
+		class Arguments {};
+    };
+	class Sol3d
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Sol3d.ogg"};
+		class Arguments {};
+    };
+		class Sol4
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Sol4.ogg"};
+		class Arguments {};
+    };
+	class Sol4b
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Sol4b.ogg"};
+		class Arguments {};
+    };
+	class Sol4c
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Sol4c.ogg"};
+		class Arguments {};
+    };
+	class Sol4d
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Sol4d.ogg"};
+		class Arguments {};
+    };
+		class Sol5
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Sol5.ogg"};
+		class Arguments {};
+    };
+	class Sol5b
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Sol5b.ogg"};
+		class Arguments {};
+    };
+	class Sol5c
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Sol5c.ogg"};
+		class Arguments {};
+    };
+	class Sol5d
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Sol5d.ogg"};
+		class Arguments {};
+    };
+		class Sol6
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Sol6.ogg"};
+		class Arguments {};
+    };
+		class Sol7
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Sol7.ogg"};
+		class Arguments {};
+    };
+		class Sol8
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Sol8.ogg"};
+		class Arguments {};
+    };
+		class Sol9
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Sol9.ogg"};
+		class Arguments {};
+    };
+		class Sol10
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Sol10.ogg"};
+		class Arguments {};
+    };
+		class Sol11
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Sol11.ogg"};
+		class Arguments {};
+    };
+		class Sol12
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Sol12.ogg"};
+		class Arguments {};
+    };
+	class stealV1
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\stealV1.ogg"};
+		class Arguments {};
+    };
+	class stealV2
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\stealV2.ogg"};
+		class Arguments {};
+    };
+	class stealV3
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\stealV3.ogg"};
+		class Arguments {};
+    };
+	class stealV4
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\stealV4.ogg"};
+		class Arguments {};
+    };
+	class introV
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\introV.ogg"};
+		class Arguments {};
+    };
+	
+};	
+class Arguments{};
+class Special{};
+startWithVocal[] = {hour};
+startWithConsonant[] = {europe, university};

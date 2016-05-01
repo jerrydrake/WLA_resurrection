@@ -1,0 +1,17 @@
+
+while {isNil{missionnamespace getvariable "AntennaMade"}} do {
+waitUntil {sleep 1; player distance (getmarkerpos "AntM") < 30};
+_n = player addAction ["Create Antenna", {
+missionnamespace setvariable ["AntennaMade",1];
+}];
+waitUntil {sleep 1; player distance (getmarkerpos "AntM") > 30 || {!isNil{missionnamespace getvariable "AntennaMade"}}};
+removeAllActions player;
+};
+waitUntil {sleep 1; !isNil{missionnamespace getvariable "AntennaMade"}};
+hint "Antenna Coming";
+//add animation here e.g. unitname1 playmove "animationname";
+missionnamespace setvariable ["AntennaMade",nil];
+sleep 5;
+hint "Still some time before Antenna Coming";
+sleep 5;
+_obj = createVehicle ["Land_PortableLight_double_F",getposATL player, [], 0, "CAN_COLLIDE"];

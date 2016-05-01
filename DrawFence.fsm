@@ -1,0 +1,278 @@
+/*%FSM<COMPILE "C:\Program Files (x86)\Bohemia Interactive\Tools\FSM Editor Personal Edition\scriptedFSM.cfg, DrawFence">*/
+/*%FSM<HEAD>*/
+/*
+item0[] = {"Init",0,250,-92.681412,-238.582245,-2.681417,-188.582230,0.000000,"Init"};
+item1[] = {"ok",4,218,-57.432430,-169.324341,32.567570,-119.324341,1.000000,"ok"};
+item2[] = {"true",8,218,-164.459457,-166.081085,-74.459457,-116.081093,0.000000,"true"};
+item3[] = {"Walls_Ready",2,250,-170.945953,-90.405396,-80.945938,-40.405396,0.000000,"Walls Ready"};
+item4[] = {"wait",4,218,-172.027039,-16.891886,-82.027039,33.108112,0.000000,"wait"};
+item5[] = {"Exit",1,4346,-173.108124,56.621635,-83.108078,106.621620,0.000000,"Exit"};
+item6[] = {"state1",2,250,-58.513515,-91.486488,31.486500,-41.486488,0.000000,"state1"};
+item7[] = {"true",8,218,-57.432438,-28.783779,32.567562,21.216223,0.000000,"true"};
+item8[] = {"nothing",2,250,-56.351353,64.189201,33.648663,114.189217,0.000000,"nothing"};
+item9[] = {"ok",4,218,-0.135143,149.594589,89.864853,199.594589,1.000000,"ok"};
+item10[] = {"true",8,218,-102.837837,142.027023,-12.837845,192.027023,0.000000,"true"};
+item11[] = {"more_walls",2,250,84.189178,62.027039,174.189194,112.026993,0.000000,"more walls"};
+link0[] = {0,1};
+link1[] = {0,2};
+link2[] = {1,6};
+link3[] = {2,3};
+link4[] = {3,4};
+link5[] = {4,5};
+link6[] = {6,7};
+link7[] = {7,8};
+link8[] = {8,9};
+link9[] = {8,10};
+link10[] = {9,11};
+link11[] = {10,3};
+link12[] = {11,7};
+globals[] = {0.000000,0,0,0,0,640,480,1,38,6316128,1,-201.804321,201.804031,220.883850,-303.073181,550,714,1};
+window[] = {0,-1,-1,-1,-1,909,50,1490,50,1,568};
+*//*%FSM</HEAD>*/
+class FSM
+{
+  fsmName = "DrawFence";
+  class States
+  {
+    /*%FSM<STATE "Init">*/
+    class Init
+    {
+      name = "Init";
+      init = /*%FSM<STATEINIT""">*/"_NRun = {" \n
+       "_run = """";" \n
+       "{if ((_this select 0) distance (getmarkerpos _x) < (_this select 1)) exitWith {_run = _x;};} foreach AIRFIELDLOCATIONS;" \n
+       "switch _run do {" \n
+       "case ""AirC"": {_run = runway0;};" \n
+       "case ""AirC_1"": {_run = runway1;};" \n
+       "case ""AirC_2"": {_run = runway2;};" \n
+       "case ""AirC_3"": {_run = runway3;};" \n
+       "case ""AirC_4"": {_run = runway4;};" \n
+       "case ""AirC_5"": {_run = runway5;};" \n
+       "case """": {_run = runwayNul;};" \n
+       "};" \n
+       "_run" \n
+       "};" \n
+       "" \n
+       "_funcRun = {" \n
+       "_bol = false;" \n
+       "if (([_this select 0, _this select 1] call BIS_fnc_inTrigger)) then {_bol = true;};" \n
+       "_bol" \n
+       "};" \n
+       "" \n
+       "_funcH = {" \n
+       "private [""_bBox"",""_p1"",""_p2"",""_maxWidth"",""_maxLength"",""_max"",""_bol""];" \n
+       "_bBox = boundingBoxReal (_this select 0);" \n
+       "_p1 = _bBox select 0;" \n
+       "_p2 = _bBox select 1;" \n
+       "_maxWidth = abs ((_p2 select 0) - (_p1 select 0));" \n
+       "_maxLength = abs ((_p2 select 1) - (_p1 select 1));" \n
+       "_max = if (_maxWidth > _maxLength) then {_maxWidth} else {_maxLength};" \n
+       "_bol = false;" \n
+       "if ((_this select 1) distance (_this select 0) < _max) then {_bol = true;};" \n
+       "_bol " \n
+       "};" \n
+       "" \n
+       "_start = _this select 0;" \n
+       "_end = _this select 1;" \n
+       "_objectType = _this select 2;" \n
+       "_d = 0;" \n
+       "if (_objectType in [""Land_HBarrierWall4_F"",""Land_HBarrierWall6_F""]) then {_d = 180;};" \n
+       "_hh = 0;" \n
+       "if (_objectType == ""Land_BagFence_Long_F"") then {_hh = 0;};" \n
+       "_runW = [_start, (_start distance _end)] CALL _NRun;" \n
+       "_hole = if (count _this > 3) then {_this select 3} else {0};" \n
+       "" \n
+       "_nr = locationposition ([""ColorRed"",_start] CALL NEARESTCAMP);" \n
+       "_nb = locationposition ([""ColorBlue"",_start] CALL NEARESTCAMP);" \n
+       "" \n
+       "_addgps =  if (count _this > 4 && {_nr distance _start < _nb distance _start}) then {true} else {false};" \n
+       "_dir = ([_start, _end] call SAOKDIRT);" \n
+       "_dirO = _dir + 90 +_d;" \n
+       "_objs = [];" \n
+       "_lastPos = _start;" \n
+       "" \n
+       "_rbs = [];" \n
+       "" \n
+       "" \n
+       "_ww = [];" \n
+       "" \n
+       ""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "ok">*/
+        class ok
+        {
+          priority = 1.000000;
+          to="state1";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"!([_runW, _start] call _funcRun)"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "true">*/
+        class true
+        {
+          priority = 0.000000;
+          to="Walls_Ready";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Walls_Ready">*/
+    class Walls_Ready
+    {
+      name = "Walls_Ready";
+      init = /*%FSM<STATEINIT""">*/"_ww = [_objs,_lastPos];"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "wait">*/
+        class wait
+        {
+          priority = 0.000000;
+          to="Exit";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"count _ww == 0"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Exit">*/
+    class Exit
+    {
+      name = "Exit";
+      init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "state1">*/
+    class state1
+    {
+      name = "state1";
+      init = /*%FSM<STATEINIT""">*/"_obj = createVehicle [_objectType,_start, [], 0, ""CAN_COLLIDE""]; " \n
+       "_obj setdir _dirO;" \n
+       "_bBox = boundingBoxReal _obj;" \n
+       "_p1 = _bBox select 0;" \n
+       "_p2 = _bBox select 1;" \n
+       "_maxWidth = abs ((_p2 select 0) - (_p1 select 0));" \n
+       "_maxLength = abs ((_p2 select 1) - (_p1 select 1));" \n
+       "_maxHeight = abs ((_p2 select 2) - (_p1 select 2));" \n
+       "_start = [(_start select 0)+((sin _dir)*_maxWidth*0.5),(_start select 1)+((cos _dir)*_maxWidth*0.5),_hh];" \n
+       "_obj setpos _start;" \n
+       "_start = [(_start select 0)+((sin _dir)*_maxWidth),(_start select 1)+((cos _dir)*_maxWidth),_hh];" \n
+       "_objs pushBack _obj;" \n
+       "_h = (_start distance _end) * 0.5;" \n
+       "_tt = 0;" \n
+       "_total = 0;" \n
+       "_totalL = _start distance _end;"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "true">*/
+        class true
+        {
+          priority = 0.000000;
+          to="nothing";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "nothing">*/
+    class nothing
+    {
+      name = "nothing";
+      init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "ok">*/
+        class ok
+        {
+          priority = 1.000000;
+          to="more_walls";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_totalL >= _total && {_tt < 450}"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "true">*/
+        class true
+        {
+          priority = 0.000000;
+          to="Walls_Ready";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "more_walls">*/
+    class more_walls
+    {
+      name = "more_walls";
+      init = /*%FSM<STATEINIT""">*/"_objectType = _this select 2;" \n
+       "if (_objectType == ""Land_Mil_WiredFence_F"" && {_totalL > 100} && {random 1 < 0.05}) then {_objectType = ""Land_Mil_WiredFenceD_F"";};" \n
+       "_tt = _tt + 1;" \n
+       "_total = _total + _maxWidth;" \n
+       "if ((_hole == 0 || {_h < (_start distance _end)}) && {!isOnRoad _start} && {!([_runW, _start] call _funcRun)}) then {" \n
+       "_hos = _start nearObjects [""House"",20];" \n
+       "if (count _hos == 0) then {" \n
+       "_obj = createVehicle [_objectType,_start, [], 0, ""CAN_COLLIDE""]; " \n
+       "_obj setdir _dirO;" \n
+       "//_obj setvectorup (surfaceNormal (getposATL _obj));" \n
+       "_objs pushBack _obj;" \n
+       "} else {" \n
+       "if ({[_x,_start] CALL _funcH} count _hos == 0) then {" \n
+       "_obj = createVehicle [_objectType,_start, [], 0, ""CAN_COLLIDE""]; " \n
+       "_obj setdir _dirO;" \n
+       "//_obj setvectorup (surfaceNormal (getposATL _obj));" \n
+       "_objs pushBack _obj;" \n
+       "};" \n
+       "};" \n
+       "" \n
+       "_lastPos = [(_start select 0)+((sin _dir)*_maxWidth*0.5),(_start select 1)+((cos _dir)*_maxWidth*0.5),_hh];" \n
+       "} else {" \n
+       "_hole = 0;" \n
+       "if (isOnRoad _start && {_addgps} && {{_x distance _start < 200} count _rbs == 0}) then {_n = [_start,""""] SPAWN FCRB2;_rbs=_rbs+[_start];};" \n
+       "};" \n
+       "_start = [(_start select 0)+((sin _dir)*_maxWidth),(_start select 1)+((cos _dir)*_maxWidth),_hh];"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "true">*/
+        class true
+        {
+          priority = 0.000000;
+          to="nothing";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+  };
+  initState="Init";
+  finalStates[] =
+  {
+    "Exit",
+  };
+};
+/*%FSM</COMPILE>*/

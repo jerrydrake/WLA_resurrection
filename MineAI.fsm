@@ -1,0 +1,319 @@
+/*%FSM<COMPILE "C:\Program Files (x86)\Bohemia Interactive\Tools\FSM Editor Personal Edition\scriptedFSM.cfg, MineAI">*/
+/*%FSM<HEAD>*/
+/*
+item0[] = {"Init",0,250,-92.681412,-238.582245,-2.681417,-188.582230,0.000000,"Init"};
+item1[] = {"end",1,250,148.507416,260.911774,238.507462,310.911743,0.000000,"end"};
+item2[] = {"stucked",4,218,-218.513580,158.243195,-128.513550,208.243240,0.000000,"stucked"};
+item3[] = {"unitready",4,218,-213.922180,-61.365963,-123.922157,-11.365997,0.000000,"unitready"};
+item4[] = {"put_mine",2,4346,-217.289154,12.349380,-127.289139,62.349396,0.000000,"put mine"};
+item5[] = {"always",8,218,-93.192764,-147.891602,-3.192772,-97.891571,0.000000,"always"};
+item6[] = {"move_to_m_pos",2,250,-93.192764,-59.939774,-3.192745,-9.939762,0.000000,"move to m pos"};
+item7[] = {"stillmines",4,218,-117.972961,88.591660,-27.972973,138.591675,0.000000,"stillmines"};
+item8[] = {"no_mines",4,218,-295.289825,188.513504,-205.289841,238.513504,0.000000,"no mines"};
+item9[] = {"unit_is_dead_",4,218,66.839783,9.907173,163.326202,66.393692,0.000000,"unit is dead "};
+item10[] = {"join_to_playergr",2,250,-219.516464,261.825165,-129.516449,311.825165,0.000000,"join to playergroup"};
+item11[] = {"always",8,218,-32.841053,261.525604,57.158909,311.525604,0.000000,"always"};
+item12[] = {"new_pos",2,250,-29.558777,159.487152,60.441254,209.487152,0.000000,"new pos"};
+item13[] = {"good_pos",4,218,-28.080425,51.795837,61.919563,101.795853,0.000000,"good pos"};
+item14[] = {"bad_pos",4,218,68.305107,221.401825,158.305115,271.401855,1.000000,"bad pos"};
+link0[] = {0,5};
+link1[] = {2,10};
+link2[] = {3,4};
+link3[] = {4,2};
+link4[] = {4,7};
+link5[] = {4,8};
+link6[] = {4,9};
+link7[] = {5,6};
+link8[] = {6,2};
+link9[] = {6,3};
+link10[] = {6,9};
+link11[] = {7,12};
+link12[] = {8,10};
+link13[] = {9,1};
+link14[] = {10,11};
+link15[] = {11,1};
+link16[] = {12,2};
+link17[] = {12,9};
+link18[] = {12,13};
+link19[] = {12,14};
+link20[] = {13,6};
+link21[] = {14,12};
+globals[] = {0.000000,0,0,0,0,640,480,1,27,6316128,1,-300.000000,300.000000,300.000000,-300.000000,554,751,1};
+window[] = {0,-1,-1,-1,-1,1046,150,1590,150,1,572};
+*//*%FSM</HEAD>*/
+class FSM
+{
+  fsmName = "MineAI";
+  class States
+  {
+    /*%FSM<STATE "Init">*/
+    class Init
+    {
+      name = "Init";
+      init = /*%FSM<STATEINIT""">*/"_unit = _this select 0;" \n
+       "_minepos = _this select 1;" \n
+       "_radius = _this select 2;" \n
+       "_mines = _this select 3;" \n
+       "_mineT = _this select 4;" \n
+       "" \n
+       "" \n
+       "MINEUNITS=MINEUNITS+1;" \n
+       "_orgg = group _unit;" \n
+       "_group = creategroup west;" \n
+       "[_unit] join _group;" \n
+       "_aika = time;" \n
+       "_oldpos = [_this select 1];" \n
+       "_unit setbehaviour ""AWARE"";" \n
+       "" \n
+       "_delta = (random _radius);" \n
+       "_delta2 = (random _radius);" \n
+       "_delta3 = (random _radius);" \n
+       "_delta4 = (random _radius);" \n
+       "_minepos2 = [(_minepos select 0) +_delta - _delta2,(_minepos select 1) +  _delta3  -  _delta4, 0];" \n
+       "" \n
+       "_lag=180;" \n
+       "" \n
+       "_muzz = ""PutMuzzle"";" \n
+       "switch (_mineT) do {" \n
+       "case ""AT Mine"": {_mineT = ""ATMine_Range_Mag""; _muzz = ""MineMuzzle"";};" \n
+       "case ""Claymore Mine"": {_mineT = ""ClaymoredirectionalMine_Remote_Mag""; _muzz = ""DirectionalMineRemoteMuzzle"";};" \n
+       "case ""APERS Bounding Mine"": {_mineT = ""APERSBoundingMine_Range_Mag""; _muzz = ""BoundingMineRangeMuzzle"";};" \n
+       "case ""APERS Mine"": {_mineT = ""APERSMine_Range_Mag"";_muzz = ""ClassicMineRangeMuzzle"";};" \n
+       "case ""APERS Tripwire Mine"": {_mineT = ""APERSTripMine_Wire_Mag"";_muzz =""ClassicMineWireMuzzle"";};" \n
+       "case ""M6 SLAM Mine"": {_mineT = ""SLAMDirectionalMine_Wire_Mag"";_muzz =""DirectionalMineRangeMuzzle"";};" \n
+       "};" \n
+       "" \n
+       "" \n
+       "" \n
+       "" \n
+       "" \n
+       "" \n
+       "" \n
+       "" \n
+       ""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "always">*/
+        class always
+        {
+          priority = 0.000000;
+          to="move_to_m_pos";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"true"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "end">*/
+    class end
+    {
+      name = "end";
+      init = /*%FSM<STATEINIT""">*/"MINEUNITS=MINEUNITS-1;"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "put_mine">*/
+    class put_mine
+    {
+      name = "put_mine";
+      init = /*%FSM<STATEINIT""">*/"" \n
+       "//_anim44 = [""AinvPknlMstpSlayWrflDnon_medic"",""AinvPknlMstpSlayWrflDnon_healed"",""AinvPknlMstpSlayWrflDnon_healed2""];" \n
+       "//_num44 = floor(random 3);" \n
+       "//_select44 = _anim44 select _num44;" \n
+       "//_unit playmove _select44;" \n
+       "//_unit forceWeaponFire [_muzz, _muzz];" \n
+       "_unit playActionNow ""PutDown"";" \n
+       "_unit selectWeapon _muzz;" \n
+       "_unit fire [_muzz, _muzz, _mineT];" \n
+       "" \n
+       "//_unit setWeaponReloadingTime [_unit, _muzz, 0];" \n
+       "_aika2 = time + 6;" \n
+       "_aika3 = time + 3;" \n
+       "_stucked = time + 40;" \n
+       "MINEC =  MINEC - 1;"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "stillmines">*/
+        class stillmines
+        {
+          priority = 0.000000;
+          to="new_pos";
+          precondition = /*%FSM<CONDPRECONDITION""">*/"_we=magazines _unit;"/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_aika2 < time && {_mines > 0}"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "no_mines">*/
+        class no_mines
+        {
+          priority = 0.000000;
+          to="join_to_playergr";
+          precondition = /*%FSM<CONDPRECONDITION""">*/"_we=magazines _unit;"/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_aika3 < time && {_mines <=  0}"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "unit_is_dead_">*/
+        class unit_is_dead_
+        {
+          priority = 0.000000;
+          to="end";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"!(alive _unit)"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "stucked">*/
+        class stucked
+        {
+          priority = 0.000000;
+          to="join_to_playergr";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_stucked < time"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "move_to_m_pos">*/
+    class move_to_m_pos
+    {
+      name = "move_to_m_pos";
+      init = /*%FSM<STATEINIT""">*/"_unit domove _minepos2;" \n
+       "_aika = time + 3;" \n
+       "_unit addmagazine _mineT;" \n
+       "_timeee = 0;" \n
+       "while {!(_mineT in (magazines _unit)) && {count (magazines _unit) > 0} && {_timeee < 5}} do {_timeee = _timeee + 1;_unit removeMagazine ((magazines _unit) call RETURNRANDOM); _unit addmagazine _mineT;};" \n
+       "_mines = _mines - 1;" \n
+       "_stucked = time + 40;"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "unitready">*/
+        class unitready
+        {
+          priority = 0.000000;
+          to="put_mine";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_aika < time && {unitready _unit}"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "unit_is_dead_">*/
+        class unit_is_dead_
+        {
+          priority = 0.000000;
+          to="end";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"!(alive _unit)"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "stucked">*/
+        class stucked
+        {
+          priority = 0.000000;
+          to="join_to_playergr";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_stucked < time"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "join_to_playergr">*/
+    class join_to_playergr
+    {
+      name = "join_to_playergr";
+      init = /*%FSM<STATEINIT""">*/"[_unit] join _orgg;"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "always">*/
+        class always
+        {
+          priority = 0.000000;
+          to="end";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"true"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "new_pos">*/
+    class new_pos
+    {
+      name = "new_pos";
+      init = /*%FSM<STATEINIT""">*/"_delta = (random _radius);" \n
+       "_delta2 = (random _radius);" \n
+       "_delta3 = (random _radius);" \n
+       "_delta4 = (random _radius);" \n
+       "_minepos2 = [(_minepos select 0) +_delta - _delta2,(_minepos select 1) +  _delta3  -  _delta4, 0];" \n
+       "_stucked = time + 40;" \n
+       ""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "bad_pos">*/
+        class bad_pos
+        {
+          priority = 1.000000;
+          to="new_pos";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"({_x distance _minepos2 < 1} count _oldpos) > 0"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "good_pos">*/
+        class good_pos
+        {
+          priority = 0.000000;
+          to="move_to_m_pos";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"({_x distance _minepos2 < 1.5} count _oldpos) == 0"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"_oldpos set [count _oldpos,_minepos2];" \n
+           ""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "unit_is_dead_">*/
+        class unit_is_dead_
+        {
+          priority = 0.000000;
+          to="end";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"!(alive _unit)"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "stucked">*/
+        class stucked
+        {
+          priority = 0.000000;
+          to="join_to_playergr";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_stucked < time"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+  };
+  initState="Init";
+  finalStates[] =
+  {
+    "end",
+  };
+};
+/*%FSM</COMPILE>*/

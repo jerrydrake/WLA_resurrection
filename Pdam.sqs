@@ -1,0 +1,6 @@
+~(random 0.3)
+?!(isNil{SaOkHealed}): goto "Exit"
+SaOkHealed = 1;
+_this SPAWN FPlayerDamage;
+#Exit
+exit

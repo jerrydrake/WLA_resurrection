@@ -1,0 +1,379 @@
+/*%FSM<COMPILE "C:\Program Files (x86)\Bohemia Interactive\Tools\FSM Editor Personal Edition\scriptedFSM.cfg, DrawCircle">*/
+/*%FSM<HEAD>*/
+/*
+item0[] = {"Init",0,250,-57.057869,-242.653503,32.942146,-192.653488,0.000000,"Init"};
+item1[] = {"true",8,218,-57.722740,-169.080582,32.277275,-119.080582,0.000000,"true"};
+item2[] = {"new_start_needed",4,218,62.379562,-92.744370,152.379669,-42.744370,1.000000,"new start needed"};
+item3[] = {"Walls_Ready",2,4346,-170.945953,-90.405396,-80.945938,-40.405396,0.000000,"Walls Ready"};
+item4[] = {"wait",4,218,-172.027039,-16.891886,-82.027039,33.108112,0.000000,"wait"};
+item5[] = {"Exit",1,250,-173.108124,56.621635,-83.108078,106.621620,0.000000,"Exit"};
+item6[] = {"state1",2,250,-58.513515,-91.486488,31.486500,-41.486488,0.000000,"state1"};
+item7[] = {"true",8,218,-57.432438,-7.409639,32.567562,42.590347,0.000000,"true"};
+item8[] = {"state1_1",2,250,-58.386993,74.367363,31.613031,124.367378,0.000000,"state1"};
+item9[] = {"true",8,218,-106.287613,155.440933,-16.287613,205.440933,0.000000,"true"};
+item10[] = {"nothing",2,250,-217.519867,270.615967,-127.519852,320.616119,0.000000,"nothing"};
+item11[] = {"remove_some_wall",4,218,-372.227997,269.598175,-282.227875,319.598297,1.000000,"remove some walls"};
+item12[] = {"new_start",2,250,62.379562,-169.080582,152.379547,-119.080566,0.000000,"new start"};
+item13[] = {"true",8,218,-287.749268,57.892414,-197.749161,107.892403,0.000000,"true"};
+item14[] = {"remove_some_wall",2,250,-277.061890,369.344147,-187.062134,419.344208,0.000000,"remove some walls"};
+item15[] = {"more_needed",4,218,41.514366,266.544678,131.514374,316.544830,1.000000,"more needed"};
+item16[] = {"nothing_1",2,250,-105.051147,267.562531,-15.051132,317.562531,0.000000,"nothing"};
+item17[] = {"true",8,218,-105.051064,370.361938,-15.051155,420.361938,0.000000,"true"};
+item18[] = {"more_walls",2,250,40.496552,154.584946,130.496552,204.584793,0.000000,"more walls"};
+link0[] = {0,1};
+link1[] = {1,6};
+link2[] = {2,12};
+link3[] = {3,4};
+link4[] = {4,5};
+link5[] = {6,2};
+link6[] = {6,7};
+link7[] = {7,8};
+link8[] = {8,9};
+link9[] = {9,16};
+link10[] = {10,11};
+link11[] = {10,13};
+link12[] = {11,14};
+link13[] = {12,1};
+link14[] = {13,3};
+link15[] = {14,17};
+link16[] = {15,18};
+link17[] = {16,15};
+link18[] = {16,17};
+link19[] = {17,10};
+link20[] = {18,9};
+globals[] = {0.000000,0,0,0,0,640,480,1,53,6316128,1,-475.320129,89.567810,449.306213,-277.414490,555,714,1};
+window[] = {0,-1,-1,-1,-1,909,50,1490,50,1,573};
+*//*%FSM</HEAD>*/
+class FSM
+{
+  fsmName = "DrawCircle";
+  class States
+  {
+    /*%FSM<STATE "Init">*/
+    class Init
+    {
+      name = "Init";
+      init = /*%FSM<STATEINIT""">*/"_funcH = {" \n
+       "private [""_bBox"",""_p1"",""_p2"",""_maxWidth"",""_maxLength"",""_max"",""_bol""];" \n
+       "_bBox = boundingBoxReal (_this select 0);" \n
+       "_p1 = _bBox select 0;" \n
+       "_p2 = _bBox select 1;" \n
+       "_maxWidth = abs ((_p2 select 0) - (_p1 select 0));" \n
+       "_maxLength = abs ((_p2 select 1) - (_p1 select 1));" \n
+       "_max = if (_maxWidth > _maxLength) then {_maxWidth} else {_maxLength};" \n
+       "_bol = false;" \n
+       "if ((_this select 1) distance (_this select 0) < _max) then {_bol = true;};" \n
+       "_bol " \n
+       "};" \n
+       "" \n
+       "" \n
+       "_rW = {" \n
+       "private [""_ra""];" \n
+       "_ra = [0.5,0.7,0.9,1.0,1.2,1.4] call RETURNRANDOM;" \n
+       "_objectType = [""Land_HBarrier_5_F"",""Land_HBarrierWall6_F"",""Land_BagFence_Long_F"",""Land_BagFence_Long_F"",""Land_HBarrier_3_F"",""Land_HBarrierBig_F"",""Land_HBarrierWall4_F""] call RETURNRANDOM;" \n
+       "if (_objectType == ""Land_BagFence_Long_F"") then {_hh = -0.8;};" \n
+       "[_objectType,_ra]" \n
+       "};" \n
+       "" \n
+       "_cu = 0;" \n
+       "_ff = 1000;" \n
+       "if (count _this > 3 && {typename (_this select 3) == ""STRING""}) then {_cu = 1;};" \n
+       "" \n
+       "" \n
+       "_center = _this select 0;" \n
+       "_radius = _this select 1;" \n
+       "_objectType = _this select 2;" \n
+       "_hh = -0.4;" \n
+       "if (_objectType == ""Land_BagFence_Long_F"") then {_hh = -0.8;};" \n
+       "_holes = 1;" \n
+       "_walls = [];" \n
+       "_ang = 0;" \n
+       "if (count _this > 3 && {typename (_this select 3) != ""STRING""}) then {_ff = (_this select 3);_ang = random 360;_d = 180;};" \n
+       "_d = 0;" \n
+       "if (_objectType in [""Land_HBarrierWall4_F"",""Land_HBarrierWall6_F""]) then {_d = 180;};" \n
+       "_start = [(_center select 0)+((sin _ang)*_radius),(_center select 1)+((cos _ang)*_radius),_hh];" \n
+       "" \n
+       "" \n
+       "" \n
+       "" \n
+       "_ww = [];" \n
+       "" \n
+       ""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "true">*/
+        class true
+        {
+          priority = 0.000000;
+          to="state1";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Walls_Ready">*/
+    class Walls_Ready
+    {
+      name = "Walls_Ready";
+      init = /*%FSM<STATEINIT""">*/"_ww =[_walls,_datAr];"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "wait">*/
+        class wait
+        {
+          priority = 0.000000;
+          to="Exit";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"count _ww == 0"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Exit">*/
+    class Exit
+    {
+      name = "Exit";
+      init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "state1">*/
+    class state1
+    {
+      name = "state1";
+      init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "new_start_needed">*/
+        class new_start_needed
+        {
+          priority = 1.000000;
+          to="new_start";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"isOnRoad _start && {_ang < 360}"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "true">*/
+        class true
+        {
+          priority = 0.000000;
+          to="state1_1";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "state1_1">*/
+    class state1_1
+    {
+      name = "state1_1";
+      init = /*%FSM<STATEINIT""">*/"_dirO = ([_start, _center] call SAOKDIRT)+_d;" \n
+       "_obj = createVehicle [_objectType,_start, [], 0, ""CAN_COLLIDE""]; " \n
+       "_ff = _ff - 1;" \n
+       "_walls set [count _walls,_obj];" \n
+       "_obj setdir _dirO;" \n
+       "_bBox = boundingBoxReal _obj;" \n
+       "_p1 = _bBox select 0;" \n
+       "_p2 = _bBox select 1;" \n
+       "_maxWidth = abs ((_p2 select 0) - (_p1 select 0));" \n
+       "_degrees=(atan ((_maxWidth*0.5) / _radius))*2;" \n
+       "_maxD = _ang + 360 - _degrees;"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "true">*/
+        class true
+        {
+          priority = 0.000000;
+          to="nothing_1";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "nothing">*/
+    class nothing
+    {
+      name = "nothing";
+      init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "remove_some_wall">*/
+        class remove_some_wall
+        {
+          priority = 1.000000;
+          to="remove_some_wall";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_holes > 0 && {!(count _this > 3 && {typename (_this select 3) != ""STRING""})}"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "true">*/
+        class true
+        {
+          priority = 0.000000;
+          to="Walls_Ready";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "new_start">*/
+    class new_start
+    {
+      name = "new_start";
+      init = /*%FSM<STATEINIT""">*/"_ang = _ang + 10;_start = [(_center select 0)+((sin _ang)*_radius),(_center select 1)+((cos _ang)*_radius),_hh];"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "true">*/
+        class true
+        {
+          priority = 0.000000;
+          to="state1";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "remove_some_wall">*/
+    class remove_some_wall
+    {
+      name = "remove_some_wall";
+      init = /*%FSM<STATEINIT""">*/"_del = _walls call RETURNRANDOM; deletevehicle _del; _holes = _holes - 1;"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "true">*/
+        class true
+        {
+          priority = 0.000000;
+          to="nothing";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "nothing_1">*/
+    class nothing_1
+    {
+      name = "nothing_1";
+      init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "more_needed">*/
+        class more_needed
+        {
+          priority = 1.000000;
+          to="more_walls";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_ang < _maxD && {_ff > 0}"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "true">*/
+        class true
+        {
+          priority = 0.000000;
+          to="nothing";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "more_walls">*/
+    class more_walls
+    {
+      name = "more_walls";
+      init = /*%FSM<STATEINIT""">*/"_ff = _ff - 1;" \n
+       "if (_cu == 1 && {random 1 < 0.1}) then {_da = [] CALL _rW; _objectType = _da select 0; _radius = if (10 < _radius*(_da select 1)) then {_radius*(_da select 1)} else {_radius};" \n
+       "if (_objectType in [""Land_HBarrierWall4_F"",""Land_HBarrierWall6_F""]) then {_d = 180;} else {_d = 0;};" \n
+       "_dirO = ([_start, _center] call SAOKDIRT)+_d;" \n
+       "_start = [(_center select 0)+((sin _ang)*_radius),(_center select 1)+((cos _ang)*_radius),_hh];" \n
+       "_obj = createVehicle [_objectType,_start, [], 0, ""CAN_COLLIDE""]; " \n
+       "_walls set [count _walls,_obj];" \n
+       "_obj setdir _dirO;" \n
+       "_bBox = boundingBoxReal _obj;" \n
+       "_p1 = _bBox select 0;" \n
+       "_p2 = _bBox select 1;" \n
+       "_maxWidth = abs ((_p2 select 0) - (_p1 select 0));" \n
+       "_degrees=(atan ((_maxWidth*0.5) / _radius))*2;" \n
+       "};" \n
+       "" \n
+       "_ang = _ang + _degrees;" \n
+       "_start = [(_center select 0)+((sin _ang)*_radius),(_center select 1)+((cos _ang)*_radius),_hh];" \n
+       "_hos = _start nearObjects [""House"",20];" \n
+       "if !(isOnRoad _start) then {" \n
+       "_hos = _start nearObjects [""House"",20];" \n
+       "if (count _hos == 0) then {" \n
+       "_dirO = ([_start, _center] call SAOKDIRT) +_d;" \n
+       "_obj = createVehicle [_objectType,_start, [], 0, ""CAN_COLLIDE""]; " \n
+       "_walls set [count _walls,_obj];" \n
+       "_obj setdir _dirO;" \n
+       "} else {" \n
+       "if ({[_x,_start] CALL _funcH} count _hos == 0) then {" \n
+       "_dirO = ([_start, _center] call SAOKDIRT) +_d;" \n
+       "_obj = createVehicle [_objectType,_start, [], 0, ""CAN_COLLIDE""]; " \n
+       "_obj setdir _dirO;" \n
+       "//_obj setvectorup (surfaceNormal (getposATL _obj));" \n
+       "_walls set [count _walls,_obj];" \n
+       "};" \n
+       "};" \n
+       "" \n
+       "};"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "true">*/
+        class true
+        {
+          priority = 0.000000;
+          to="nothing_1";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+  };
+  initState="Init";
+  finalStates[] =
+  {
+    "Exit",
+  };
+};
+/*%FSM</COMPILE>*/

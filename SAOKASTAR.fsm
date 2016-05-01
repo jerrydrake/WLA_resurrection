@@ -1,0 +1,523 @@
+/*%FSM<COMPILE "C:\Program Files (x86)\Bohemia Interactive\Tools\FSM Editor Personal Edition\scriptedFSM.cfg, SAOKASTAR">*/
+/*%FSM<HEAD>*/
+/*
+item0[] = {"Init",0,250,-57.057869,-242.653503,32.942146,-192.653488,0.000000,"Init"};
+item1[] = {"true",8,218,-58.231613,-168.062744,31.768389,-118.062737,0.000000,"true"};
+item2[] = {"A",2,250,-59.249420,-88.673111,30.750597,-38.673107,0.000000,"A"};
+item3[] = {"c1",4,218,50.674713,-84.601845,140.674713,-34.601845,1.000000,"c1"};
+item4[] = {"B",2,250,7.926445,9.037239,97.926460,59.037239,0.000000,"B"};
+item5[] = {"true",8,218,-139.656982,8.019404,-49.656898,58.019394,0.000000,"true"};
+item6[] = {"true",8,218,62.888504,-160.938049,152.888504,-110.938049,0.000000,"true"};
+item7[] = {"C",2,250,164.670120,-126.332314,254.670135,-76.332306,0.000000,"C"};
+item8[] = {"c2",4,218,149.402863,-63.227703,239.402863,-13.227703,1.000000,"c2"};
+item9[] = {"D",2,250,148.385071,11.072872,238.385086,61.072872,0.000000,"D"};
+item10[] = {"true",8,218,332.609802,3.948142,422.609802,53.948166,0.000000,"true"};
+item11[] = {"c3",4,218,72.048836,73.159653,162.048828,123.159653,1.000000,"c3"};
+item12[] = {"E",2,250,71.031036,162.727478,161.031052,212.727478,0.000000,"E"};
+item13[] = {"true",8,218,171.794830,119.979202,261.794830,169.979202,0.000000,"true"};
+item14[] = {"F",2,250,330.574127,78.248734,420.574158,128.248718,0.000000,"F"};
+item15[] = {"c4",4,218,261.362610,159.674057,351.362610,209.674057,1.000000,"c4"};
+item16[] = {"G",2,250,224.721283,227.867737,314.721283,277.867737,0.000000,"G"};
+item17[] = {"true",8,218,392.660919,195.297623,482.660919,245.297623,1.000000,"true"};
+item18[] = {"true",8,218,444.569550,78.248772,534.569580,128.248779,0.000000,"true"};
+item19[] = {"c5",4,218,151.438507,269.598206,241.438507,319.598206,1.000000,"c5"};
+item20[] = {"true",8,218,235.917267,282.829803,325.917267,332.829803,0.000000,"true"};
+item21[] = {"H",2,250,139.224716,340.396027,229.224731,390.396027,0.000000,"H"};
+item22[] = {"c6",4,218,125.993103,408.589691,215.993103,458.589691,0.000000,"c6"};
+item23[] = {"M",2,250,140.242538,459.480499,230.242554,509.480499,0.000000,"M"};
+item24[] = {"I",2,250,267.469543,340.396027,357.469543,390.396027,0.000000,"I"};
+item25[] = {"J",2,4346,517.852295,135.814957,607.852295,185.814957,0.000000,"J"};
+item26[] = {"C7",4,218,475.104004,210.115524,565.104004,260.115540,1.000000,"C7"};
+item27[] = {"true",8,218,608.437927,201.972992,698.437927,251.972992,0.000000,"true"};
+item28[] = {"K",2,250,456.783356,288.487366,546.783386,338.487366,0.000000,"K"};
+item29[] = {"END",1,250,609.455811,290.522980,699.455872,340.522980,0.000000,"END"};
+link0[] = {0,1};
+link1[] = {1,2};
+link2[] = {2,3};
+link3[] = {2,6};
+link4[] = {3,4};
+link5[] = {4,5};
+link6[] = {5,2};
+link7[] = {6,7};
+link8[] = {7,8};
+link9[] = {7,10};
+link10[] = {8,9};
+link11[] = {9,10};
+link12[] = {9,11};
+link13[] = {10,14};
+link14[] = {11,12};
+link15[] = {12,13};
+link16[] = {13,9};
+link17[] = {14,15};
+link18[] = {14,18};
+link19[] = {15,16};
+link20[] = {16,19};
+link21[] = {16,20};
+link22[] = {17,14};
+link23[] = {18,25};
+link24[] = {19,21};
+link25[] = {20,24};
+link26[] = {21,22};
+link27[] = {22,23};
+link28[] = {23,17};
+link29[] = {24,17};
+link30[] = {25,26};
+link31[] = {25,27};
+link32[] = {26,28};
+link33[] = {27,29};
+link34[] = {28,27};
+globals[] = {0.000000,0,0,0,0,640,480,1,87,6316128,1,224.937363,789.825317,312.469543,-414.251160,555,714,1};
+window[] = {0,-1,-1,-1,-1,930,439,1879,71,1,573};
+*//*%FSM</HEAD>*/
+class FSM
+{
+  fsmName = "SAOKASTAR";
+  class States
+  {
+    /*%FSM<STATE "Init">*/
+    class Init
+    {
+      name = "Init";
+      init = /*%FSM<STATEINIT""">*/"_alku = _this select 0;" \n
+       "_loppu = _this select 1;" \n
+       "_z = _this select 2;" \n
+       "_size = if (count _this > 3) then {_this select 3} else {500};" \n
+       "_cro = (_size^2+_size^2)^0.5;" \n
+       "_sRe = 1 /_size;" \n
+       "_ak = [(floor ((_alku select 0) * _sRe))*_size,(floor ((_alku select 1)* _sRe))*_size];" \n
+       "_lk = [(floor ((_loppu select 0)* _sRe))*_size,(floor ((_loppu select 1)* _sRe))*_size];" \n
+       "_reDatName = format [""AA%1N%2N%3N%4N%5"",_z,_ak select 0,_ak select 1,_lk select 0,_lk select 1];" \n
+       "_wsur = {private [""_bol""];_bol = if (surfaceisWater _this) then {true} else {false};_bol};" \n
+       "_wsur2 = {private [""_bol""];_bol = if (_this CALL SAOKWATERBETWEEN) then {true} else {false};_bol};" \n
+       "if ([""naval"", getmarkertype _z] call SAOKINSTRING) then {" \n
+       "_wsur = {private [""_bol""];_bol = if (surfaceisWater _this) then {false} else {true};_bol};" \n
+       "_wsur2 = {private [""_bol""];_bol = if (_this CALL SAOKLANDBETWEEN) then {true} else {false};_bol};" \n
+       "};" \n
+       "_ms = [];" \n
+       "//nelio data - pos, F,G,H,viime nelio koordi" \n
+       "_H = (abs ((_ak select 0) - (_lk select 0)))+(abs ((_ak select 1) - (_lk select 1)));" \n
+       "_a = [[_ak,_H,0,_H,_ak]];" \n
+       "_s = [];" \n
+       "_nykN = [_ak,_H,0,_H,_ak];" \n
+       "_in = 0;" \n
+       "" \n
+       ""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "true">*/
+        class true
+        {
+          priority = 0.000000;
+          to="A";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "A">*/
+    class A
+    {
+      name = "A";
+      init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "c1">*/
+        class c1
+        {
+          priority = 1.000000;
+          to="B";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"count _a > 0 && {str (_nykN select 0) != str _lk}"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "true">*/
+        class true
+        {
+          priority = 0.000000;
+          to="C";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "B">*/
+    class B
+    {
+      name = "B";
+      init = /*%FSM<STATEINIT""">*/"_nykN = [[0,0],10000000];" \n
+       "{" \n
+       "if (_x select 1 < _nykN select 1) then {_nykN = _x;_in = _foreachIndex;};" \n
+       "} foreach _a;" \n
+       "_a deleteAt _in;" \n
+       "_s pushback _nykN;" \n
+       "//naapurineliot || {_u call _isWater}" \n
+       "_nyP = _nykN select 0;" \n
+       "{" \n
+       "_u = [(_nyP select 0) + (_x select 0),(_nyP select 1) + (_x select 1)];" \n
+       "" \n
+       "if ({str _u == str (_x select 0)} count _s > 0 || {_u call _wsur}) then {} else {" \n
+       "if ({str _u == str (_x select 0)} count _a == 0) then {" \n
+       "NUMM=NUMM+1;_n = format [""M%1"",NUMM];_m = [_n,_u, ""c_unknown"", [0.9,0.9], ""ColorPink"", (str _foreachindex)] CALL FUNKTIO_CREATEMARKER;_ms pushback _n;" \n
+       "_nn = _size;" \n
+       "if ({_x == 0} count _x == 0) then {_nn = _cro;};" \n
+       "_G = (_nykN select 2)+_nn;" \n
+       "_H = (abs ((_u select 0) - (_lk select 0)))+(abs ((_u select 1) - (_lk select 1)));" \n
+       "_a pushback [_u,(_G+_H),_G,_H,_nyP];" \n
+       "} else {" \n
+       "_in2 = 0;" \n
+       "_nelio = [];" \n
+       "{if (str _u == str (_x select 0)) exitWith {_nelio = _x; _in2 = _foreachindex;};} foreach _a;" \n
+       "_nn = _size;" \n
+       "if ({_x == 0} count _x == 0) then {_nn = _cro;};" \n
+       "_G = (_nykN select 2) + _nn;" \n
+       "if ((_nelio select 1) > (_G + (_nelio select 3))) then {" \n
+       "_nelio = [(_nelio select 0),(_G + (_nelio select 3)),_G,(_nelio select 3),_nyP];" \n
+       "_a set [_in2,_nelio];" \n
+       "};" \n
+       "};" \n
+       "};" \n
+       "} foreach [[-_size,0],[-_size,_size],[0,_size],[_size,_size],[_size,0],[_size,-_size],[0,-_size],[-_size,-_size]];"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "true">*/
+        class true
+        {
+          priority = 0.000000;
+          to="A";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "C">*/
+    class C
+    {
+      name = "C";
+      init = /*%FSM<STATEINIT""">*/"_reitti = [];" \n
+       "_cor = (_nykN select 0);" \n
+       "_con = (_nykN select 4);" \n
+       ""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "c2">*/
+        class c2
+        {
+          priority = 1.000000;
+          to="D";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"count _a > 0"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "true">*/
+        class true
+        {
+          priority = 0.000000;
+          to="F";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"{deletemarker _x;} foreach _ms;" \n
+           "reverse _reitti;" \n
+           "_cR = count _reitti - 1;" \n
+           "_reittiU = [];" \n
+           "_inde = 0;" \n
+           "_h = 0;"/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "D">*/
+    class D
+    {
+      name = "D";
+      init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "c3">*/
+        class c3
+        {
+          priority = 1.000000;
+          to="E";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"str _cor != str _ak"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "true">*/
+        class true
+        {
+          priority = 0.000000;
+          to="F";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"{deletemarker _x;} foreach _ms;" \n
+           "reverse _reitti;" \n
+           "_cR = count _reitti - 1;" \n
+           "_reittiU = [];" \n
+           "_inde = 0;" \n
+           "_h = 0;"/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "E">*/
+    class E
+    {
+      name = "E";
+      init = /*%FSM<STATEINIT""">*/"_reitti pushback _cor;" \n
+       "{if (str _con == str (_x select 0)) exitwith {_cor = _x select 0;_con = (_x select 4);};} foreach _s;"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "true">*/
+        class true
+        {
+          priority = 0.000000;
+          to="D";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "F">*/
+    class F
+    {
+      name = "F";
+      init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "c4">*/
+        class c4
+        {
+          priority = 1.000000;
+          to="G";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_inde < _cR"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "true">*/
+        class true
+        {
+          priority = 0.000000;
+          to="J";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "G">*/
+    class G
+    {
+      name = "G";
+      init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "c5">*/
+        class c5
+        {
+          priority = 1.000000;
+          to="H";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_size != 100 && {_inde < _cR} && {[(_reitti select _inde),(_reitti select (_inde + 1))] CALL _wsur2}"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "true">*/
+        class true
+        {
+          priority = 0.000000;
+          to="I";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "H">*/
+    class H
+    {
+      name = "H";
+      init = /*%FSM<STATEINIT""">*/"_nn = [(_reitti select _inde), (_reitti select (_inde + 1)),_z,100] execFSM ""SAOKASTAR.fsm"";" \n
+       "_naa = format [""AA%1N%2N%3N%4N%5"",_z,(_reitti select _inde) select 0,(_reitti select _inde) select 1,(_reitti select (_inde + 1)) select 0,(_reitti select (_inde + 1)) select 1];" \n
+       ""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "c6">*/
+        class c6
+        {
+          priority = 0.000000;
+          to="M";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"!isNil{missionnamespace getvariable _naa}"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "M">*/
+    class M
+    {
+      name = "M";
+      init = /*%FSM<STATEINIT""">*/"_gg = + (missionnamespace getvariable _naa);" \n
+       "_reittiU append _gg;" \n
+       "missionnamespace setvariable [_naa,nil];" \n
+       "_inde = _inde + 1;"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "true">*/
+        class true
+        {
+          priority = 1.000000;
+          to="F";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "I">*/
+    class I
+    {
+      name = "I";
+      init = /*%FSM<STATEINIT""">*/"_reittiU pushback (_reitti select _inde);" \n
+       "_inde = _inde + 1;"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "true">*/
+        class true
+        {
+          priority = 1.000000;
+          to="F";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "J">*/
+    class J
+    {
+      name = "J";
+      init = /*%FSM<STATEINIT""">*/"missionnamespace setvariable [_reDatName,[]];" \n
+       "//poista turhat " \n
+       "_korj = [];" \n
+       "_wp = _loppu;" \n
+       "if (count _reittiU > 0) then {_wp = _reittiU select (count _reittiU - 1);};"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "C7">*/
+        class C7
+        {
+          priority = 1.000000;
+          to="K";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"count _reittiU > 0"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "true">*/
+        class true
+        {
+          priority = 0.000000;
+          to="END";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "K">*/
+    class K
+    {
+      name = "K";
+      init = /*%FSM<STATEINIT""">*/"_viimisin = _reittiU select 0;" \n
+       "{" \n
+       "if (_foreachIndex > 0) then {" \n
+       "if ([_viimisin,(_reittiU select _foreachIndex),25] CALL _wsur2) then {" \n
+       "_korj pushback (_reittiU select (_foreachIndex - 1));" \n
+       "_viimisin = _korj select ((count _korj) - 1);" \n
+       "if !([_viimisin,_wp,25] CALL _wsur2) exitWith {};" \n
+       "if ([_viimisin,(_reittiU select _foreachIndex + 1),25] CALL _wsur2) then {" \n
+       "_korj pushback (_reittiU select _foreachIndex);" \n
+       "_viimisin = _korj select ((count _korj) - 1);" \n
+       "};" \n
+       "};" \n
+       "};" \n
+       "if !([_viimisin,_wp,25] CALL _wsur2) exitWith {};" \n
+       "} foreach _reittiU;"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "true">*/
+        class true
+        {
+          priority = 0.000000;
+          to="END";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "END">*/
+    class END
+    {
+      name = "END";
+      init = /*%FSM<STATEINIT""">*/"_korj pushback _wp;" \n
+       "//hint str _reDatName;" \n
+       "missionnamespace setvariable [_reDatName,_korj];"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+      };
+    };
+    /*%FSM</STATE>*/
+  };
+  initState="Init";
+  finalStates[] =
+  {
+    "END",
+  };
+};
+/*%FSM</COMPILE>*/

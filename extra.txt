@@ -1,0 +1,13 @@
+
+
+_f1 = {
+_b = false; 
+if ({alive _x && {[player, _x] CALL FUNKTIO_LOS}}count ((getposATL player) nearEntities [["SoldierEB"],20]) > 0 && {{_x distance player < 20 && {!isNil{_x getvariable "playerkilled"}}} count AllDeadMen > 0})  then {_b = true;};
+_b 
+};
+_f2 = {
+_b = false; 
+if ({alive _x && {[player, _x] CALL FUNKTIO_LOS}}count ((getposATL player) nearEntities [["SoldierEB"],6]) > 0)  then {_b = true;};
+_b 
+};
+waitUntil {sleep 1; [] CALL _f1 || {[] CALL _f2}};

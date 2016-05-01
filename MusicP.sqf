@@ -1,0 +1,11 @@
+private ["_t"];
+if !(isClass(configFile >> "cfgMusic" >> (_this select 0))) exitWith {_nul = [1] SPAWN MusicT;};
+DONTCMUSIC = true;
+4 fadeMusic 0;
+sleep 4;
+0.2 fadeMusic 0.40;
+playMusic (_this select 0);
+_t = 120;
+if (count _this > 1) then {_t = (_this select 1);};
+sleep _t;
+DONTCMUSIC = nil;

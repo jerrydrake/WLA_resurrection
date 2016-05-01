@@ -1,0 +1,631 @@
+overviewText = "The situation on Altis is unclear, the last reports we have indicate a CSAT invasion. The Greek government is unwilling to cooperate and refuses to share any intel they have, but is believed they are preparing an assault on the island to protect their military installations. Your team will be sent there to investigate the islands status so we know what further measures we can take while we get NATO approval to get involved.  (v1.9750)";
+//overviewTextLocked = "Finish the Splendid campaign in order to unlock this mission.";
+overviewPicture = "pic2.paa";
+
+OnLoadIntro = "Whole Lotta Altis";
+author="SaOk";
+OnLoadName = "Whole Lotta Altis";
+onLoadMission = "The situation on Altis is unclear, the last reports we have indicate a CSAT invasion. The Greek government is unwilling to cooperate and refuses to share any intel they have, but is believed they are preparing an assault on the island to protect their military installations. Your team will be sent there to investigate the islands status so we know what further measures we can take while we get NATO approval to get involved.";
+loadScreen = "pic2.paa";
+showCompass = 1;
+showGPS = 1;
+showWatch = 1;
+briefing = 1;
+
+MinScore = 0;
+AvgScore = 2500;
+MaxScore = 5000;
+
+enableDebugConsole = 1;
+
+class CfgDebriefing
+{  
+	class End1
+	{
+		title = "Mission Completed";
+		subtitle = "";
+		description = "Excelent work, Lieutenant. You survived, adapted and beat the enemy";
+		backgroundPicture = "";
+		picture = "b_inf";
+		colorPicture[] = {0.0,0.3,0.6,1};
+	};
+};
+
+#include "DialogShopWIP.hpp"
+#include "WLADialog.hpp"
+#include "StartDialog.hpp"
+#include "VillageDialog.hpp"
+#include "MinefieldDialog.hpp"
+#include "ConstructionDialog.hpp"
+#include "ConversationDialog.hpp"
+#include "RestingDialog.hpp"
+#include "TeammateDialog.hpp"
+#include "SupportDialog.hpp"
+#include "FastTravelDialog.hpp"
+//JUST NAME LEFT, NOT OFFICIAL VAS SCRIPT
+#include "VASDialog.hpp"
+#include "LightsDialog.hpp"
+#include "CrateDialog.hpp"
+#include "OrdersDialog.hpp"
+#include "SaOkGearDialog.hpp"
+#include "SaOkGearDialogW.hpp"
+#include "SaOkGearDialogC.hpp"
+#include "SaOkGearDialogH.hpp"
+#include "SaOkGearDialogUniShop.hpp"
+#include "SaOkAddOnMain.hpp"
+#include "SaOkAddOnVeh.hpp"
+#include "SaOkAddOnVeh2.hpp"
+#include "SaOkAddOnAirVeh.hpp"
+#include "SaOkAddOnUnits.hpp"
+
+#include "WLAhint.hpp"
+
+class MyRscStructuredText {
+	idc = -1;
+	type = CT_STRUCTURED_TEXT;
+	style = ST_LEFT;
+	colorBackground[] = {0.0,0.0,0.0,0.0};
+	colorText[] = {1.0,1.0,1.0,1.0};
+	x=0.4;
+	y=safeZoneY;
+	w=1.1;
+	h=0.5;
+	size = 0.03;
+	text = "Upper par";
+};
+class MyRscStructuredText8 {
+	idc = -1;
+	type = CT_STRUCTURED_TEXT;
+	style = ST_LEFT;
+	colorBackground[] = {0.0,0.0,0.0,0.0};
+	colorText[] = {1.0,1.0,1.0,1.0};
+	x=0.7;
+	y=safeZoneY+0.09;
+	w=2.0;
+	h=4.5;
+	size = 0.025;
+	text = "Battle Report";
+};
+class MyRscStructuredText9 {
+	idc = -1;
+	type = CT_STRUCTURED_TEXT;
+	style = ST_LEFT;
+	colorBackground[] = {0.0,0.0,0.0,0.0};
+	colorText[] = {1.0,1.0,1.0,1.0};
+	x=0;
+	y=safeZoneY+0.29;
+	w=2.0;
+	h=0.2;
+	size = 0.04;
+	text = "Hint";
+};
+class MyRscStructuredText7 {
+	idc = -1;
+	type = CT_STRUCTURED_TEXT;
+	style = ST_LEFT;
+	colorBackground[] = {0.0,0.0,0.0,0.0};
+	colorText[] = {1.0,1.0,1.0,1.0};
+	x=0.3;
+	y=safeZoneY+0.03;
+	w=1.0;
+	h=0.5;
+	size = 0.025;
+	text = "Radar Par";
+};
+
+class MyRscStructuredText2 {
+	idc = -1;
+	type = CT_STRUCTURED_TEXT;
+	style = ST_LEFT;
+	colorBackground[] = {0.0,0.0,0.0,0.0};
+	colorText[] = {1.0,1.0,1.0,1.0};
+	x=0.1;
+	y=safeZoneY;
+	w=0.4;
+	h=0.1;
+	size = 0.02;
+	text = "Civ/animal talk";
+};
+
+class MyRscStructuredText3 {
+	idc = -1;
+	type = CT_STRUCTURED_TEXT;
+	style = ST_LEFT;
+	colorBackground[] = {0.0,0.0,0.0,0.0};
+	colorText[] = {1.0,1.0,1.0,1.0};
+	x=safeZoneX;
+	y=0;
+	w=0.3;
+	h=0.9;
+	size = 0.03;
+	text = "Village";
+};
+
+class MyRscStructuredText4 {
+	idc = -1;
+	type = CT_STRUCTURED_TEXT;
+	style = ST_LEFT;
+	colorBackground[] = {0.0,0.0,0.0,0.0};
+	colorText[] = {1.0,1.0,1.0,1.0};
+	x=safeZoneX;
+	y=safeZoneY;
+	w=0.4;
+	h=0.2;
+	size = 0.03;
+	text = "Score";
+};
+
+class MyRscStructuredText5 {
+	idc = -1;
+	type = CT_STRUCTURED_TEXT;
+	style = ST_LEFT;
+	colorBackground[] = {0.0,0.0,0.0,0.0};
+	colorText[] = {1.0,1.0,1.0,1.0};
+	x=safeZoneY+0.1;
+	y=safeZoneY;
+	w=0.6;
+	h=0.2;
+	size = 0.03;
+	text = "Down or Up";
+};
+
+class MyRscStructuredText6 {
+	idc = -1;
+	type = CT_STRUCTURED_TEXT;
+	style = ST_LEFT;
+	colorBackground[] = {0.0,0.0,0.0,0.0};
+	colorText[] = {1.0,1.0,1.0,1.0};
+	x=safeZoneX;
+	y=0.4;
+	w=0.6;
+	h=0.2;
+	size = 0.03;
+	text = "CivTalk";
+};
+
+class RscTitles
+{	
+	//#include "DAPMAN\RscTitles.hpp"
+	
+	
+	class Credit1
+   	{
+      idd=-1;
+      movingEnable=true;
+      duration=6;
+      name="Credit1";
+      controls[]={"text1"};
+
+      class text1
+      {
+         idc = -1;
+         type = 0;
+         style = 2;
+         x = 0.2;
+         y = 0;
+         w = 1;
+         h = 0.04;
+	 font = "PuristaMedium";
+       sizeEx = 0.05;
+       colorBackground[] = {0, 0, 0, 0};
+   	 colorText[] = {1, 1, 1, 0.8};
+  	 text = "WHOLE LOTTA ALTIS by SaOk";
+      };
+   	};
+   
+   	class Credit2
+   	{
+      idd=-1;
+      movingEnable=true;
+      duration=6;
+      name="Credit2";
+      controls[]={"text1"};
+
+      class text1
+      {
+         idc = -1;
+         type = 0;
+         style = 2;
+         x = 0.2;
+         y = 0.1;
+         w = 1;
+         h = 0.05;
+	font = "PuristaMedium";
+       sizeEx = 0.05;
+       colorBackground[] = {0, 0, 0, 0};
+   	 colorText[] = {1, 1, 1, 0.8};
+  	 text = "Special Thanks";
+      };
+   	};
+   
+   	class Credit3
+   	{
+      idd=-1;
+      movingEnable=true;
+      duration=6;
+      name="Credit3";
+      controls[]={"text1"};
+
+      class text1
+      {
+         idc = -1;
+         type = 0;
+         style = 2;
+         x = 0.2;
+         y = 0.15;
+         w = 1;
+         h = 0.04;
+	font = "PuristaMedium";
+         sizeEx = 0.04;
+         colorBackground[] = {0, 0, 0, 0};
+   	 colorText[] = {1, 1, 1, 0.8};
+  	 text = "Victor ""[FR] Helios"" Ragot for Extra Music Tracks";
+      };
+   	};
+   
+   	class Credit4
+   	{
+      idd=-1;
+      movingEnable=true;
+      duration=6;
+      name="Credit4";
+      controls[]={"text1"};
+
+      class text1
+      {
+         idc = -1;
+         type = 0;
+         style = 2;
+         x = 0.2;
+         y = 0.20;
+         w = 1;
+         h = 0.04;
+	font = "PuristaMedium";
+         sizeEx = 0.04;
+         colorBackground[] = {0, 0, 0, 0};
+   	 colorText[] = {1, 1, 1, 0.8};
+  	 text = "Benjamin ""Jin"" Pratt for Voice-Acting Civilian/Player-roles (WIP)";
+      };
+   	};
+   
+   	class Credit5
+   	{
+      idd=-1;
+      movingEnable=true;
+      duration=6;
+      name="Credit5";
+      controls[]={"text1"};
+
+      class text1
+      {
+         idc = -1;
+         type = 0;
+         style = 2;
+         x = 0.2;
+         y = 0.25;
+         w = 1;
+         h = 0.04;
+	font = "PuristaMedium";
+         sizeEx = 0.04;
+         colorBackground[] = {0, 0, 0, 0};
+   	 colorText[] = {1, 1, 1, 0.8};
+  	 text = """Zafjr"" for Voice-Acting (WIP), intro voice, some civ-voices";
+      };
+   	};
+	class Credit6
+   	{
+      idd=-1;
+      movingEnable=true;
+      duration=6;
+      name="Credit6";
+      controls[]={"text1"};
+
+      class text1
+      {
+         idc = -1;
+         type = 0;
+         style = 2;
+         x = 0.2;
+         y = 0.3;
+         w = 1;
+         h = 0.04;
+	 font = "PuristaMedium";
+       sizeEx = 0.04;
+       colorBackground[] = {0, 0, 0, 0};
+   	 colorText[] = {1, 1, 1, 0.8};
+  	 text = "ss3goku0001 for Text Improvements";
+      };
+   	};
+	class Credit9
+   	{
+      idd=-1;
+      movingEnable=true;
+      duration=6;
+      name="Credit9";
+      controls[]={"text1"};
+
+      class text1
+      {
+         idc = -1;
+         type = 0;
+         style = 2;
+         x = 0.2;
+         y = 0.3;
+         w = 1;
+         h = 0.04;
+	 font = "PuristaMedium";
+       sizeEx = 0.04;
+       colorBackground[] = {0, 0, 0, 0};
+   	 colorText[] = {1, 1, 1, 0.8};
+  	 text = "Elliott ""Snaked"" Jordan for Voice-Acting (WIP) in Attack/Defend-events";
+      };
+   	};
+	class Credit7
+   	{
+      idd=-1;
+      movingEnable=true;
+      duration=6;
+      name="Credit7";
+      controls[]={"text1"};
+
+      class text1
+      {
+         idc = -1;
+         type = 0;
+         style = 2;
+         x = 0.2;
+         y = 0.4;
+         w = 1;
+         h = 0.04;
+	 font = "PuristaMedium";
+       sizeEx = 0.04;
+       colorBackground[] = {0, 0, 0, 0};
+   	 colorText[] = {1, 1, 1, 0.8};
+  	 text = "MISSION IS WORK IN PROGRESS, BUT ALREADY PLAYABLE";
+      };
+   	};
+	class Credit8
+   	{
+      idd=-1;
+      movingEnable=true;
+      duration=6;
+      name="Credit8";
+      controls[]={"text1"};
+
+      class text1
+      {
+         idc = -1;
+         type = 0;
+         style = 2;
+         x = 0.2;
+         y = 0.6;
+         w = 1;
+         h = 0.04;
+	 font = "PuristaMedium";
+     sizeEx = 0.04;
+     colorBackground[] = {0, 0, 0, 0};
+   	 colorText[] = {1, 1, 1, 0.8};
+  	 text = "If YOU end up enjoying this mission, please VOTE in MAKEARMANOTWAR.COM";
+      };
+   	};
+	class MyRscTitle
+	{
+	  	idd=-1;
+	  	movingEnable=0;
+	  	duration=10e30;
+	  	name="title1";
+		onLoad = "uiNamespace setVariable ['d_MyRscTitle', _this select 0]";
+	  	controls[]={"text1"};
+	  	class text1 : MyRscStructuredText
+		{
+			idc = 301;
+		};
+	};
+	class MyRscTitle2
+	{
+	  	idd=-1;
+	  	movingEnable=0;
+	  	duration=10e30;
+	  	name="title1";
+		onLoad = "uiNamespace setVariable ['d2_MyRscTitle', _this select 0]";
+	  	controls[]={"text1"};
+	  	class text1 : MyRscStructuredText2
+		{
+			idc = 302;
+		};
+	};
+	class MyRscTitle3
+	{
+	  	idd=-1;
+	  	movingEnable=0;
+	  	duration=10e30;
+	  	name="title1";
+		onLoad = "uiNamespace setVariable ['d3_MyRscTitle', _this select 0]";
+	  	controls[]={"text1"};
+	  	class text1 : MyRscStructuredText3
+		{
+			idc = 303;
+		};
+	};
+	class MyRscTitle4
+	{
+	  	idd=-1;
+	  	movingEnable=0;
+	  	duration=10e30;
+	  	name="title1";
+		onLoad = "uiNamespace setVariable ['d4_MyRscTitle', _this select 0]";
+	  	controls[]={"text1"};
+	  	class text1 : MyRscStructuredText4
+		{
+			idc = 304;
+		};
+	};
+	class MyRscTitle5
+	{
+	  	idd=-1;
+	  	movingEnable=0;
+	  	duration=4;
+	  	name="title1";
+		onLoad = "uiNamespace setVariable ['d5_MyRscTitle', _this select 0]";
+	  	controls[]={"text1"};
+	  	class text1 : MyRscStructuredText5
+		{
+			idc = 305;
+		};
+	};
+	class MyRscTitle6
+	{
+	  	idd=-1;
+	  	movingEnable=0;
+	  	duration=10e30;
+	  	name="title1";
+		onLoad = "uiNamespace setVariable ['d6_MyRscTitle', _this select 0]";
+	  	controls[]={"text1"};
+	  	class text1 : MyRscStructuredText6
+		{
+			idc = 306;
+		};
+	};
+	class MyRscTitle7
+	{
+	  	idd=-1;
+	  	movingEnable=0;
+	  	duration=10e30;
+	  	name="title1";
+		onLoad = "uiNamespace setVariable ['d7_MyRscTitle', _this select 0]";
+	  	controls[]={"text1"};
+	  	class text1 : MyRscStructuredText7
+		{
+			idc = 307;
+		};
+	};
+	class MyRscTitle8
+	{
+	  	idd=-1;
+	  	movingEnable=0;
+	  	duration=15;
+	  	name="title1";
+		onLoad = "uiNamespace setVariable ['d8_MyRscTitle', _this select 0]";
+	  	controls[]={"text1"};
+	  	class text1 : MyRscStructuredText8
+		{
+			idc = 308;
+		};
+	};
+	class MyRscTitle9
+	{
+	  	idd=-1;
+	  	movingEnable=0;
+	  	duration=15;
+	  	name="title1";
+		onLoad = "uiNamespace setVariable ['d9_MyRscTitle', _this select 0]";
+	  	controls[]={"text1"};
+	  	class text1 : MyRscStructuredText9
+		{
+			idc = 309;
+		};
+	};
+};
+
+/*
+class CfgSounds
+{
+	// List of sounds (.ogg files without the .ogg extension)
+	sounds[] = {};
+
+	// Definition for each sound
+
+	//#include "newsounds\sounds.h"
+	//#include "rejenorst\sounds.h"
+	//#include "rejenorst2\sounds.h"
+	//#include "sound\sounds.h"
+	//#include "soundfirecontrol\sounds.h"
+	//#include "tslava\sounds.h"
+	//#include "gua\sounds.h"
+	//#include "civ\sounds.h"	
+	//#include "dog\sounds.h"	
+	//#include "boar\sounds.h"	
+	//#include "cow\sounds.h"
+	//#include "BuildingS\sounds.h"
+	//#include "SaveD\sounds.h"
+	#include "CivV\sounds.h"
+	#include "Zafvoices\sounds.h"
+	#include "EffectS\sounds.h"
+	//#include "DAPMAN\CfgSounds.hpp"	
+
+	//#include "goat\sounds.h"
+	//#include "rooster\sounds.h"
+
+};
+*/
+
+class CfgRadio
+{
+#include "BatmanVoice\sounds.h"
+
+};
+
+class CfgMusic
+{
+tracks[] = {};
+#include "extramusic\music.hpp"	
+//#include "OST\OFPARMAmusic.hpp"	
+};
+
+class CfgIdentities
+{
+    class Gregory_Jackson
+    {
+        name = "Jackson";
+		nameSound = "Jackson";
+        face = "WhiteHead_05";
+        glasses = "None";
+        speaker = "Male03ENGB";
+        pitch = 0.9;
+    };
+	class Kerry_Smith
+    {
+        name = "Smith";
+		nameSound = "Kerry";
+        face = "WhiteHead_09";
+        glasses = "None";
+        speaker = "Male03ENG";
+        pitch = 1;
+    };
+	class John_Walker
+    {
+        name = "Walker";
+		nameSound = "Walker";
+        face = "AfricanHead_01";
+        glasses = "None";
+        speaker = "Male02ENG";
+        pitch = 0.9;
+    };
+	class Kouris_Anastas
+    {
+        name = "Anastas";
+		nameSound = "Kouris";
+        face = "GreekHead_A3_02";
+        glasses = "None";
+        speaker = "Male03GRE";
+        pitch = 1;
+    };
+	class Ryoichi_Akaike
+    {
+        name = "Akaike";
+		nameSound = "Razer";
+        face = "AsianHead_A3_02";
+        glasses = "None";
+        speaker = "Male01ENG";
+        pitch = 1.1;
+    };
+	class Conan_OConnor
+    {
+        name = "O'Connor";
+		nameSound = "O'Connor";
+        face = "WhiteHead_11";
+        glasses = "None";
+        speaker = "Male01ENGB";
+        pitch = 1;
+    };
+};

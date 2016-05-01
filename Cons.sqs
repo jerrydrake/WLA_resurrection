@@ -1,0 +1,5 @@
+~(random 0.15)
+? (dialog || {!isNil"LIIKUTAOBJEKTI"}): goto "Exit"
+player SPAWN FUNK_ConstructionDialog;
+#Exit
+exit

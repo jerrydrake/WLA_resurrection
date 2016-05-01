@@ -1,0 +1,223 @@
+class Sentences
+{
+	class Civ1
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Civ1.ogg"};
+		class Arguments {};
+    };
+	class Civ2
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Civ2.ogg"};
+		class Arguments {};
+    };
+	class Civ3
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Civ3.ogg"};
+		class Arguments {};
+    };
+	class Civ4
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Civ4.ogg"};
+		class Arguments {};
+    };
+	class Civ5
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Civ5.ogg"};
+		class Arguments {};
+    };
+	class Civ6
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Civ6.ogg"};
+		class Arguments {};
+    };
+	class Civ7
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Civ7.ogg"};
+		class Arguments {};
+    };
+	class Civ8
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Civ8.ogg"};
+		class Arguments {};
+    };
+	class Civ9
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Civ9.ogg"};
+		class Arguments {};
+    };
+	class Civ10
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Civ10.ogg"};
+		class Arguments {};
+    };
+	class Civ11
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Civ11.ogg"};
+		class Arguments {};
+    };
+	class CivT1
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\CivT1.ogg"};
+		class Arguments {};
+    };
+	class CivT2
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\CivT2.ogg"};
+		class Arguments {};
+    };
+	class CivI1
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\CivI1.ogg"};
+		class Arguments {};
+    };
+	class Y1
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Y1.ogg"};
+		class Arguments {};
+    };
+	class Y2
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Y2.ogg"};
+		class Arguments {};
+    };
+	class Y3
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Y3.ogg"};
+		class Arguments {};
+    };
+	class Y4
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Y4.ogg"};
+		class Arguments {};
+    };
+	class Y5
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Y5.ogg"};
+		class Arguments {};
+    };
+	class Y6
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Y6.ogg"};
+		class Arguments {};
+    };
+	class Y7
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\Y7.ogg"};
+		class Arguments {};
+    };
+	class steal1
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\steal1.ogg"};
+		class Arguments {};
+    };
+	class steal2
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\steal2.ogg"};
+		class Arguments {};
+    };
+	class steal3
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\steal3.ogg"};
+		class Arguments {};
+    };
+	class steal4
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\steal4.ogg"};
+		class Arguments {};
+    };
+	class steal5
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\steal5.ogg"};
+		class Arguments {};
+    };
+	class steal6
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\steal6.ogg"};
+		class Arguments {};
+    };
+	class steal7
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\steal7.ogg"};
+		class Arguments {};
+    };
+	class steal8
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\steal8.ogg"};
+		class Arguments {};
+    };
+	class steal9
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\steal9.ogg"};
+		class Arguments {};
+    };
+	class steal10
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\steal10.ogg"};
+		class Arguments {};
+    };
+	class steal11
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\steal11.ogg"};
+		class Arguments {};
+    };
+	class steal12
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\steal12.ogg"};
+		class Arguments {};
+    };
+	class steal13
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\steal13.ogg"};
+		class Arguments {};
+    };
+	class steal14
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\steal14.ogg"};
+		class Arguments {};
+    };
+	class steal15
+	{
+		text = "";
+		speech[] = {"\SaOkMusicAddon\Sounds\steal15.ogg"};
+		class Arguments {};
+    };
+};	
+class Arguments{};
+class Special{};
+startWithVocal[] = {hour};
+startWithConsonant[] = {europe, university};
