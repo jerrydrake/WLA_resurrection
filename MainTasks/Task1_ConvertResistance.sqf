@@ -1,8 +1,11 @@
 private["_start2", "_d", "_st", "_st2", "_start4", "_size", "_start3", "_n", "_n2", "_nul", "_group", "_crowKing", "_someId", "_mar", "_marker", "_mar2", "_obj", "_car"];
+
 CurTaskS = CurTaskS + ["MainTasks\Task1_ConvertResistance.sqf"];
+
 sleep 5;
 _d = 1000;
 _start2 = [vehicle player, 1500, 500, "(1 - sea)* (1 + meadow)* (1 - hills)", ""] CALL SAOKSEEKPOS;
+
 while {
 	surfaceisWater _start2 || {!([_start2, 40] CALL SAOKISFLAT)
 	} || {
