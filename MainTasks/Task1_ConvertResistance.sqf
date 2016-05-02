@@ -102,20 +102,20 @@ false			// Shared?
 ] call BIS_fnc_taskCreate;
 
 
-_someId = format["IDSAOK%1", NUMM];
-[_someId, "onEachFrame", {
-	if (isNil "IC3D") exitWith {};
-	drawIcon3D["\A3\Structures_F_Mark\VR\Helpers\Data\VR_Symbol_MARK_WeaponHandling3_CA.paa", ICONCOLORRED, getposATL _this, 1.51, 1.51, 0, (format["Neutralize Fox Crow: %1m", round(_this distance player)]), 1, SAOKFSI, "TahomaB"];
-}, _crowKing] call BIS_fnc_addStackedEventHandler;
-_mar = format["MainTaskM%1", NUMM];
-NUMM = NUMM + 1;
-_marker = [_mar, getposATL _crowKing, "mil_destroy", [0.8, 0.8], "ColorRed", "Find and Kill Fox Crow"] CALL FUNKTIO_CREATEMARKER;
+//_someId = format["IDSAOK%1", NUMM];
+//[_someId, "onEachFrame", {
+//	if (isNil "IC3D") exitWith {};
+//	drawIcon3D["\A3\Structures_F_Mark\VR\Helpers\Data\VR_Symbol_MARK_WeaponHandling3_CA.paa", ICONCOLORRED, getposATL _this, 1.51, 1.51, 0, (format["Neutralize Fox Crow: %1m", round(_this distance player)]), 1, SAOKFSI, "TahomaB"];
+//}, _crowKing] call BIS_fnc_addStackedEventHandler;
+//_mar = format["MainTaskM%1", NUMM];
+//NUMM = NUMM + 1;
+//_marker = [_mar, getposATL _crowKing, "mil_destroy", [0.8, 0.8], "ColorRed", "Find and Kill Fox Crow"] CALL FUNKTIO_CREATEMARKER;
 sleep 1;
 _size = 1200;
 _start4 = [_start2, 1200, 300, "(1 - sea) * (1 + trees)* (1 - hills)", ""] CALL SAOKSEEKPOS;
-_mar2 = format["MainTaskM%1", NUMM];
-NUMM = NUMM + 1;
-_marker = [_mar2, _start4, "mil_flag", [0.5, 0.5], "ColorGreen", "Crate with Sniper-Rifle"] CALL FUNKTIO_CREATEMARKER;
+//_mar2 = format["MainTaskM%1", NUMM];
+//NUMM = NUMM + 1;
+//_marker = [_mar2, _start4, "mil_flag", [0.5, 0.5], "ColorGreen", "Crate with Sniper-Rifle"] CALL FUNKTIO_CREATEMARKER;
 
 ["taskMT2", _start4] call BIS_fnc_taskSetDestination;
 
@@ -195,12 +195,13 @@ waitUntil {
 		}
 	}
 };
+
 _obj setvariable["AmCrate", nil];
 _car setvariable["AmCrate", nil];
-deletemarker _mar;
-deletemarker _mar2;
-_nul = ["taskMT1", "SUCCEEDED"] call SAOKCOTASK;
-[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
+//deletemarker _mar;
+//deletemarker _mar2;
+_nul = ["taskMT1", "SUCCEEDED", true] call BIS_fnc_taskSetState;
+//[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
 sleep 4;
 //_nul = [] execvm "Cutscenes\MeetResContact.sqf";
 SA_CUTMRC = compile preprocessfileLineNumbers "Cutscenes\MeetResContact.sqf";
