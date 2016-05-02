@@ -89,13 +89,13 @@ _nPlayer switchmove "Acts_UnconsciousStandUp_part1";
 if (DIFLEVEL < 1) then {_nPlayer setdamage 0;};
 
 if (isNil"TeamStay") then {
-sleep 1;
-{
-if (alive _x && {vehicle _x == _x}) then {
-_x setpos [(_spawnPos select 0)+10-(random 20),(_spawnPos select 1)+10-(random 20),0];
-_x SPAWN FClone;
-};
-} foreach _unts;
+	sleep 1;
+	{
+		if (alive _x && {vehicle _x == _x}) then {
+			_x setpos [(_spawnPos select 0)+10-(random 20),(_spawnPos select 1)+10-(random 20),0];
+			_x SPAWN FClone;
+		};
+	} foreach _unts;
 };
 _civs = [];
 

@@ -68,7 +68,7 @@ _Tid = format ["TaskBat%1",NUMM];
 NUMM=NUMM+1;
 _Lna = _locationA CALL NEARESTLOCATIONNAME;
 _header = format ["Defend Camp near %1",_Lna];
-_desc =("One of friendly camps is about to get under attack by persians. Should we give them hand or hope their defenses is enough?"+_ResultColor);
+_desc =("One of friendly camps is about to get under attack by enemy. Should we give them hand or hope their defenses is enough?"+_ResultColor);
 [
 WEST, // Task owner(s)
 _Tid, // Task ID (used when setting task state, destination or description later)
@@ -80,7 +80,7 @@ _locationA set [2,20];
 _someId = format ["IDSAOK%1",NUMM];
 [_someId, "onEachFrame", {
 	if (isNil"IC3D") exitWith {};
-	drawIcon3D ["\A3\ui_f\data\map\markers\nato\n_hq.paa", ICONCOLORBLUE, _this,1.51, 1.51, 0, (format ["DEFEND AAF CAMP: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
+	drawIcon3D ["\A3\ui_f\data\map\markers\nato\n_hq.paa", ICONCOLORBLUE, _this,1.51, 1.51, 0, (format ["DEFEND FRIENDLY CAMP: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
 }, _locationA] call BIS_fnc_addStackedEventHandler;
 if (count _this == 1) then {
 //_ran = ["STR_Sp8t2r1","STR_Sp8t2r1a","STR_Sp8t2r1b","STR_Sp8t2r1c"] call BIS_fnc_selectRandom;

@@ -13,18 +13,24 @@ player sidechat localize "STR_Sp2s1r10";
 WEST, // Task owner(s)
 "taskAA", // Task ID (used when setting task state, destination or description later)
 ["Iranian AA-vehicle have been spotted with light guard, could be good time to take it out.", "Find and Destroy AA-vehicle", "Find and Destroy AA-vehicle"], // Task description
-objNull, // Task destination
-"CREATED"  ] call SAOKCRTASK;
-NUMM=NUMM+1;
-_mar = format ["AAmar%1",NUMM];
-_marker = [_mar,_start, "hd_flag", [0.5,0.5], "ColorPink", "Find and Destroy AA-vehicle"] CALL FUNKTIO_CREATEMARKER;
+objnull,//[21857.4,10972.3,0], // Task destination
+true, // true to set task as current upon creation
+-1,
+true,
+"Destroy",
+false
+] call BIS_fnc_taskCreate;
+//NUMM=NUMM+1;
+//_mar = format ["AAmar%1",NUMM];
+//_marker = [_mar,_start, "hd_flag", [0.5,0.5], "ColorPink", "Find and Destroy AA-vehicle"] CALL FUNKTIO_CREATEMARKER;
+["taskAA",_start] CALL BIS_fnc_taskSetDestination;
 NUMM=NUMM+1;
 //icon = "\A3\ui_f\data\map\markers\military\destroy_CA.paa";
 _someId = format ["IDSAOK%1",NUMM];
-[_someId, "onEachFrame", {
-	if (isNil"IC3D") exitWith {};
-	drawIcon3D ["\A3\Structures_F_Bootcamp\VR\Helpers\Data\VR_Symbol_launchers_CA.paa", ICONCOLOR, _this,1.51, 1.51, 0, (format ["Find and Destroy AA-vehicle: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
-}, [(_start select 0)+100-(random 200),(_start select 1)+100-(random 200),4]] call BIS_fnc_addStackedEventHandler;
+//[_someId, "onEachFrame", {
+//	if (isNil"IC3D") exitWith {};
+//	drawIcon3D ["\A3\Structures_F_Bootcamp\VR\Helpers\Data\VR_Symbol_launchers_CA.paa", ICONCOLOR, _this,1.51, 1.51, 0, (format ["Find and Destroy AA-vehicle: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
+//}, [(_start select 0)+100-(random 200),(_start select 1)+100-(random 200),4]] call BIS_fnc_addStackedEventHandler;
 
 _start3 = [_start, 100, 40,"(1 - sea) * (1 + meadow)* (1 - hills)",""] CALL SAOKSEEKPOS;
 _d = 100;

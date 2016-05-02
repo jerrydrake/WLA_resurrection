@@ -1,9 +1,9 @@
-overviewText = "The situation on Isla Duala is unclear, the last reports we have indicate an enemy invasion. The local government is unwilling to cooperate and refuses to share any intel they have, but is believed they are preparing an assault to protect their military installations. Your team will be sent there to investigate the status so we know what further measures we can take while we get NATO approval to get involved.";
+overviewText = "The situation on Chernarus is unclear, the last reports we have indicate a Enemy invasion. The local government is unwilling to cooperate and refuses to share any intel they have, but is believed they are preparing an assault to protect their military installations. Your team will be sent there to investigate the status so we know what further measures we can take while we get NATO approval to get involved.";
 overviewPicture = "pic2.paa";
-OnLoadIntro = "WLA: Isla Duala";
+OnLoadIntro = "WLA: Chernarus";
 author="SaOk modified by Jerrydrake";
-OnLoadName = "WLA: Isla Duala";
-onLoadMission = "The situation on Isla Duala is unclear, the last reports we have indicate a enemy invasion. The local government is unwilling to cooperate and refuses to share any intel they have, but is believed they are preparing an assault to protect their military installations.";
+OnLoadName = "WLA: Chernarus";
+onLoadMission = "The situation on Chernarus is unclear, the last reports we have indicate a Enemy invasion. The local government is unwilling to cooperate and refuses to share any intel they have, but is believed they are preparing an assault to protect their military installations.";
 loadScreen = "pic2.paa";
 showCompass = 1;
 showGPS = 1;

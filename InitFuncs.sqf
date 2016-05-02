@@ -57,14 +57,19 @@ NUMM=NUMM+1;
 _nearest = FacMarkers select 0;
 {if ((getmarkerpos _nearest distance player) > (getmarkerpos _x distance player)) then {_nearest = _x;};sleep 0.1;} foreach FacMarkers;
 [
-WEST, // Task owner(s)
-_Tid, // Task ID (used when setting task state, destination or description later)
+WEST, 			// Task owner(s)
+_Tid, 			// Task ID (used when setting task state, destination or description later)
 ["We need to capture any factory, on the island, in order to create resources to use in this war. To do that we need to build manned guardpost close to the factory and make sure locals are friendly at us, to operate the factory for us.<br/><br/><img image='factory.jpg' width='360' height='202.5'/>", "Take Control of Factory", "Take Control of Factory"], // Task description
 (getmarkerpos _nearest), // Task destination
-"CREATED"
-] call SAOKCRTASK;
+true,			// true to set task as current upon creation
+-1,				// priority
+true,			// Notification?
+"Interact",		// 3d marker type
+false			// Shared?
+] call BIS_fnc_taskCreate;
+
 waitUntil {sleep 15;{getmarkercolor _x == "ColorGreen"} count FacMarkers > 0};
-_nul = [_Tid,"SUCCEEDED"] call SAOKCOTASK;
+_nul = [_Tid,"SUCCEEDED", true] call BIS_fnc_taskSetState;
 sleep 15;
 _n = [_Tid] CALL BIS_fnc_deleteTask;
 missionnamespace setvariable ["FacTask",nil];
@@ -79,13 +84,19 @@ NUMM=NUMM+1;
 _nearest = PowMarkers select 0;
 {if ((getmarkerpos _nearest distance player) > (getmarkerpos _x distance player)) then {_nearest = _x;};sleep 0.1;} foreach PowMarkers;
 [
-WEST, // Task owner(s)
-_Tid, // Task ID (used when setting task state, destination or description later)
+WEST, 			// Task owner(s)
+_Tid, 			// Task ID (used when setting task state, destination or description later)
 ["We need to have control of Power Plant in order to run factories that create resources to use in this war. Manned guardpost need to be built near the plant. (Can be any Power Plant located in the island)<br/><br/><img image='arma3power.jpg' width='360' height='202.5'/>", "Take Control of Power Plant", "Take Control of Power Plant"], // Task description
 (getmarkerpos _nearest), // Task destination
-"CREATED"  ] call SAOKCRTASK;
+true,			// true to set task as current upon creation
+-1,				// priority
+true,			// Notification?
+"Interact",		// 3d marker type
+false			// Shared?
+] call BIS_fnc_taskCreate;
+
 waitUntil {sleep 15;{getmarkercolor _x == "ColorGreen"} count PowMarkers > 0};
-_nul = [_Tid,"SUCCEEDED"] call SAOKCOTASK;
+_nul = [_Tid,"SUCCEEDED", true] call BIS_fnc_taskSetState;
 sleep 15;
 _n = [_Tid] CALL BIS_fnc_deleteTask;
 missionnamespace setvariable ["PowTask",nil];
@@ -106,13 +117,18 @@ if !(_isWater) then {
 _taskD = ["Without a passage we cant fight this war with needed assets. Manned guardpost need to be built near the passage.  (Can be any passage located on the map)<br/><br/><img image='arma3pier.jpg' width='360' height='202.5'/>", "Take Control of Passage", "Take Control of Passage"];
 };
 [
-WEST, // Task owner(s)
-_Tid, // Task ID (used when setting task state, destination or description later)
-_taskD, // Task description
+WEST, 			// Task owner(s)
+_Tid, 			// Task ID (used when setting task state, destination or description later)
+_taskD, 		// Task description
 (getmarkerpos _nearest), // Task destination
-"CREATED"  ] call SAOKCRTASK;
+true,			// true to set task as current upon creation
+-1,				// priority
+true,			// Notification?
+"Interact",		// 3d marker type
+false			// Shared?
+] call BIS_fnc_taskCreate;
 waitUntil {sleep 15;{getmarkercolor _x == "ColorGreen"} count PierMarkers > 0};
-_nul = [_Tid,"SUCCEEDED"] call SAOKCOTASK;
+_nul = [_Tid,"SUCCEEDED", true] call BIS_fnc_taskSetState;
 sleep 15;
 _n = [_Tid] CALL BIS_fnc_deleteTask;
 missionnamespace setvariable ["PierTask",nil];
@@ -132,9 +148,14 @@ WEST, // Task owner(s)
 _Tid, // Task ID (used when setting task state, destination or description later)
 ["Having storage for our use is not vital but may give us small advantage. Manned guardpost need to be built near the storage area. <br/><br/><img image='arma3storage.jpg' width='360' height='202.5'/>", "Take Control of Storage", "Take Control of Storage"], // Task description
 (getmarkerpos _nearest), // Task destination
-"CREATED"  ] call SAOKCRTASK;
+true,			// true to set task as current upon creation
+-1,				// priority
+true,			// Notification?
+"Interact",		// 3d marker type
+false			// Shared?
+] call BIS_fnc_taskCreate;
 waitUntil {sleep 15;{getmarkercolor _x == "ColorGreen"} count StoMarkers > 0};
-_nul = [_Tid,"SUCCEEDED"] call SAOKCOTASK;
+_nul = [_Tid,"SUCCEEDED", true] call BIS_fnc_taskSetState;
 sleep 15;
 _n = [_Tid] CALL BIS_fnc_deleteTask;
 missionnamespace setvariable ["StorTask",nil];

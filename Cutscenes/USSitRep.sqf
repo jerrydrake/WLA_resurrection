@@ -20,25 +20,29 @@ _header = format ["NATO SitRep near %1",_Lna];
 WEST, // Task owner(s)
 "taskUS0", // Task ID (used when setting task state, destination or description later)
 ["Its time to do SitRep-meeting with Team Owl, to prepare entry for NATO.", _header, _header], // Task description
-objNull, // Task destination
-true
-] call SAOKCRTASK;
-NUMM=NUMM+1;
-_someId = format ["IDSAOK%1",NUMM];
-[_someId, "onEachFrame", {
-	if (isNil"IC3D") exitWith {};
-	drawIcon3D ["\a3\Ui_f\data\GUI\Cfg\CommunicationMenu\instructor_ca.paa", ICONCOLORBLUE, _this,1.51, 1.51, 0, (format ["NATO SitRep: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
-}, _start2] call BIS_fnc_addStackedEventHandler;
-_mar = format ["MainTaskM%1",NUMM];
-NUMM=NUMM+1;
-_marker = [_mar,_start2, "mil_flag", [0.8,0.8], "ColorBlue", "NATO SitRep"] CALL FUNKTIO_CREATEMARKER;
+_start2,//[21857.4,10972.3,0], // Task destination
+true, // true to set task as current upon creation
+-1,
+true,
+"Default",
+false
+] call BIS_fnc_taskCreate;
+//NUMM=NUMM+1;
+//_someId = format ["IDSAOK%1",NUMM];
+//[_someId, "onEachFrame", {
+//	if (isNil"IC3D") exitWith {};
+//	drawIcon3D ["\a3\Ui_f\data\GUI\Cfg\CommunicationMenu\instructor_ca.paa", ICONCOLORBLUE, _this,1.51, 1.51, 0, (format ["NATO SitRep: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
+//}, _start2] call BIS_fnc_addStackedEventHandler;
+//_mar = format ["MainTaskM%1",NUMM];
+//NUMM=NUMM+1;
+//_marker = [_mar,_start2, "mil_flag", [0.8,0.8], "ColorBlue", "NATO SitRep"] CALL FUNKTIO_CREATEMARKER;
 gameLogic1 globalchat localize "STR_milC2_l1";
 sleep 7;
 player sidechat localize "STR_milC2_l2";
 waitUntil {sleep 5; vehicle player distance _start2 < 60};
-[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
-deletemarker _marker;
-_nul = ["taskUS0","SUCCEEDED"] call SAOKCOTASK;
+//[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
+//deletemarker _marker;
+_nul = ["taskUS0","SUCCEEDED", true] call BIS_fnc_taskSetState;
 _nul = [4] SPAWN MusicT;
 _actor1 = [WEST,"B_recon_JTAC_F",150,[1000,1000,0],objNull] CALL FUNKTIO_SPAWNACTOR;
 _n = [

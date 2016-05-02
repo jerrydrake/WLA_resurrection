@@ -26,21 +26,20 @@ sleep 1;
 _start2 = [_locationA, _size,0,"(1 - sea) * (1 + meadow)",""] CALL SAOKSEEKPOS;
 _size = _size + 50;
 };
-_marS = format ["LINEmar%1",NUMM];
-NUMM=NUMM+1;
+//_marS = format ["LINEmar%1",NUMM];
+//NUMM=NUMM+1;
 ["E","CAPS"] SPAWN SAOKRADIOMES;
 _data = ["EXPECTED BATTLE",_locationA,[],["INFI",["I_ATgroup","n_inf"],["I_Snipergroup","n_inf"]]] CALL BattleVirtualIntel;
 _ResultColor = _data select 0;
-_mar5 = [_marS,_locationA,"Select",[0.9,0.9],"ColorPink","Defend This Point"] CALL FUNKTIO_CREATEMARKER;
+//_mar5 = [_marS,_locationA,"Select",[0.9,0.9],"ColorPink","Defend This Point"] CALL FUNKTIO_CREATEMARKER;
 
-if ({(_x getvariable "Mcolor") == "ColorRed" && {locationposition _x distance (getmarkerpos _mar5) < 5000}} count AAsM == 0) then {
-_wpPP = getmarkerpos _mar5;
+if ({(_x getvariable "Mcolor") == "ColorRed" && {locationposition _x distance (_locationA) < 5000}} count AAsM == 0) then {
+_wpPP = _locationA;
 _mid = [((_start2 select 0)+(_wpPP select 0))*0.5,((_start2 select 1)+(_wpPP select 1))*0.5,0];
 [[_mid],"mil_arrow","ColorRed",([_start2, _wpPP] call SAOKDIRT)] SPAWN SAOKCREATEMARKER;
 };
 
-_Tid = format ["TaskBat%1",NUMM];
-NUMM=NUMM+1;
+_Tid = format ["TaskBat%1",NUMM]; NUMM=NUMM+1;
 _Lna = _locationA CALL NEARESTLOCATIONNAME;
 _header = format ["Protect Strategic Point near %1",_Lna];
 _desc =("Persian are trying to hurt our ways to get resources. Was the area protected enough or should we head there?"+_ResultColor);
@@ -48,16 +47,21 @@ _desc =("Persian are trying to hurt our ways to get resources. Was the area prot
 WEST, // Task owner(s)
 _Tid, // Task ID (used when setting task state, destination or description later)
 [_desc, _header, _header], // Task description
-objNull, // Task destination
-"CREATED"  ] call SAOKCRTASK;
-NUMM=NUMM+1;
+objnull, // Task destination
+true, // true to set task as current upon creation
+-1,
+true,
+"Default",
+false
+] call BIS_fnc_taskCreate;
+//NUMM=NUMM+1;
 _locationA set [2,20];
-_someId = format ["IDSAOK%1",NUMM];
-[_someId, "onEachFrame", {
-	if (isNil"IC3D") exitWith {};
-	drawIcon3D ["\A3\ui_f\data\map\markers\nato\u_installation.paa", ICONCOLORBLUE, _this,1.51, 1.51, 0, (format ["PROTECT STRATEGIC POINT: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
-}, _locationA] call BIS_fnc_addStackedEventHandler;
-
+//_someId = format ["IDSAOK%1",NUMM];
+//[_someId, "onEachFrame", {
+//	if (isNil"IC3D") exitWith {};
+//	drawIcon3D ["\A3\ui_f\data\map\markers\nato\u_installation.paa", ICONCOLORBLUE, _this,1.51, 1.51, 0, (format ["PROTECT STRATEGIC POINT: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
+//}, _locationA] call BIS_fnc_addStackedEventHandler;
+[_Tid,_locationA] CALL BIS_fnc_taskSetDestination;
 [["WLA","Battle"]] call BIS_fnc_advHint;
 if (count _this == 1) then {
 ///////////RADIO CHAT
@@ -173,8 +177,8 @@ _tg1wp1= (_tg1 select 2) addWaypoint [_locationA, 0];
 [(_tg1 select 2), 1] setWaypointType "GUARD";
 _nul = [(_tg1 select 2), [1541.39,5059.05,0],200] SPAWN FUNKTIO_MAD;
 };
-if ({(_x getvariable "Mcolor") == "ColorRed" && {locationposition _x distance (getmarkerpos _mar5) < 5000}} count AAsM == 0) then {
-_wpPP = getmarkerpos _mar5;
+if ({(_x getvariable "Mcolor") == "ColorRed" && {locationposition _x distance (_locationA) < 5000}} count AAsM == 0) then {
+_wpPP = _locationA;
 _mid = [((_start2 select 0)+(_wpPP select 0))*0.5,((_start2 select 1)+(_wpPP select 1))*0.5,0];
 [[_mid],"mil_arrow","ColorRed",([_start2, _wpPP] call SAOKDIRT)] SPAWN SAOKCREATEMARKER;
 };
@@ -207,7 +211,7 @@ Pgroups pushback _x;
 } foreach _INFgroups;
 _n = [getMarkerPos _marrr,"EAST"] CALL GuardPostSide;
 ["ScoreRemoved",["Enemy attack succeeded. You lost strategic point",30]] call SAOKNOTIFI;
-_nul = [_Tid,"FAILED"] call SAOKCOTASK;
+_nul = [_Tid,"FAILED", true] call BIS_fnc_taskSetState;
 ["E","CAP"] SPAWN SAOKRADIOMES;
 ["F","LOS",""] SPAWN SAOKRADIOMES;
 _marrr setmarkercolor "ColorYellow";
@@ -222,7 +226,7 @@ deletevehicle _post;
 _ran = ["STR_Sp8t4r4"] call BIS_fnc_selectRandom;
 BaseR globalchat localize _ran;
 
-deletemarker _mar5;
+//deletemarker _mar5;
 } else {
 //END C
 {
@@ -237,11 +241,11 @@ Pgroups pushback _x;
 } foreach _INFgroups;
 _marrr setmarkercolor "ColorGreen";
 ["ScoreAdded",["Enemy attack didnt succeed",10]] call SAOKNOTIFI;
-_nul = [_Tid,"SUCCEEDED"] call SAOKCOTASK;
+_nul = [_Tid,"SUCCEEDED", true] call BIS_fnc_taskSetState;
 //_nul = [] SPAWN {VarPG = VarPG - 1;sleep 900;VarPG = VarPG + 1;};
 _ran = ["STR_Sp8t4r3"] call BIS_fnc_selectRandom;
 BaseR globalchat localize _ran;
-deletemarker _mar5;
+//deletemarker _mar5;
 };
 
 } else {
@@ -297,8 +301,8 @@ _tg1wp1= (_tg1 select 2) addWaypoint [_locationA, 0];
 _nul = [(_tg1 select 2), [1541.39,5059.05,0],200] SPAWN FUNKTIO_MAD;
 };
 //BEGIN ATTACK
-if ({(_x getvariable "Mcolor") == "ColorRed" && {locationposition _x distance (getmarkerpos _mar5) < 5000}} count AAsM == 0) then {
-_wpPP = getmarkerpos _mar5;
+if ({(_x getvariable "Mcolor") == "ColorRed" && {locationposition _x distance (_locationA) < 5000}} count AAsM == 0) then {
+_wpPP = _locationA;
 _mid = [((_start2 select 0)+(_wpPP select 0))*0.5,((_start2 select 1)+(_wpPP select 1))*0.5,0];
 [[_mid],"mil_arrow","ColorRed",([_start2, _wpPP] call SAOKDIRT)] SPAWN SAOKCREATEMARKER;
 };
@@ -327,7 +331,7 @@ Pgroups pushback _x;
 } foreach _INFgroups;
 
 ["ScoreRemoved",["Enemy attack succeeded. You lost strategic point",30]] call SAOKNOTIFI;
-_nul = [_Tid,"FAILED"] call SAOKCOTASK;
+_nul = [_Tid,"FAILED", true] call BIS_fnc_taskSetState;
 ["E","CAP"] SPAWN SAOKRADIOMES;
 ["F","LOS",""] SPAWN SAOKRADIOMES;
 _marrr setmarkercolor "ColorYellow";
@@ -343,7 +347,7 @@ deletevehicle _post;
 _ran = ["STR_Sp8t4r4"] call BIS_fnc_selectRandom;
 BaseR globalchat localize _ran;
 
-deletemarker _mar5;
+//deletemarker _mar5;
 } else {
 //END C
 {
@@ -358,11 +362,11 @@ Pgroups pushback _x;
 } foreach _INFgroups;
 _marrr setmarkercolor "ColorGreen";
 ["ScoreAdded",["Enemy attack didnt succeed",10]] call SAOKNOTIFI;
-_nul = [_Tid,"SUCCEEDED"] call SAOKCOTASK;
+_nul = [_Tid,"SUCCEEDED", true] call BIS_fnc_taskSetState;
 //_nul = [] SPAWN {VarPG = VarPG - 1;sleep 900;VarPG = VarPG + 1;};
 _ran = ["STR_Sp8t4r3"] call BIS_fnc_selectRandom;
 BaseR globalchat localize _ran;
-deletemarker _mar5;
+//deletemarker _mar5;
 };
 
 } else {
@@ -406,7 +410,7 @@ _C pushback (_x getvariable "Marker");
 _ResultColor = [_F,_E,_G,_C,"STRATEGIC POINT BATTLE",_locationA] CALL BattleVirtualCamp;
 if (_ResultColor == "ColorRed") then {
 //["ScoreRemoved",["Enemy attack succeeded. You lost strategic point",30]] call SAOKNOTIFI;
-_nul = [_Tid,"FAILED"] call SAOKCOTASK;
+_nul = [_Tid,"FAILED", true] call BIS_fnc_taskSetState;
 ["E","CAP"] SPAWN SAOKRADIOMES;
 ["F","LOS",""] SPAWN SAOKRADIOMES;
 PERSIANPRESTIGE = PERSIANPRESTIGE + (1000*DIFLEVEL);
@@ -418,16 +422,16 @@ BaseR globalchat localize _ran;
 } else {
 _marrr setmarkercolor "ColorGreen";
 //["ScoreAdded",["Enemy attack didnt succeed",10]] call SAOKNOTIFI;
-_nul = [_Tid,"SUCCEEDED"] call SAOKCOTASK;
+_nul = [_Tid,"SUCCEEDED", true] call BIS_fnc_taskSetState;
 //_nul = [] SPAWN {VarPG = VarPG - 1;sleep 900;VarPG = VarPG + 1;};
 _ran = ["STR_Sp8t4r3"] call BIS_fnc_selectRandom;
 BaseR globalchat localize _ran;
 };
-deletemarker _mar5;
+//deletemarker _mar5;
 };
 };
 {if (_marrr == _x select 0) exitWith {AMBbattles deleteAT _foreachIndex;};} foreach AMBbattles;
 _closestG setvariable ["ColorG",nil];
-[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
+//[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
 sleep 60;
 _n = [_Tid] CALL BIS_fnc_deleteTask;

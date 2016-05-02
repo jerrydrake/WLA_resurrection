@@ -45,7 +45,7 @@ class Mission
 	randomSeed=674035;
 	class Intel
 	{
-		briefingName="WLA: Amalgamation - ISLA DUALA";
+		briefingName="WLA: Amalgamation - #MAPNAME#";
 		startWeather=0.48999998;
 		startWind=0.099999994;
 		startWaves=0.099999994;

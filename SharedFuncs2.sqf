@@ -1342,27 +1342,27 @@ ZONEDATA = [];
 
 SAOKCRTASK = {
 private ["_a"];
-_a = + _this;
-_a set [3,objnull];
-_a set [4,false];
-_a set [5,-1];
-_a set [6,false];
-if (count _a > 7) then {_a set [7,""];};
-_a CALL BIS_fnc_taskCreate;
-if (time > 0 && {isNil"SAOKPDIE"} && {!isNil"StartMission"} && {isNil"NOTASKNOTI"}) then {
-["NEW OBJECTIVE",(_a select 2) select 1] SPAWN SAOKTASKHINT;
-};
+	_a = + _this;
+	//_a set [3,objnull];
+	_a set [4,false];
+	_a set [5,-1];
+	_a set [6,true];
+	//if (count _a > 7) then {_a set [7,""];};
+	_a CALL BIS_fnc_taskCreate;
+	if (time > 0 && {isNil"SAOKPDIE"} && {!isNil"StartMission"} && {isNil"NOTASKNOTI"}) then {
+		["NEW OBJECTIVE",(_a select 2) select 1] SPAWN SAOKTASKHINT;
+	};
 };
 
 SAOKCOTASK = {
-private ["_a"];
-_a = + _this;
-_a pushBack false;
-_a pushBack false;
-if (time > 0 && {isNil"SAOKPDIE"} && {!isNil"StartMission"} && {isNil"NOTASKNOTI"}) then {
-[(_a select 1),(((_a select 0) call BIS_fnc_taskDescription) select 1) select 0] SPAWN SAOKTASKHINT;
-};
-_a CALL BIS_fnc_taskSetState;
+	private ["_a"];
+	_a = + _this;
+	_a pushBack false;
+	_a pushBack false;
+	if (time > 0 && {isNil"SAOKPDIE"} && {!isNil"StartMission"} && {isNil"NOTASKNOTI"}) then {
+		[(_a select 1),(((_a select 0) call BIS_fnc_taskDescription) select 1) select 0] SPAWN SAOKTASKHINT;
+	};
+	_a CALL BIS_fnc_taskSetState;
 };
 
 SAOKZONED = {
@@ -1676,8 +1676,6 @@ _itemCargoBackPack = (getitemCargo (BackPackContainer _unit));
 _magCargoBackPack = (getMagazineCargo (BackPackContainer _unit));
 _weaCargoBackPack = (getWeaponCargo (BackPackContainer _unit));
 };
-removeBackpack _unit;
-_unit addbackpack "B_Parachute";
 _unit disableCollisionWith _veh; 
 _unit allowdamage false;
 sleep 1;
@@ -1688,15 +1686,17 @@ _unit action ["Eject", _veh];
 [_unit] ordergetin false;
 };
 unassignvehicle _unit;
-sleep (1.5+(random 0.5));
+removeBackpack _unit;
+_unit addbackpack "B_Parachute";
+sleep (2+(random 0.5));
 _unit action ["OpenParachute",_unit];
 [_unit, _veh] SPAWN {
 private ["_unit","_veh"];
 _unit = _this select 0;
 _veh = _this select 1;
-waitUntil {isNull _unit || {vehicle _unit != _unit} || {getposATL _unit select 2 < 20}};
+waitUntil {isNull _unit || {getposATL _unit select 2 < 20}};
 _unit allowdamage false;
-waitUntil {isNull _unit || {vehicle _unit != _unit} || {getposATL _unit select 2 < 1}};
+waitUntil {isNull _unit || {getposATL _unit select 2 < 1}};
 if (getposATL _unit select 2 > 1) then {
 vehicle _unit disableCollisionWith _veh; 
 };
@@ -3292,81 +3292,90 @@ FRIENDC3 = ["I_mas_cer_Rebel_F", "I_mas_cer_Rebel_SL_F", "I_mas_cer_Rebel_LITE_F
 FRIENDC4 = ["B_mas_cer_Rebel_F", "B_mas_cer_Rebel_SL_F", "B_mas_cer_Rebel_LITE_F",  "B_mas_cer_Rebel_OFF_F", "B_mas_cer_Rebel_EXP_F", "B_mas_cer_Rebel_GL_F", "B_mas_cer_Rebel_TL_F", "B_mas_cer_Rebel_MG_F", "B_mas_cer_Rebel_AR_F", "B_mas_cer_Rebel_LAT_F", "B_mas_cer_Rebel_LAT2_F", "B_mas_cer_Rebel_AA_F", "B_mas_cer_Rebel_M_F", "B_mas_cer_Rebel_MEDIC_F", "B_mas_cer_Rebel_ENG_F", "B_mas_cer_Rebel_UNA_F", "B_mas_cer_Rebel_amort_F", "B_mas_cer_Rebel_smort_F"];
 CIVS1 = ["C_mas_cer_1", "C_mas_cer_2", "C_mas_cer_3", "C_mas_cer_4", "C_mas_cer_5", "C_mas_cer_6", "C_mas_cer_7", "C_mas_cer_8", "C_mas_cer_9", "C_mas_cer_10"];
 };
-case "RHS Escalation": {
-//
-ARTYAR = [["rhsusf_m109d_usarmy_10","rhsusf_m109_usarmy_10","rhsusf_m109d_usarmy","rhsusf_m109_usarmy"],["rhs_9k79","rhs_9k79_K","rhs_9k79_K","rhs_2s3_tv"],["B_MBT_01_arty_F"],["B_MBT_01_arty_F"]];
+case "RHS Escalation - US Woodland": {
+//Artillery
+ARTYAR = [["rhsusf_m109_usarmy"],["rhs_9k79","rhs_9k79_K","rhs_9k79_B","rhs_2s3_tv"],["rhs_9k79","rhs_9k79_K","rhs_9k79_B","rhs_2s3_tv"],["rhs_9k79","rhs_9k79_K","rhs_9k79_B","rhs_2s3_tv"]];
+//Wheeled
 ARMEDVEHICLES = [
-["RHS_M2A3_BUSKIII","RHS_M2A3_BUSKIII_wd","RHS_M2A3_BUSKI","RHS_M2A3_BUSKI_wd","RHS_M2A3","RHS_M2A3_wd","RHS_M2A2_BUSKI","RHS_M2A2_BUSKI_wd","RHS_M2A2","RHS_M2A2_wd","rhsusf_m113_usarmy","rhsusf_m113d_usarmy"],
-["rhs_btr80a_vv","rhs_btr80a_vmf","rhs_btr80a_vdv","rhs_btr80a_msv","rhs_btr80_vv","rhs_btr80_vmf","rhs_btr80_vdv","rhs_btr80_msv","rhs_btr70_vv","rhs_btr70_vmf","rhs_btr70_vdv","rhs_btr70_msv","rhs_btr60_vv","rhs_btr60_vmf","rhs_btr60_vdv","rhs_btr60_msv","rhs_brm1k_vv","rhs_brm1k_vdv","rhs_brm1k_tv","rhs_brm1k_msv","rhs_bmp2d_vmf","rhs_bmp2d_vdv","rhs_bmp2d_vv","rhs_bmp2d_msv","rhs_bmp2d_tv","rhs_bmp2k_vmf","rhs_bmp2k_vdv","rhs_bmp2k_vv","rhs_bmp2k_msv","rhs_bmp2k_tv","rhs_bmp2_vmf","rhs_bmp2_vdv","rhs_bmp2_vv","rhs_bmp2_msv","rhs_bmp2_tv","rhs_bmp2e_vmf","rhs_bmp2e_vdv","rhs_bmp2e_vv","rhs_bmp2e_msv","rhs_bmp2e_tv","rhs_bmp1k_vmf","rhs_bmp1k_vdv","rhs_bmp1k_vv","rhs_bmp1k_msv","rhs_bmp1k_tv","rhs_bmp1k_vmf","rhs_bmp1k_vdv","rhs_bmp1k_vv","rhs_bmp1k_msv","rhs_bmp1k_tv","rhs_bmp1p_vmf","rhs_bmp1p_vdv","rhs_bmp1p_vv","rhs_bmp1p_msv","rhs_bmp1p_tv","rhs_bmp1_vmf","rhs_bmp1_vdv","rhs_bmp1_vv","rhs_bmp1_msv","rhs_bmp1_tv","rhs_bmd4ma_vdv","rhs_bmd4m_vdv","rhs_bmd4_vdv","rhs_bmd2m","rhs_bmd2k","rhs_bmd2","rhs_bmd1r","rhs_bmd1pk","rhs_bmd1p","rhs_bmd1k","rhs_bmd1"],
-["rhs_btr70_chdkz","rhs_bmd2_chdkz"],
-["rhs_btr70_chdkz","rhs_bmd2_chdkz"]
+["rhsusf_m113_usarmy_supply","rhsusf_m113_usarmy","rhsusf_m113_usarmy_M240","rhsusf_m113_usarmy_medical","rhsusf_m113_usarmy_MK19","rhsusf_m113_usarmy_unarmed","RHS_M2A2_wd","RHS_M2A2_BUSKI_WD","RHS_M2A3_wd","RHS_M2A3_BUSKI_wd","RHS_M2A3_BUSKIII_wd"],
+["rhs_bmp2d_tv","rhs_bmp2e_tv","rhs_bmp2_tv","rhs_bmp1p_tv","rhs_bmp1k_tv","rhs_bmp1d_tv","rhs_bmp1_tv","rhs_bmp2k_tv","rhs_brm1k_tv","rhs_prp3_tv","rhs_bmp1_msv","rhs_bmp1d_msv","rhs_bmp1k_msv","rhs_bmp1p_msv","rhs_bmp2_msv","rhs_bmp2e_msv","rhs_bmp2d_msv","rhs_bmp2k_msv","rhs_bmp3_msv","rhs_bmp3_late_msv","rhs_bmp3m_msv","rhs_bmp3mera_msv","rhs_brm1k_msv","rhs_prp3_msv","rhs_bmp1_vmf","rhs_bmp1d_vmf","rhs_bmp1k_vmf","rhs_bmp1p_vmf","rhs_bmp2_vmf","rhs_bmp2e_vmf","fhs_bmp2d_vmf","rhs_bmp2k_vmf","rhs_brm1k_vmf","rhs_prp3_vmf","rhs_bmd1","rhs_bmd1k","rhs_bmd1p","rhs_bmd1pk","rhs_bmd1r","rhs_bmd2","rhs_bmd2k","rhs_bmd2m","rhs_bmd4_vdv","rhs_bmd4m_vdv","rhs_bmd4ma_vdv","rhs_bmp1_vdv","rhs_bmp1d_vdv","rhs_bmp1k_vdv","rhs_bmp1p_vdv","rhs_bmp2_vdv","rhs_bmp2e_vdv","rhs_bmp2d_vdv","rhs_bmp2k_vdv","rhs_brm1k_vdv","rhs_prp3_vdv"],
+["rhs_btr60_chdkz","rhs_btr70_chdkz","rhs_uaz_ags_chdkz","rhs_uaz_dshkm_chdkz","rhs_uaz_spg9_chdkz","rhs_bmd1_chdkz","rhs_bmd2_chdkz","rhs_bmp1_chdkz","rhs_bmp1d_chdkz","rhs_bmp1k_chdkz","rhs_bmp1p_chdkz","rhs_bmp2_chdkz","rhs_bmp2e_chdkz","rhs_bmp2d_chdkz","rhs_bmp2k_chdkz","I_G_Offroad_01_armed_F"],
+["rhs_btr60_chdkz","rhs_btr70_chdkz","rhs_uaz_ags_chdkz","rhs_uaz_dshkm_chdkz","rhs_uaz_spg9_chdkz","rhs_bmd1_chdkz","rhs_bmd2_chdkz","rhs_bmp1_chdkz","rhs_bmp1d_chdkz","rhs_bmp1k_chdkz","rhs_bmp1p_chdkz","rhs_bmp2_chdkz","rhs_bmp2e_chdkz","rhs_bmp2d_chdkz","rhs_bmp2k_chdkz","I_G_Offroad_01_armed_F"]
 ];
-
+//Tanks
 ARMEDTANKS = [
-["rhsusf_m1a2sep1tuskid_usarmy","rhsusf_m1a2sep1tuskiwd_usarmy","rhsusf_m1a2sep1d_usarmy","rhsusf_m1a1aimwd_usarmy","rhsusf_m1a1aimd_usarmy","rhsusf_m1a1aim_tuski_wd","rhsusf_m1a1aim_tuski_d","rhsusf_m1a1hc_d"],
-["rhs_t80ue1","rhs_t80u45m","rhs_t80u","rhs_t80bvk","rhs_t80bv","rhs_t80bk","rhs_t80b","rhs_t80a","rhs_t80","rhs_t72bc_tv","rhs_t72bb_tv","rhs_t72ba_tv","rhs_sprut_vdv"],
-["rhs_btr70_chdkz","rhs_bmd2_chdkz","rhs_t72bb_chdkz","rhs_t72bb_chdkz"],
-["rhs_btr70_chdkz","rhs_bmd2_chdkz","rhs_t72bb_chdkz","rhs_t72bb_chdkz"]
+["rhsusf_m1a1aimwd_usarmy","rhsusf_m1a1aim_tuski_wd","rhsusf_m1a2sep1wd_usarmy","rhsusf_m1a2sep1tuskiwd","rhs_m1a2sep1tuskiiwd_usarmy"],
+["rhs_t72ba_tv","rhs_t72bb_tv","rhs_t72bc_tv","rhs_t72bd_tv","rhs_t80a","rhs_t80","rhs_t80b","rhs_t80bk","rhs_t80bvk","rhs_t80u","rhs_t80u45m","rhs_t80ue1","rhs_t80uk","rhs_t80um","rhs_t90_tv","rhs_t90a_tv"],
+["rhs_t72bb_chdkz"],
+["rhs_t72bb_chdkz"]
 ];
-
+//Anti-Air
 ARMEDAA = [
-["RHS_M6","RHS_M6_wd"],
+["RHS_M6_wd"],
 ["rhs_zsu234_aa"],
 ["rhs_zsu234_chdkz"],
 ["rhs_zsu234_chdkz"]
 ];
-
+//Troop carriers
 ARMEDCARRIER = [
-["rhsusf_rg33_wd","rhsusf_rg33_m2_wd","rhsusf_rg33_d","rhsusf_rg33_m2_d","RHS_M2A3_BUSKIII","RHS_M2A3_BUSKIII_wd","RHS_M2A3_BUSKI","RHS_M2A3_BUSKI_wd","RHS_M2A3","RHS_M2A3_wd","RHS_M2A2_BUSKI","RHS_M2A2_BUSKI_wd","RHS_M2A2","RHS_M2A2_wd","rhsusf_m1025_w","rhsusf_m1025_d","rhsusf_m1025_w_s","rhsusf_m1025_w_s","rhsusf_m113_usarmy","rhsusf_m113d_usarmy"],
-["rhs_tigr_vmf","rhs_tigr_3camo_vmf","rhs_tigr_ffv_3camo_vmf","rhs_tigr_ffv_vmf","rhs_tigr_vmf","rhs_tigr_3camo_vmf","rhs_tigr_ffv_3camo_vmf","rhs_tigr_ffv_vmf","rhs_tigr_ffv_vmf","rhs_uaz_open_vmf","rhs_gaz66_vv","rhs_gaz66_vmf","rhs_gaz66_vdv","rhs_gaz66_msv","rhs_gaz66o_vv","rhs_gaz66o_vmf","rhs_gaz66o_vdv","rhs_gaz66o_msv","RHS_Ural_Open_VV_01","RHS_Ural_Open_VMF_01","RHS_Ural_Open_VDV_01","RHS_Ural_Open_MSV_01","RHS_Ural_VV_01","RHS_Ural_VDV_01","RHS_Ural_VMF_01","RHS_Ural_MSV_01","rhs_typhoon_vdv","rhs_typhoon_vdv","rhs_typhoon_vdv","rhs_typhoon_vdv","rhs_tigr_vv","rhs_tigr_vmf","rhs_tigr_vmf","rhs_tigr_vdv","rhs_tigr_msv","rhs_btr80a_vv","rhs_btr80a_vmf","rhs_btr80a_vdv","rhs_btr80a_msv","rhs_btr80_vv","rhs_btr80_vmf","rhs_btr80_vdv","rhs_btr80_msv","rhs_btr70_vv","rhs_btr70_vmf","rhs_btr70_vdv","rhs_btr70_msv","rhs_btr60_vv","rhs_btr60_vmf","rhs_btr60_vdv","rhs_btr60_msv","rhs_brm1k_vv","rhs_brm1k_vdv","rhs_brm1k_tv","rhs_brm1k_msv","rhs_bmp2d_vmf","rhs_bmp2d_vdv","rhs_bmp2d_vv","rhs_bmp2d_msv","rhs_bmp2d_tv","rhs_bmp2k_vmf","rhs_bmp2k_vdv","rhs_bmp2k_vv","rhs_bmp2k_msv","rhs_bmp2k_tv","rhs_bmp2_vmf","rhs_bmp2_vdv","rhs_bmp2_vv","rhs_bmp2_msv","rhs_bmp2_tv","rhs_bmp2e_vmf","rhs_bmp2e_vdv","rhs_bmp2e_vv","rhs_bmp2e_msv","rhs_bmp2e_tv","rhs_bmp1k_vmf","rhs_bmp1k_vdv","rhs_bmp1k_vv","rhs_bmp1k_msv","rhs_bmp1k_tv","rhs_bmp1k_vmf","rhs_bmp1k_vdv","rhs_bmp1k_vv","rhs_bmp1k_msv","rhs_bmp1k_tv","rhs_bmp1p_vmf","rhs_bmp1p_vdv","rhs_bmp1p_vv","rhs_bmp1p_msv","rhs_bmp1p_tv","rhs_bmp1_vmf","rhs_bmp1_vdv","rhs_bmp1_vv","rhs_bmp1_msv","rhs_bmp1_tv","rhs_bmd4ma_vdv","rhs_bmd4m_vdv","rhs_bmd4_vdv","rhs_bmd2m","rhs_bmd2k","rhs_bmd2","rhs_bmd1r","rhs_bmd1pk","rhs_bmd1p","rhs_bmd1k","rhs_bmd1"],
-["rhs_btr70_chdkz","RHS_UAZ_chdkz","rhs_uaz_open_chdkz","rhs_bmd2_chdkz","rhs_ural_work_chdkz","rhs_ural_work_open_chdkz","rhs_ural_chdkz","rhs_ural_open_chdkz"],
-["B_G_Van_01_transport_F","B_G_Offroad_01_F","I_G_Van_01_transport_F","I_G_Offroad_01_armed_F","I_G_Offroad_01_F","RHS_UAZ_chdkz","rhs_uaz_open_chdkz"]
+["rhsusf_m113_usarmy","rhsusf_m113_usarmy_M240","rhsusf_m113_usarmy_MK19","rhsusf_m113_usarmy_unarmed","RHS_M2A2_wd","RHS_M2A2_BUSKI_WD","RHS_M2A3_wd","RHS_M2A3_BUSKI_wd","RHS_M2A3_BUSKIII_wd","RHS_M6_wd","rhsusf_m1025_w_m2","rhsusf_m1025_w_mk19","rhsusf_m1025_w","rhsusf_m1078A1P2_wd_fmtv_usarmy","rhsusf_M1078A1P2_wd_open_fmtv_usarmy","rhsusf_M1078A1P2_B_wd_fmtv_usarmy","rhsusf_M1078A1P2_B_M2_wd_fmtv_usarmy","rhsusf_M1078A1P2_B_M2_wd_open_fmtv_usarmy","rhsusf_M1078AP2_B_wd_open_fmtv_usarmy","rhsusf_M1083A1P2_wd_fmtv_usarmy","rhsusf_M1083A1P2_wd_open_fmtv_usarmy","rhsusf_M1083A1P2_B_wd_fmtv_usarmy","rhsusf_M1083A1P2_B_M2_wd_fmtv_usarmy","rhsusf_M1083A1P2_B_M2_wd_flatbed_fmtv_usarmy","rhsusf_M1083A1P2_B_M2_wd_open_fmtv_usarmy","rhsusf_M1083A1P2_B_wd_open_fmtv_usarmy","rhsusf_rg33_wd","rhsusf_rg33_m2_wd","rhsusf_m1025_w_m2","rhsusf_m1025_w_mk19","rhsusf_m1025_w","rhsusf_m998_w_2dr_fulltop","rhsusf_m998_w_2dr_halftop","rhsusf_m998_w_2dr","rhsusf_m998_w_4dr_fulltop","rhsusf_m998_w_4dr_halftop","rhsusf_m998_w_4dr"],
+["rhs_btr60_msv","rhs_btr70_msv","rhs_btr80_msv","rhs_btr80a_msv","rhs_btr60_vmf","rhs_btr70_vmf","rhs_btr80_vmf","rhs_btr80a_vmf","rhs_pts_vmf","rhs_btr60_vdv","rhs_btr70_vdv","rhs_btr80_vdv","rhs_btr80a_vdv","rhs_tigr_msv","rhs_tigr_3camo_msv","rhs_tigr_sts_msv","rhs_tigr_sts_3camo_msv","rhs_tigr_m_msv","rhs_tigr_m_3camo_msv","rhs_gaz66_msv","rhs_gaz66o_msv","RHS_UAZ_MSV_01","rhs_UAZ_open_MSV_01","RHS_Ural_MSV_01","RHS_Ural_Open_MSV_01","rhs_tigr_vmf","rhs_tigr_3camo_vmf","rhs_tigr_sts_vmf","rhs_tigr_sts_3camo_vmf","rhs_tigr_m_vmf","rhs_tigr_m_3camo_vmf","rhs_gaz66_vmf","rhs_gaz66o_vmf","RHS_UAZ_vmf_01","rhs_UAZ_open_vmf_01","RHS_Ural_vmf_01","RHS_Ural_Open_vmf_01","rhs_tigr_vdv","rhs_tigr_3camo_vdv","rhs_tigr_sts_vdv","rhs_tigr_sts_3camo_vdv","rhs_tigr_m_vdv","rhs_tigr_m_3camo_vdv","rhs_gaz66_vdv","rhs_gaz66o_vdv","RHS_UAZ_vdv_01","rhs_UAZ_open_vdv_01","RHS_Ural_vdv_01","RHS_Ural_Open_vdv_01","rhs_typhoon_vdv"],
+["RHS_UAZ_chdkz","rhs_uav_open_chdkz","rhs_ural_chdkz","rhs_ural_open_chdkz","rhs_ural_work_open_chdkz","rhs_ural_work_chdkz","I_G_Offroad_01_F","I_G_Quadbike_01_F","I_G_Van_01_transport_F","C_Quadbike_01_F","C_Offroad_01_F","C_SUV_01_F","C_Hatchback_01_F","C_Hatchback_01_sport_F","RHS_Ural_Civ_01","RHS_Ural_Open_Civ_01","RHS_Ural_Civ_03","RHS_Ural_Open_Civ_03","RHS_Ural_Civ_02","RHS_Ural_Open_Civ_02"],
+["C_Quadbike_01_F","C_Offroad_01_F","C_SUV_01_F","C_Hatchback_01_F","C_Hatchback_01_sport_F","RHS_Ural_Civ_01","RHS_Ural_Open_Civ_01","RHS_Ural_Civ_03","RHS_Ural_Open_Civ_03","RHS_Ural_Civ_02","RHS_Ural_Open_Civ_02"]
 ];
-
+//Static
 ARMEDSTATIC = [
-["B_static_AT_F","B_static_AA_F","B_HMG_01_F","B_HMG_01_high_F","B_GMG_01_F","B_GMG_01_high_F"],
-["O_static_AT_F","O_static_AA_F","O_HMG_01_F","O_HMG_01_high_F","O_GMG_01_F","O_GMG_01_high_F"],
-["I_static_AT_F","I_static_AA_F","I_HMG_01_F","I_HMG_01_high_F","I_GMG_01_F","I_GMG_01_high_F"],
-["I_static_AT_F","I_static_AA_F","I_HMG_01_F","I_HMG_01_high_F","I_GMG_01_F","I_GMG_01_high_F"]
+["RHS_Stinger_AA_pod_WD","RHS_M119_WD","RHS_M252_WD","RHS_M2StaticMG_WD","RHS_M2StaticMG_MiniTripod_WD","RHS_TOW_TriPod_WD","RHS_MK19_TriPod_WD"],
+["rhs_D30_msv","rhs_d30_at_msv","rhs_2b14_82mm_msv","rhs_Metis_9k115_2_msv","rhs_Igla_AA_pod_msv","RHS_AGS30_TriPod_MSV","rhs_KORD_high_MSV","rhs_KORD_MSV","RHS_NSV_TriPod_MSV"],
+["rhs_D30_ins","rhs_D30_at_ins","rhs_2b14_82mm_ins","rhs_9k115_1_ins","rhs_Metis_9k115_2_ins","rhs_Igla_AA_pod_ins","RHS_AGS30_TriPod_INS","rhs_DSHKM_ins","rhs_DSHKM_Mini_TriPod_ins","rhs_KORD_INS","rhs_KORD_high_INS","RHS_NSV_TriPod_INS","rhs_SPG9_INS"],
+["rhs_D30_ins","rhs_D30_at_ins","rhs_2b14_82mm_ins","rhs_9k115_1_ins","rhs_Metis_9k115_2_ins","rhs_Igla_AA_pod_ins","RHS_AGS30_TriPod_INS","rhs_DSHKM_ins","rhs_DSHKM_Mini_TriPod_ins","rhs_KORD_INS","rhs_KORD_high_INS","RHS_NSV_TriPod_INS","rhs_SPG9_INS"]
 ];
-
+//Support vehicles
 ARMEDSUPPORT = [
-["B_Truck_01_ammo_F","B_Truck_01_fuel_F","B_Truck_01_medical_F","B_Truck_01_Repair_F"],
-["rhs_gaz66_r142_vmf","rhs_gaz66_r142_vmf","rhs_gaz66_r142_vdv","rhs_gaz66_r142_vv","rhs_gaz66_ap2_vdv","rhs_gaz66_ap2_msv","rhs_gaz66_ap2_msv","rhs_gaz66_ap2_vv","rhs_prp3_vv","rhs_prp3_vdv","rhs_prp3_tv","rhs_prp3_msv","rhs_gaz66_repair_msv","rhs_gaz66_repair_vdv","rhs_gaz66_repair_vmf","rhs_gaz66_repair_vv"],
-["I_Truck_02_box_F","I_Truck_02_medical_F","I_Truck_02_fuel_F","I_Truck_02_Ammo_F"]
+["rhsusf_m113_usarmy_supply","rhsusf_m113_usarmy_medical","B_Truck_01_mover_F","B_Truck_01_ammo_F","B_Truck_01_fuel_F","B_Truck_01_Repair_F","B_Truck_01_medical_F"],
+["rhs_gaz66_ammo_msv","rhs_gaz66_r142_msv","rhs_gaz66_ap2_msv","rhs_gaz66_repair_msv","RHS_Ural_Fuel_MSV_01"],
+["I_G_Van_01_fuel_F","I_G_Offroad_01_repair_F","C_Offroad_01_repair_F","C_Van_01_fuel_F","I_Truck_02_ammo_F","I_Truck_02_fuel_F","I_Truck_02_medical_F","I_Truck_02_box_F"]
 ];
-
-CIVVEH = ["RHS_Ural_Open_Civ_02","RHS_Ural_Civ_02","RHS_Ural_Open_Civ_03","RHS_Ural_Civ_03","RHS_Ural_Open_Civ_01","RHS_Ural_Civ_01","C_Van_01_fuel_F","C_SUV_01_F","C_Van_01_box_F","C_Van_01_transport_F","C_Hatchback_01_sport_F","C_Hatchback_01_F","C_Offroad_01_F","C_Quadbike_01_F"];
-
+//Civilian cars
+CIVVEH = ["RHS_Ural_Open_Civ_02","RHS_Ural_Civ_02","RHS_Ural_Open_Civ_03","RHS_Ural_Civ_03","RHS_Ural_Open_Civ_01","RHS_Ural_Civ_01","C_Van_01_fuel_F","C_SUV_01_F","C_Van_01_box_F","C_Van_01_transport_F","C_Hatchback_01_sport_F","C_Hatchback_01_F","C_Offroad_01_F","C_Quadbike_01_F","I_G_Van_01_fuel_F","I_G_Offroad_01_repair_F","C_Offroad_01_repair_F","C_Van_01_fuel_F"];
+//Airplanes
 AIRFIGTHER = [
-["rhs_A10"],
-["rhs_pchela1t_vvsc","RHS_Su25SM_vvs","RHS_Su25SM_vvsc"],
+["RHS_A10","rhsusf_f22"],
+["RHS_Su25SM_vvsc","RHS_Su25SM_KH29_vvsc","RHS_T50_vvs_generic","RHS_T50_vvs_051","RHS_T50_vvs_051","RHS_T50_vvs_052","RHS_T50_vvs_053","RHS_T50_vvs_054","RHS_T50_vvs_blueonblue",],
 ["I_Plane_Fighter_03_AA_F","I_Plane_Fighter_03_CAS_F"],
 ["I_Plane_Fighter_03_AA_F","I_Plane_Fighter_03_CAS_F"]
 ];
-
+//Helicopters
 AIRARMCHOP = [
-["RHS_AH1Z_wd_CS_10","RHS_AH1Z_wd_GS_10","RHS_AH1Z_wd_10","RHS_AH1Z_wd_10","RHS_UH1Y_10","RHS_UH1Y_FFAR_d_10","RHS_UH1Y_d_10","RHS_AH1Z_CS_10","RHS_AH1Z_GS_10","RHS_AH1Z_10","RHS_AH64D_AA","RHS_AH64D_AA","RHS_AH64D_AA","RHS_AH64D_GS","RHS_AH64D_GS"],
-["rhs_ka60_c","RHS_Mi24V_vvsc","RHS_Mi24P_vvsc","RHS_Mi24V_vvs","RHS_Mi24P_vvs","RHS_Mi24V_vdv","RHS_Mi24P_vdv","RHS_Ka52_vvs","RHS_Ka52_vvsc"],
-["RHS_Mi8amt_chdkz"],
-["RHS_Mi8amt_chdkz"]
+["RHS_AH64D_wd_AA","RHS_AH64D_wd_CS","RHS_AH64D_wd_GS","RHS_AH64D_wd","RHS_AH1Z_wd_CS","RHS_AH1Z_wd_GS","RHS_AH1Z_wd"],
+["RHS_Mi24P_AT_vdv","RHS_Mi24P_CAS_vdv","RHS_Mi24P_vdv","RHS_Mi24V_AT_vdv","RHS_Mi24V_vdv","RHS_Mi24V_FAB_vdv","RHS_Mi24V_UPK23_vd","RHS_Ka52_vvsc","RHS_Ka52_UPK23_vvsc","RHS_Mi24P_AT_vvsc","RHS_Mi24P_CAS_vvsc","RHS_Mi24P_vvsc","RHS_Mi24V_AT_vvsc","RHS_Mi24V_vvsc","RHS_Mi24V_FAC_vvsc","RHS_Mi24V_UPK223_vvsc"],
+["I_Heli_Light_03_F"],
+["I_Heli_Light_03_F"]
 ];
+//Unarmed - Carrier helicopters
 AIRCARRIERCHOP = [
-["RHS_C130J","RHS_UH1Y_10","RHS_UH1Y_UNARMED_10","RHS_UH1Y_FFAR_d_10","RHS_UH1Y_d_10","RHS_UH1Y_UNARMED_d_10","RHS_UH60M_d","RHS_UH60M","RHS_CH_47F_light","RHS_CH_47F"],
-["RHS_Mi8MTV3_vvsc","RHS_Mi8mt_vvsc","RHS_Mi8MTV3_vvs","RHS_Mi8mt_vvs","RHS_Mi8mt_vv","RHS_Mi8MTV3_vdv","RHS_Mi8mt_vdv","RHS_Mi8AMTSh_vvsc","RHS_Mi8AMT_vvsc","RHS_Mi8AMTSh_vvs","RHS_Mi8AMT_vvs","RHS_Mi8AMTSh_vdv","RHS_Mi8AMT_vdv","RHS_Mi24V_vvsc","RHS_Mi24P_vvsc","RHS_Mi24V_vvs","RHS_Mi24P_vvs","RHS_Mi24V_vdv","RHS_Mi24P_vdv","rhs_ka60_grey","rhs_ka60_c"],
-["RHS_Mi8amt_chdkz"],
-["RHS_Mi8amt_chdkz"]
+["RHS_CH_47F","RHS_UH60M","RHS_UH60M_MEV2","RHS_UH60M_MEV","rhsusf_CH53E_USMC","RHS_UH1Y_FFAR","RHS_UH1Y","RHS_UH1Y_UNARMED"],
+["RHS_Mi8AMT_vdv","RHS_Mi8mt_vdv","RHS_Mi8mt_Cargo_vdv","RHS_Mi8MTV3_vdv","RHS_Mi8MTV3_FAV_vdv","RHS_Mi8MTV3_UPK23_vdv","rhs_ka60_c","RHS_Mi8AMT_vvsc","RHS_Mi8AMTSh_vvsc","RHS_Mi8AMTSh_FAV_vvsc","RHS_Mi8AMTSh_UPK23_vvsc","RHS_Mi8mt_vvsc","RHS_Mi8mt_Cargo_vvsc","RHS_Mi8MTV3_vvsc","RHS_Mi8MTV3_FAB_vvsc","RHS_Mi8MTV3_UPK23_vvsc"],
+["RHS_Mi8amt_chdkz","C_Heli_light_01_civil_F","RHS_Mi8amt_civilian","I_Heli_light_03_unarmed_F"],
+["RHS_Mi8amt_chdkz","C_Heli_light_01_civil_F","RHS_Mi8amt_civilian","I_Heli_light_03_unarmed_F"]
 ];
-ENEMYC1 = ["rhs_msv_aa","rhs_msv_engineer","rhs_msv_grenadier","rhs_msv_at","rhs_msv_strelok_rpg_assist","rhs_msv_junior_sergeant","rhs_msv_machinegunner","rhs_msv_machinegunner_assistant","rhs_msv_marksman","rhs_msv_medic","rhs_msv_rifleman","rhs_msv_LAT","rhs_msv_RShG2","rhs_msv_sergeant"];
-ENEMYC2 = ["rhs_vdv_aa","rhs_vdv_engineer","rhs_vdv_grenadier","rhs_vdv_at","rhs_vdv_strelok_rpg_assist","rhs_vdv_junior_sergeant","rhs_vdv_machinegunner","rhs_vdv_machinegunner_assistant","rhs_vdv_marksman","rhs_vdv_medic","rhs_vdv_rifleman","rhs_vdv_LAT","rhs_vdv_RShG2","rhs_vdv_sergeant"];
-ENEMYC3 = ["rhs_vdv_aa","rhs_vdv_engineer","rhs_vdv_grenadier","rhs_vdv_at","rhs_vdv_strelok_rpg_assist","rhs_vdv_junior_sergeant","rhs_vdv_machinegunner","rhs_vdv_machinegunner_assistant","rhs_vdv_marksman","rhs_vdv_medic","rhs_vdv_rifleman","rhs_vdv_LAT","rhs_vdv_RShG2","rhs_vdv_sergeant"];
-FRIENDC1 = ["rhsusf_army_ocp_aa","rhsusf_army_ocp_javelin","rhsusf_army_ocp_autorifleman","rhsusf_army_ocp_engineer","rhsusf_army_ocp_grenadier","rhsusf_army_ocp_machinegunner","rhsusf_army_ocp_machinegunnera","rhsusf_army_ocp_marksman","rhsusf_army_ocp_medic","rhsusf_army_ocp_rifleman","rhsusf_army_ocp_riflemanl","rhsusf_army_ocp_riflemanat","rhsusf_army_ocp_squadleader","rhsusf_army_ocp_teamleader","rhsusf_army_ucp_autorifleman","rhsusf_army_ucp_aa","rhsusf_army_ucp_javelin","rhsusf_army_ucp_engineer","rhsusf_army_ucp_grenadier","rhsusf_army_ucp_machinegunner","rhsusf_army_ucp_machinegunnera","rhsusf_army_ucp_marksman","rhsusf_army_ucp_medic","rhsusf_army_ucp_rifleman","rhsusf_army_ucp_riflemanl","rhsusf_army_ucp_riflemanat","rhsusf_army_ucp_squadleader","rhsusf_army_ucp_teamleader"];
-FRIENDC2 = ["rhsusf_usmc_marpat_wd_stinger","rhsusf_usmc_marpat_wd_javelin","rhsusf_usmc_marpat_wd_autorifleman_m249","rhsusf_usmc_marpat_wd_autorifleman","rhsusf_usmc_marpat_wd_autorifleman_m249_ass","rhsusf_usmc_marpat_wd_engineer","rhsusf_usmc_marpat_wd_grenadier","rhsusf_usmc_marpat_wd_jfo","rhsusf_usmc_marpat_wd_machinegunner","rhsusf_usmc_marpat_wd_machinegunner_ass","rhsusf_usmc_marpat_wd_marksman","rhsusf_usmc_marpat_wd_rifleman","rhsusf_usmc_marpat_wd_rifleman_light","rhsusf_usmc_marpat_wd_riflemanat","rhsusf_usmc_marpat_wd_rifleman_m4","rhsusf_usmc_marpat_wd_rifleman_m590","rhsusf_usmc_marpat_wd_sniper","rhsusf_usmc_marpat_wd_spotter","rhsusf_usmc_marpat_wd_squadleader","rhsusf_usmc_marpat_wd_teamleader","rhsusf_usmc_marpat_wd_uav","rhsusf_usmc_marpat_wd_rifleman"];
-FRIENDC3 = ["rhsusf_usmc_marpat_d_stinger","rhsusf_usmc_marpat_d_javelin","rhsusf_usmc_marpat_d_autorifleman_m249","rhsusf_usmc_marpat_d_autorifleman","rhsusf_usmc_marpat_d_autorifleman_m249_ass","rhsusf_usmc_marpat_d_engineer","rhsusf_usmc_marpat_d_grenadier","rhsusf_usmc_marpat_d_jfo","rhsusf_usmc_marpat_d_machinegunner","rhsusf_usmc_marpat_d_machinegunner_ass","rhsusf_usmc_marpat_d_marksman","rhsusf_usmc_marpat_d_rifleman","rhsusf_usmc_marpat_d_rifleman_light","rhsusf_usmc_marpat_d_riflemanat","rhsusf_usmc_marpat_d_rifleman_m4","rhsusf_usmc_marpat_d_rifleman_m590","rhsusf_usmc_marpat_d_sniper","rhsusf_usmc_marpat_d_spotter","rhsusf_usmc_marpat_d_squadleader","rhsusf_usmc_marpat_d_teamleader","rhsusf_usmc_marpat_d_uav","rhsusf_usmc_marpat_d_rifleman"];
-FRIENDC4 = ["rhs_g_Soldier_exp_F","rhs_g_engineer_F","rhs_g_Soldier_AA_F","rhs_g_medic_F","rhs_g_Soldier_GL_F","rhs_g_Soldier_AAT_F","rhs_g_Soldier_AR_F","rhs_g_Soldier_AAR_F","rhs_g_Soldier_M_F","rhs_g_Soldier_F2","rhs_g_Soldier_F3","rhs_g_Soldier_F","rhs_g_Soldier_LAT_F","rhs_g_Soldier_lite_F","rhs_g_Soldier_AT_F","rhs_g_Soldier_SL_F","rhs_g_Soldier_TL_F"];
+//NPC units
+ENEMYC1 = ["rhs_vdv_aa","rhs_vdv_at","rhs_vdv_arifleman","rhs_vdv_efreitor","rhs_vdv_engineer","rhs_vdv_grenadier_rpg","rhs_vdv_strelok_rpg_assist","rhs_vdv_junior_sergeant","rhs_vdv_machinegunner","rhs_vdv_machinegunner_assisstant","rhs_vdv_marksman","rhs_vdv_marksman_asval","rhs_vdv_medic","rhs_vdv_officer_armored","rhs_vdv_rifleman","rhs_vdv_rifleman_asval","rhs_vdv_grenadier","rhs_vdv_LAT","rhs_-vdv_RShG2","rhs_vdv_segeant"];
+ENEMYC2 = ["rhs_vdv_recon_efreitor","rhs_vdv_recon_machinegunner_assistant","rhs_vdv_recon_marksman","rhs_vdv_recon_marksman_asval","rhs_vdv_recon_medic","rhs_vdv_recon_officer","rhs_vdv_recon_rifleman","rhs_vdv_recon_rifleman_ak103","rhs_vdv_recon_rifleman_akms","rhs_vdv_recon_rifleman_asval","rhs_vdv_recon_grenadier","rhs_vdv_recon_rifleman_l","rhs_vdv_recon_rifleman_lat","rhs_vdv_recon_rifleman_scout_akm","rhs_vdv_recon_rifleman_scout","rhs_vdv_grenadier_scout","rhs_vdv_recon_arifleman_scout","rhs_vdv_recon_sergeant"];
+ENEMYC3 = ["rhs_msv_emr_aa","rhs_msv_emr_at","rhs_msv_emr_arifleman","rhs_msv_emr_efreitor","rhs_msv_emr_engineer","rhs_msv_emr_engineer","rhs_msv_emr_grenadier_rpg","rhs_msv_emr_strelok_rpg_assist","rhs_msv_emr_junior_sergeant","rhs_msv_emr_machinegunner_assistant","rhs_msv_emr_marksman","rhs_msv_emr_medic","rhs_msv_emr_officer","rhs_msv_emr_officer_armored","rhs_msv_emr_rifleman","rhs_msv_emr_grenadier","rhs_msv_emr_LAT","rhs_msv_emr_RShG2","rhs_msv_emr_sergeant"];
+FRIENDC1 = ["rhsusf_army_ucp_aa","rhsusf_army_ucp_javelin","rhsusf_army_ucp_autorifleman","rhsusf_army_ucp_autoriflemana","rhsusf_army_ucp_medic","rhsusf_army_ucp_engineer","rhsusf_army_ucp_explosives","rhsusf_army_ucp_fso","rhs_army_ucp_grenadier","rhsusf_army_ucp_machinegunner","rhsusf_army_ucp_machinegunnera","rhsusf_army_ucp_marksman","rhsusf_army_ucp_officer","rhsusf_army_ucp_rifleman","rhsusf_army_ucp_riflemanl","rhsusf_army_ucp_rifemanat","rhsusf_army_ucp_rifleman_m16","rhsusf_ucp_rifleman_m4","rhsusf_army_ucp_rifleman_m590","rhsusf_army_ucp_sniper","rhsusf_army_ucp_squadleader","rhsusf_army_ucp_teamleader","rhsusf_army_ucp_uav"];
+FRIENDC2 = ["rhsusf_usmc_marpat_wd_stinger","rhsusf_usmc_marpat_wd_smaw","rhsusf_usmc_marpat_wd_javelin","rhsusf_usmc_marpat_wd_autorifleman_m249","rhsusf_usmc_marpat_wd_autorifleman","rhsusf_usmc_recon_marpat_wd_autorifleman_lite","rhsusf_usmc_marpat_wd_rifleman_m249_ass","rhsusf_usmc_marpat_wd_engineer","rhsusf_usmc_marpat_wd_marksman","rhsusf_usmc_marpat_wd_explosives","rhsusf_usmc_marpat_wd_fso","rhsusf_usmc_marpat_wd_grenadier","rhsusf_usmc_marpat_wd_grenadier_m32","rhsusf_usmc_marpat_wd_machinegunner","rhsusf_usmc_wd_machinegunner_ass","rhsusf_usmc_recon_marpat_wd_marksman_lite","rhsusf_usmc_marpat_wd_officer","rhsusf_usmc_marpat_wd_rifleman_light","rhsusf_usmc_marpat_wd_riflemanat","rhsusf_usmc_recon_marpat_wd_rifleman_at_lite","rhsusf_usmc_marpat_wd_rifleman","rhsusf_usmc_marpat_wd_rifleman_m4","rhsusf_usmc_marpat_wd_rifleman_m590","rhsusf_usmc_lar_marpat_wd_riflemanat","rhsusf_usmc_lar_marpat_wd_autofileman","rhsusf_usmc_lar_marpat_wd_grenadier_m32","rhsusf_usmc_lar_marpat_wd_rifleman","rhsusf_usmc_lar_marpat_wd_rifleman_light","rhsusf_usmc_lar_marpat_wd_marksman","rhsusf_usmc_lar_marpat_wd_squadleader","rhsusf_usmc_lar_marpat_wd_teamleader","rhsusf_usmc_marpat_wd_sniper","rhsusf_usmc_marpat_wd_spotter","rhsusf_usmc_marpat_wd_teamleader","rhsusf_usmc_recon_marpat_wd_teamleader_lite","rhsusf_usmc_marpat_wd_uav"];
+FRIENDC3 = ["rhsusf_ucmc_recon_marpat_wd_autorifleman","rhsusf_usmc_recon_marpat_wd_machinegunner","rhsusf_usmc_recon_marpat_wd_marksman","rhsusf_usmc_recon_marpat_wd_rifleman","rhsusf_usmc_recon_marpat_wd_rifleman_at","rhsusf_usmc_recon_marpat_wd_teamleader"];
+FRIENDC4 = ["rhs_g_Soldier_AA_F","rhs_g_Soldier_exp_F","rhs_g_Crew_F","rhs_g_engineer_F","rhs_g_Soldier_LAT_F","rhs_g_Soldier_AAT_F","rhs_g_Soldier_AR_F","rhs_g_Soldier_AAR_F","rhs_g_Soldier_M_F","rhs_g_medic_F","rhs_g_Soldier_F2","rhs_g_Soldier_F3","rhs_g_Soldier_F","rhs_g_Soldier_GL_F","rhs_g_Soldier_lite_F","rhs_g_Soldier_AT_F","rhs_g_Soldier_TL_F","rhs_g_Soldier_SL_F"];
 NORANWEES = true;
 RHSENABLED = true;
 };
+//case "RHS Escalation - US Desert": {
+//};
+//case "RHS Escalation - Russian Woodland": {}
+//};
+//case "RHS Escalation - Russian Desert": {
+//};
 case "Iron Front": {
 "Play as Germans against Soviet" SPAWN HINTSAOK;
 lbClear 1503;
