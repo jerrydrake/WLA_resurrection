@@ -1,5 +1,3 @@
-//Note: This file appears to have a lot if not, all of the custom scenario parameters. - Gritt
-
 //[getPosATL player, getposATL faa] SPAWN SAOKASTAR;
 //[carrier, carried, endpos] SPAWN SAOKCARRY;
 
@@ -1344,27 +1342,27 @@ ZONEDATA = [];
 
 SAOKCRTASK = {
 private ["_a"];
-_a = + _this;
-_a set [3,objnull];
-_a set [4,false];
-_a set [5,-1];
-_a set [6,false];
-if (count _a > 7) then {_a set [7,""];};
-_a CALL BIS_fnc_taskCreate;
-if (time > 0 && {isNil"SAOKPDIE"} && {!isNil"StartMission"} && {isNil"NOTASKNOTI"}) then {
-["NEW OBJECTIVE",(_a select 2) select 1] SPAWN SAOKTASKHINT;
-};
+	_a = + _this;
+	//_a set [3,objnull];
+	_a set [4,false];
+	_a set [5,-1];
+	_a set [6,true];
+	//if (count _a > 7) then {_a set [7,""];};
+	_a CALL BIS_fnc_taskCreate;
+	if (time > 0 && {isNil"SAOKPDIE"} && {!isNil"StartMission"} && {isNil"NOTASKNOTI"}) then {
+		["NEW OBJECTIVE",(_a select 2) select 1] SPAWN SAOKTASKHINT;
+	};
 };
 
 SAOKCOTASK = {
-private ["_a"];
-_a = + _this;
-_a pushBack false;
-_a pushBack false;
-if (time > 0 && {isNil"SAOKPDIE"} && {!isNil"StartMission"} && {isNil"NOTASKNOTI"}) then {
-[(_a select 1),(((_a select 0) call BIS_fnc_taskDescription) select 1) select 0] SPAWN SAOKTASKHINT;
-};
-_a CALL BIS_fnc_taskSetState;
+	private ["_a"];
+	_a = + _this;
+	_a pushBack false;
+	_a pushBack false;
+	if (time > 0 && {isNil"SAOKPDIE"} && {!isNil"StartMission"} && {isNil"NOTASKNOTI"}) then {
+		[(_a select 1),(((_a select 0) call BIS_fnc_taskDescription) select 1) select 0] SPAWN SAOKTASKHINT;
+	};
+	_a CALL BIS_fnc_taskSetState;
 };
 
 SAOKZONED = {
@@ -1678,8 +1676,6 @@ _itemCargoBackPack = (getitemCargo (BackPackContainer _unit));
 _magCargoBackPack = (getMagazineCargo (BackPackContainer _unit));
 _weaCargoBackPack = (getWeaponCargo (BackPackContainer _unit));
 };
-removeBackpack _unit;
-_unit addbackpack "B_Parachute";
 _unit disableCollisionWith _veh; 
 _unit allowdamage false;
 sleep 1;
@@ -1690,15 +1686,17 @@ _unit action ["Eject", _veh];
 [_unit] ordergetin false;
 };
 unassignvehicle _unit;
-sleep (1.5+(random 0.5));
+removeBackpack _unit;
+_unit addbackpack "B_Parachute";
+sleep (2+(random 0.5));
 _unit action ["OpenParachute",_unit];
 [_unit, _veh] SPAWN {
 private ["_unit","_veh"];
 _unit = _this select 0;
 _veh = _this select 1;
-waitUntil {isNull _unit || {vehicle _unit != _unit} || {getposATL _unit select 2 < 20}};
+waitUntil {isNull _unit || {getposATL _unit select 2 < 20}};
 _unit allowdamage false;
-waitUntil {isNull _unit || {vehicle _unit != _unit} || {getposATL _unit select 2 < 1}};
+waitUntil {isNull _unit || {getposATL _unit select 2 < 1}};
 if (getposATL _unit select 2 > 1) then {
 vehicle _unit disableCollisionWith _veh; 
 };
