@@ -400,6 +400,7 @@ F_IED = compile preprocessfileLineNumbers "IED.sqf";
 F_IEDmil = compile preprocessfileLineNumbers "IEDmil.sqf";
 FORTRESSESMM = [];
 CantCommand = [];
+
 [TEST_MODE,_boatinspos] SPAWN {
 private ["_nul","_start","_rad","_pPos","_c","_array","_pos","_building","_waypoints","_lahin","_someId","_boatinspos","_BoatDir","_obj","_u","_p","_st","_r","_v","_n","_ra","_startC","_ChopDir","_chop"];
 _boatinspos = _this select 1;

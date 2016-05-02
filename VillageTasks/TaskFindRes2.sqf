@@ -24,7 +24,7 @@ do {
 	sleep 0.1;
 	_start = [vehicle player, _d, 1000, "(1 - sea)* (1 + meadow)* (1 - hills)", ""] CALL SAOKSEEKPOS;
 };
-_nul = ["task2", "SUCCEEDED", true] call BIS_fnc_taskCreate;
+_nul = ["task2", "SUCCEEDED", true] call BIS_fnc_taskSetState;
 _N = [_start, 40] SPAWN CreatePrison;
 waitUntil {
 	sleep 1;
@@ -170,14 +170,14 @@ if (!isNil "SAOKCHOSEN" && {
 		//NUMM = NUMM + 1;
 		[
 			WEST, 				// Task owner(s)
-			"TaskJoin", "taskRR",	// Task ID (used when setting task state, destination or description later) or ["taskname","parentname"]
+			["TaskJoin", "taskRR"],	// Task ID (used when setting task state, destination or description later) or ["taskname","parentname"]
 			["Join with Locals for assault on POW camp", "Join with Locals", "Join with Locals"],	// Task description
 			_start2,		// Task destination
 			true,			// true to set task as current upon creation
 			-1,				// priority
 			true,			// Notification?
 			"Move",			// 3d marker type
-			false;			// Shared?
+			false			// Shared?
 		] call BIS_fnc_taskCreate;
 
 		//_mar5 = [_marS, _start2, "mil_join", [0.7, 0.7], "ColorBlack", "Join with Locals"] CALL FUNKTIO_CREATEMARKER;
