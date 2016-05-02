@@ -24,7 +24,7 @@ do {
 	sleep 0.1;
 	_start = [vehicle player, _d, 1000, "(1 - sea)* (1 + meadow)* (1 - hills)", ""] CALL SAOKSEEKPOS;
 };
-_nul = ["task2", "SUCCEEDED"] call SAOKCOTASK;
+_nul = ["task2", "SUCCEEDED", true] call BIS_fnc_taskCreate;
 _N = [_start, 40] SPAWN CreatePrison;
 waitUntil {
 	sleep 1;
@@ -166,9 +166,21 @@ if (!isNil "SAOKCHOSEN" && {
 			_d = _d + 10;
 			_start2 = [getposATL player, _d, 300, "(1 - sea) * (1 + trees) * (1 + forest)", ""] CALL SAOKSEEKPOS;
 		};
-		_marS = format["Hmar%1", NUMM];
-		NUMM = NUMM + 1;
-		_mar5 = [_marS, _start2, "mil_join", [0.7, 0.7], "ColorBlack", "Join with Locals"] CALL FUNKTIO_CREATEMARKER;
+		//_TidS = format["Hmar%1", NUMM];
+		//NUMM = NUMM + 1;
+		[
+			WEST, 				// Task owner(s)
+			"TaskJoin", "taskRR",	// Task ID (used when setting task state, destination or description later) or ["taskname","parentname"]
+			["Join with Locals for assault on POW camp", "Join with Locals", "Join with Locals"],	// Task description
+			_start2,		// Task destination
+			true,			// true to set task as current upon creation
+			-1,				// priority
+			true,			// Notification?
+			"Move",			// 3d marker type
+			false;			// Shared?
+		] call BIS_fnc_taskCreate;
+
+		//_mar5 = [_marS, _start2, "mil_join", [0.7, 0.7], "ColorBlack", "Join with Locals"] CALL FUNKTIO_CREATEMARKER;
 		_obj = createVehicle["FirePlace_burning_F", _start2, [], 0, "NONE"];
 		_tT = "Land_TentDome_F";
 		if (!isNil "IFENABLED") then {
@@ -235,7 +247,9 @@ if (!isNil "SAOKCHOSEN" && {
 		_nul = [
 			[_obj, _obj2], 120
 		] SPAWN FUNKTIO_WAD;
-		deletemarker _mar5;
+		_nil = ["TaskJoin", "SUCCEEDED", true] call BIS_fnc_taskSetState;
+		_nil = ["TaskJoin"] call BIS_fnc_deleteTask;
+		//deletemarker _mar5;
 	};
 } else {
 	[] SPAWN SAOKLOWERRELVIL;
@@ -431,7 +445,7 @@ _n = [
 		[
 			[
 				[_animal],
-				["Also remembering now one weapon catce that could help you bringing him down"], 7
+				["Also remembering now one weapon cache that could help you bringing him down"], 7
 			]
 		]
 	]
