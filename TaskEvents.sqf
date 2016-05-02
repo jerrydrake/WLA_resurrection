@@ -5,18 +5,23 @@ _nVil = locationposition (player CALL SAOKNEARESTVIL);_nVil set [2,0];
 WEST, // Task owner(s)
 "taskRESREQ1", // Task ID (used when setting task state, destination or description later)
 ["Local resistance is badly scattered and unorganized. We need to gather more men under Georgopoulos' command. There have been armed locals in this village constantly fighting against CSAT forces. If we help them against the persians, they would probably be willing to work together. Clear or make captive all CSAT units inside 150m from the village center.", "Fight with Locals", "Fight with Locals"], // Task description
-//_start, // Task destination
-true // true to set task as current upon creation
-] call SAOKCRTASK;
-NUMM=NUMM+1;
-_someId = format ["IDSAOK%1",NUMM];
-[_someId, "onEachFrame", {
-	if (isNil"IC3D") exitWith {};
-	drawIcon3D ["\A3\Structures_F_Mark\VR\Helpers\Data\VR_Symbol_MARK_WeaponHandling2_CA.paa", ICONCOLORBLUE, _this,1.51, 1.51, 0, (format ["Fight with Locals: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
-}, _nVil] call BIS_fnc_addStackedEventHandler;
-NUMM=NUMM+1;
-_mar1 = format ["Hmar%1",NUMM];
-_mar5 = [_mar1,_nVil,"mil_join",[0.7,0.7],"ColorBlue","Fight with Locals"] CALL FUNKTIO_CREATEMARKER;
+objnull,//[21857.4,10972.3,0], // Task destination
+true, // true to set task as current upon creation
+-1,
+true,
+"Support",
+false
+] call BIS_fnc_taskCreate;
+//NUMM=NUMM+1;
+//_someId = format ["IDSAOK%1",NUMM];
+//[_someId, "onEachFrame", {
+//	if (isNil"IC3D") exitWith {};
+//	drawIcon3D ["\A3\Structures_F_Mark\VR\Helpers\Data\VR_Symbol_MARK_WeaponHandling2_CA.paa", ICONCOLORBLUE, _this,1.51, 1.51, 0, (format ["Fight with Locals: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
+//}, _nVil] call BIS_fnc_addStackedEventHandler;
+["taskRESREQ1",_nVil] CALL BIS_fnc_taskSetDestination;	// Added for 1.58
+//NUMM=NUMM+1;
+_//mar1 = format ["Hmar%1",NUMM];
+//_mar5 = [_mar1,_nVil,"mil_join",[0.7,0.7],"ColorBlue","Fight with Locals"] CALL FUNKTIO_CREATEMARKER;
 waitUntil {sleep 5; player distance _nVil < 200};
 _pat = [_nVil,120,10,"(1 + meadow) * (1 - sea)"] CALL SAOKSEEKPOS;
 [_pat, [2,3]] SPAWN SAOKADDPATROL;
@@ -31,8 +36,8 @@ _pat = [_nVil,120,10,"(1 + meadow) * (1 - sea)"] CALL SAOKSEEKPOS;
 [_pat, [2,3]] SPAWN SAOKADDPATROL;
 sleep 1;
 waitUntil {sleep 5; {alive _x && {isNil{_x getvariable "SaOkSurrendeRed"}} && {side _x == EAST}} count (_nVil nearEntities [["Man"],150]) == 0};
-[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
-deletemarker _mar5;
+//[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
+//deletemarker _mar5;
 _nul = ["taskRESREQ1","SUCCEEDED"] call SAOKCOTASK;
 _cl = if (isNil"IFENABLED") then {"I_G_Soldier_GL_F"} else {"LIB_SOV_smgunner"};
 if (!isNil"Eridanus") then {_cl = "TEI_UNSC_Marine_Grenadier";};
@@ -144,24 +149,28 @@ _start = [random SAOKMAPSIZE,random SAOKMAPSIZE,0];
 WEST, // Task owner(s)
 "taskEnd1", // Task ID (used when setting task state, destination or description later)
 ["Lieutenant, excellent work - your successful operation on the island is over. Head to the extraction point and call pick up via 0-0-9", "Complete Operation with 0-0-9", "Complete Operation with 0-0-9"], // Task description
-_start, // Task destination
-true // true to set task as current upon creation
-] call SAOKCRTASK;
+_start,			// Task destination
+true,			// true to set task as current upon creation
+-1,				// priority
+true,			// Notification?
+"Move",			// 3d marker type
+false			// Shared?
+] call BIS_fnc_taskCreate;
 _trg = createTrigger["EmptyDetector",getPosATL player];
 _trg setTriggerArea[0,0,0,false];
 _trg setTriggerActivation["INDIA","PRESENT",false];
 _trg setTriggerStatements["this", "ENDMIS = true;", ""]; 
 _trg setTriggerText "Call Extraction";
-_mar = ["ENDmarker",_start,"mil_end",[0.8,0.8],"ColorBlack","Extraction Point - Press 0-0-9 When Here"] CALL FUNKTIO_CREATEMARKER;
+//_mar = ["ENDmarker",_start,"mil_end",[0.8,0.8],"ColorBlack","Extraction Point - Press 0-0-9 When Here"] CALL FUNKTIO_CREATEMARKER;
 gameLogic1 globalchat (format [localize "STR_milEND1_l1",worldname]);
 sleep 11;
 player sidechat localize "STR_milEND1_l2";
 waitUntil {sleep 5; !isNil"ENDMIS"};
 _b = 0;
-if !(player distance getmarkerpos "ENDmarker" < 150) then {_b = 1;player sidechat localize "STR_milEND1_l3b";sleep 7;gameLogic1 globalchat localize "STR_milEND1_l4b";} else {player sidechat localize "STR_milEND1_l3";sleep 7;gameLogic1 globalchat localize "STR_milEND1_l4";};
-waitUntil {sleep 5; player distance getmarkerpos "ENDmarker" < 150};
+if !(player distance ("taskEnd1" call BIS_fnc_taskDestination) < 150) then {_b = 1;player sidechat localize "STR_milEND1_l3b";sleep 7;gameLogic1 globalchat localize "STR_milEND1_l4b";} else {player sidechat localize "STR_milEND1_l3";sleep 7;gameLogic1 globalchat localize "STR_milEND1_l4";};
+waitUntil {sleep 5; player distance ("taskEnd1" call BIS_fnc_taskDestination) < 150};
 if (_b == 1) then {player sidechat localize "STR_milEND1_l3";sleep 7;gameLogic1 globalchat localize "STR_milEND1_l4";};
-_nul = ["taskEnd1","SUCCEEDED"] call SAOKCOTASK;
+_nul = ["taskEnd1","SUCCEEDED", true] call BIS_fnc_taskSetState;
 sleep 10;
 _nul = "end1" SPAWN BIS_fnc_endMission;
 };
@@ -189,10 +198,11 @@ _n SPAWN {
 private ["_someId"];
 NUMM=NUMM+1;
 _someId = format ["IDSAOK%1",NUMM];
-[_someId, "onEachFrame", {
-	if (isNil"IC3D") exitWith {};
-	drawIcon3D ["\A3\Structures_F_Bootcamp\VR\Helpers\Data\VR_Symbol_placeables_CA.paa", ICONCOLORRED, getmarkerpos _this,1.51, 1.51, 0, (format ["Disable Mortar: %1m",round (getmarkerpos _this distance player)]), 1, SAOKFSI, "TahomaB"];
-}, _this] call BIS_fnc_addStackedEventHandler;
+//[_someId, "onEachFrame", {
+//	if (isNil"IC3D") exitWith {};
+//	_start = getmarkerpos _this;
+//	drawIcon3D ["\A3\Structures_F_Bootcamp\VR\Helpers\Data\VR_Symbol_placeables_CA.paa", ICONCOLORRED, getmarkerpos _this,1.51, 1.51, 0, (format ["Disable Mortar: %1m",round (getmarkerpos _this distance player)]), 1, SAOKFSI, "TahomaB"];
+//}, _this] call BIS_fnc_addStackedEventHandler;
 waitUntil {sleep 2; !(_this in VEHZONESA) || {getmarkercolor _this != "ColorRed"}};
 [_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
 };
@@ -205,6 +215,7 @@ WEST, // Task owner(s)
 //[21857.4,10972.3,0], // Task destination
 true // true to set task as current upon creation
 ] call SAOKCRTASK;
+["taskREFFT1",_start] CALL BIS_fnc_taskSetDestination;	// Added for 1.58
 waitUntil {sleep 4; {_x in VEHZONESA && {getmarkercolor _x == "ColorRed"}} count _t == 0};
 _nul = ["taskREFFT1","SUCCEEDED"] call SAOKCOTASK;
 CurTaskS = CurTaskS - ["SAOKFFT"];
@@ -248,23 +259,25 @@ WEST, // Task owner(s)
 //[21857.4,10972.3,0], // Task destination
 true // true to set task as current upon creation
 ] call SAOKCRTASK;
+[WEST,["taskREPier1","taskREPier"],"Pick up four crates here",_ps,false,-1,false] call BIS_fnc_taskCreate; //added for 1.58
 NUMM=NUMM+1;
 _someId = format ["IDSAOK%1",NUMM];
-[_someId, "onEachFrame", {
-	if (isNil"IC3D") exitWith {};
-	drawIcon3D ["\A3\ui_f\data\map\vehicleicons\iconCrateWpns_ca.paa", ICONCOLORBLUE, _this,1.51, 1.51, 0, (format ["Pick Up Crates Here: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
-}, _ps] call BIS_fnc_addStackedEventHandler;
+//[_someId, "onEachFrame", {
+//	if (isNil"IC3D") exitWith {};
+//	drawIcon3D ["\A3\ui_f\data\map\vehicleicons\iconCrateWpns_ca.paa", ICONCOLORBLUE, _this,1.51, 1.51, 0, (format ["Pick Up Crates Here: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
+//}, _ps] call BIS_fnc_addStackedEventHandler;
 NUMM=NUMM+1;
 _mar2 = format ["Hmar%1",NUMM];
 _mar5 = [_mar2,_ps,"mil_pickup",[0.7,0.7],"ColorBlue","Pick Up Crates Here"] CALL FUNKTIO_CREATEMARKER;
 waituntil {sleep 5; {isNull _x || {!isNil{_x getvariable "AUTOSSA"}}} count _crates > 0};
 [_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
 NUMM=NUMM+1;
+[WEST,["taskREPier2","taskREPier"],"Deliver Crates Here",_c,false,-1,false] call BIS_fnc_taskCreate; //added for 1.58
 _someId2 = format ["IDSAOK%1",NUMM];
-[_someId2, "onEachFrame", {
-	if (isNil"IC3D") exitWith {};
-	drawIcon3D ["\A3\ui_f\data\map\groupicons\badge_gs.paa", ICONCOLORBLUE, _this,1.51, 1.51, 0, (format ["Deliver Crates Here: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
-}, getmarkerpos _c] call BIS_fnc_addStackedEventHandler;
+//[_someId2, "onEachFrame", {
+//	if (isNil"IC3D") exitWith {};
+//	drawIcon3D ["\A3\ui_f\data\map\groupicons\badge_gs.paa", ICONCOLORBLUE, _this,1.51, 1.51, 0, (format ["Deliver Crates Here: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
+//}, getmarkerpos _c] call BIS_fnc_addStackedEventHandler;
 NUMM=NUMM+1;
 _mar1 = format ["Hmar%1",NUMM];
 _mar5 = [_mar1,getmarkerpos _c,"mil_flag",[0.7,0.7],"ColorBlue","Deliver Crates Here"] CALL FUNKTIO_CREATEMARKER;
@@ -418,11 +431,12 @@ WEST, // Task owner(s)
 //[21857.4,10972.3,0], // Task destination
 true // true to set task as current upon creation
 ] call SAOKCRTASK;
+["taskRE1",_start] CALL BIS_fnc_taskSetDestination;	// Added for 1.58
 _someId = format ["IDSAOK%1",NUMM];
-[_someId, "onEachFrame", {
-	if (isNil"IC3D") exitWith {};
-	drawIcon3D ["\A3\ui_f\data\map\groupicons\badge_gs.paa", ICONCOLORBLUE, _this,1.51, 1.51, 0, (format ["Search Crashsite: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
-}, _start] call BIS_fnc_addStackedEventHandler;
+//[_someId, "onEachFrame", {
+//	if (isNil"IC3D") exitWith {};
+//	drawIcon3D ["\A3\ui_f\data\map\groupicons\badge_gs.paa", ICONCOLORBLUE, _this,1.51, 1.51, 0, (format ["Search Crashsite: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
+//}, _start] call BIS_fnc_addStackedEventHandler;
 _mar = format ["MainTaskM%1",NUMM];
 NUMM=NUMM+1;
 _marker = [_mar,_start, "mil_join", [0.8,0.8], "ColorBlue", "Search Blackfoot Crashsite"] CALL FUNKTIO_CREATEMARKER;
@@ -476,11 +490,12 @@ WEST, // Task owner(s)
 //[21857.4,10972.3,0], // Task destination
 true // true to set task as current upon creation
 ] call SAOKCRTASK;
+["taskRE2",_start] CALL BIS_fnc_taskSetDestination;	// Added for 1.58
 _someId = format ["IDSAOK%1",NUMM];
-[_someId, "onEachFrame", {
-	if (isNil"IC3D") exitWith {};
-	drawIcon3D ["\A3\ui_f\data\map\groupicons\badge_gs.paa", ICONCOLORBLUE, _this,1.51, 1.51, 0, (format ["Guard Crashsite from Safe Distance: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
-}, _start] call BIS_fnc_addStackedEventHandler;
+//[_someId, "onEachFrame", {
+//	if (isNil"IC3D") exitWith {};
+//	drawIcon3D ["\A3\ui_f\data\map\groupicons\badge_gs.paa", ICONCOLORBLUE, _this,1.51, 1.51, 0, (format ["Guard Crashsite from Safe Distance: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
+//}, _start] call BIS_fnc_addStackedEventHandler;
 _mar = format ["MainTaskM%1",NUMM];
 NUMM=NUMM+1;
 _marker = [_mar,_start, "mil_flag", [0.8,0.8], "ColorBlue", "Guard the Crashsite"] CALL FUNKTIO_CREATEMARKER;
@@ -578,11 +593,12 @@ WEST, // Task owner(s)
 //[21857.4,10972.3,0], // Task destination
 true // true to set task as current upon creation
 ] call SAOKCRTASK;
+["taskRE3",_start] CALL BIS_fnc_taskSetDestination;	// Added for 1.58
 _someId = format ["IDSAOK%1",NUMM];
-[_someId, "onEachFrame", {
-	if (isNil"IC3D") exitWith {};
-	drawIcon3D ["\a3\Ui_f\data\GUI\Cfg\CommunicationMenu\instructor_ca.paa", ICONCOLORBLUE, _this,1.51, 1.51, 0, (format ["Question CSAT Captive: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
-}, _start] call BIS_fnc_addStackedEventHandler;
+//[_someId, "onEachFrame", {
+//	if (isNil"IC3D") exitWith {};
+//	drawIcon3D ["\a3\Ui_f\data\GUI\Cfg\CommunicationMenu\instructor_ca.paa", ICONCOLORBLUE, _this,1.51, 1.51, 0, (format ["Question CSAT Captive: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
+//}, _start] call BIS_fnc_addStackedEventHandler;
 _mar = format ["MainTaskM%1",NUMM];
 NUMM=NUMM+1;
 _marker = [_mar,_start, "mil_flag", [0.8,0.8], "ColorBlue", "Question CSAT Captive"] CALL FUNKTIO_CREATEMARKER;
@@ -637,18 +653,23 @@ _start = [(vehicle player),4000,600,"(1 + trees) * (1 + forest)"] CALL SAOKSEEKP
 WEST, // Task owner(s)
 "taskRE4", // Task ID (used when setting task state, destination or description later)
 ["Papa Pear have got new intel of possible location where the pilots are held. We should head the immediately.", "Find Missing Pilots", "Find Missing Pilots"], // Task description
-//[21857.4,10972.3,0], // Task destination
-true // true to set task as current upon creation
-] call SAOKCRTASK;
-NUMM=NUMM+1;
-_someId = format ["IDSAOK%1",NUMM];
-[_someId, "onEachFrame", {
-	if (isNil"IC3D") exitWith {};
-	drawIcon3D ["\A3\ui_f\data\map\vehicleicons\pictureHeal_ca.paa", ICONCOLORBLUE, _this,1.51, 1.51, 0, (format ["Find missing Pilots inside 200m radius: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
-}, _start] call BIS_fnc_addStackedEventHandler;
-_mar = format ["MainTaskM%1",NUMM];
-NUMM=NUMM+1;
-_marker = [_mar,_start, "mil_circle", [0.8,0.8], "ColorBlue", "Find missing Pilots"] CALL FUNKTIO_CREATEMARKER;
+objnull,//[21857.4,10972.3,0], // Task destination
+true, // true to set task as current upon creation
+-1,
+true,
+"Interact",
+false
+] call BIS_fnc_taskCreate;
+["taskRE4",_start] CALL BIS_fnc_taskSetDestination;	// Added for 1.58
+//NUMM=NUMM+1;
+//_someId = format ["IDSAOK%1",NUMM];
+//[_someId, "onEachFrame", {
+//	if (isNil"IC3D") exitWith {};
+//	drawIcon3D ["\A3\ui_f\data\map\vehicleicons\pictureHeal_ca.paa", ICONCOLORBLUE, _this,1.51, 1.51, 0, (format ["Find missing Pilots inside 200m radius: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
+//}, _start] call BIS_fnc_addStackedEventHandler;
+//_mar = format ["MainTaskM%1",NUMM];
+//NUMM=NUMM+1;
+//_marker = [_mar,_start, "mil_circle", [0.8,0.8], "ColorBlue", "Find missing Pilots"] CALL FUNKTIO_CREATEMARKER;
 waitUntil {sleep 5; player distance _start < 500};
 _start = [_start,200,0,"(1 + trees) * (1 + forest)"] CALL SAOKSEEKPOS;
 sleep 0.5;
@@ -672,8 +693,8 @@ _pat = [_start,120,10,"(1 + meadow) * (1 - sea)"] CALL SAOKSEEKPOS;
 [_pat, [2,3]] SPAWN SAOKADDPATROL;
 waitUntil {sleep 5; {alive _x && {isNil{_x getvariable "SaOkSurrendeRed"}} && {side _x == EAST}} count (_start nearEntities [["Man"],250]) == 0 || {player distance _start < 30 && {{alive _x && {isNil{_x getvariable "SaOkSurrendeRed"}} && {side _x == EAST}} count (_start nearEntities [["Man"],120]) == 0}}};
 {DONTDELGROUPS = DONTDELGROUPS - [_x];} foreach _g;
-deletemarker _marker;
-[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
+//deletemarker _marker;
+//[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
 if ({!isNull _x && {alive _x}} count [_actor1, _actor2] > 0) then {
 _pic = [];
 {if (alive _x) exitWith {_pic = _x;};} foreach [_actor1, _actor2];
@@ -689,7 +710,7 @@ _n = [
 ] SPAWN SAOKCUTSCENE;
 waitUntil {sleep 0.1; scriptdone _n}; 
 };
-_nul = ["taskRE4","SUCCEEDED"] call SAOKCOTASK;
+_nul = ["taskRE4","SUCCEEDED", true] call BIS_fnc_taskSetState;
 if ({!isNull _x && {alive _x}} count [_actor1, _actor2] == 2) then {
 player sidechat localize "STR_milT2_l17";
 sleep 7;
@@ -701,7 +722,7 @@ gameLogic1 globalchat localize "STR_milT2_l18a";
 };
 {if (alive _x) then {_x SPAWN SAOKCPICK;};sleep 1;} foreach [_actor1, _actor2];
 } else {
-_nul = ["taskRE4","FAILED"] call SAOKCOTASK;
+_nul = ["taskRE4","FAILED", true] call BIS_fnc_taskSetState;
 player sidechat localize "STR_milT2_l17b";
 sleep 7;
 gameLogic1 globalchat localize "STR_milT2_l18b";
@@ -737,6 +758,7 @@ true // true to set task as current upon creation
 _post = "";
 _p = SAOKMAPSIZE * 0.5;
 {if (!isNil{(_x getvariable "Post") getvariable "NATO"}) exitWith {_post = (_x getvariable "Post");};} foreach (nearestLocations [[_p,_p,0], ["PostG"], SAOKMAPSIZE*0.7]);
+["taskUS3",_post] CALL BIS_fnc_taskSetDestination;	// Added for 1.58
 waitUntil {sleep 4; player distance _post < 40};
 _nul = ["taskUS3","SUCCEEDED"] call SAOKCOTASK;
 _cl = if (isNil"IFENABLED") then {"B_officer_F"} else {"LIB_US_captain"};
@@ -786,6 +808,7 @@ WEST, // Task owner(s)
 //[21857.4,10972.3,0], // Task destination
 true // true to set task as current upon creation
 ] call SAOKCRTASK;
+["taskUS2",_post] CALL BIS_fnc_taskSetDestination;	// Added for 1.58
 _locat = getposATL _post;
 sleep 1;
 _star = [_locat, 2800,1000,"(1 - trees) * (1 - sea) * (1 - houses)"] CALL SAOKSEEKPOS;
@@ -842,6 +865,7 @@ true // true to set task as current upon creation
 
 _post = "";
 {if (!isNil{(_x getvariable "Post") getvariable "NATO"}) exitWith {_post = (_x getvariable "Post");};} foreach (nearestLocations [[_p,_p,0], ["PostG"], SAOKMAPSIZE*0.7]);
+["taskUS4",_post] CALL BIS_fnc_taskSetDestination;	// Added for 1.58
 waitUntil {sleep 4; player distance _post < 40};
 _nul = ["taskUS4","SUCCEEDED"] call SAOKCOTASK;
 _cl = if (isNil"IFENABLED") then {"B_officer_F"} else {"LIB_US_captain"};
@@ -888,11 +912,12 @@ true // true to set task as current upon creation
 ] call SAOKCRTASK;
 _RadSiteF = [_RadSite,500,0,"(1 + meadow) * (1 - sea)"] CALL SAOKSEEKPOS;
 NUMM=NUMM+1;
+["taskUS5",_RadSiteF] CALL BIS_fnc_taskSetDestination;	// Added for 1.58
 _someId = format ["IDSAOK%1",NUMM];
-[_someId, "onEachFrame", {
-	if (isNil"IC3D") exitWith {};
-	drawIcon3D ["\A3\Structures_F_Bootcamp\VR\Helpers\Data\VR_Symbol_placeables_CA.paa", ICONCOLORRED, _this,1.51, 1.51, 0, (format ["Find Radar inside 500m radius: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
-}, _RadSiteF] call BIS_fnc_addStackedEventHandler;
+//[_someId, "onEachFrame", {
+//	if (isNil"IC3D") exitWith {};
+//	drawIcon3D ["\A3\Structures_F_Bootcamp\VR\Helpers\Data\VR_Symbol_placeables_CA.paa", ICONCOLORRED, _this,1.51, 1.51, 0, (format ["Find Radar inside 500m radius: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
+//}, _RadSiteF] call BIS_fnc_addStackedEventHandler;
 _mar = format ["TaskM%1",NUMM];
 waitUntil {sleep 4; player distance _RadSite < 50};
 [_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
@@ -1109,11 +1134,16 @@ _p = SAOKMAPSIZE * 0.5;
 WEST, // Task owner(s)
 "taskGR1BB", // Task ID (used when setting task state, destination or description later)
 ["Green Army have established their HQ camp. We should make a visit soon to hear their plans.", "Visit Green HQ", "Visit Green HQ"], // Task description
-//[21857.4,10972.3,0], // Task destination
-true // true to set task as current upon creation
-] call SAOKCRTASK;
+objnull, // Task destination
+true, // true to set task as current upon creation
+-1,
+true,
+"Move",
+false
+] call BIS_fnc_taskCreate;
+["taskGR1BB",_post] CALL BIS_fnc_taskSetDestination;	// Added for 1.58
 waitUntil {sleep 4; player distance _post < 140};
-_nul = ["taskGR1BB","SUCCEEDED"] call SAOKCOTASK;
+_nul = ["taskGR1BB","SUCCEEDED", true] call BIS_fnc_taskSetState;
 _cl = if (isNil"IFENABLED") then {"I_officer_F"} else {"LIB_GER_hauptmann"};
 if (!isNil"Eridanus") then {_cl = "TEI_UNSC_Marine_Officer";};
 if (!isNil"CheConf") then {_cl = "I_mas_cer_Soldier_off_F";};
@@ -1158,26 +1188,30 @@ player sidechat localize "STR_milT6_l2";
 sleep 7;
 gameLogic1 globalchat localize "STR_milT6_l3";
 sleep 5;
-NUMM=NUMM+1;
-_someId = format ["IDSAOK%1",NUMM];
-[_someId, "onEachFrame", {
-	if (isNil"IC3D") exitWith {};
-	drawIcon3D ["\A3\ui_f\data\map\markers\military\pickup_CA.paa", ICONCOLORGREEN, _this,1.51, 1.51, 0, (format ["Assist: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
-}, _carP] call BIS_fnc_addStackedEventHandler;
+//NUMM=NUMM+1;
+//_someId = format ["IDSAOK%1",NUMM];
+//[_someId, "onEachFrame", {
+//	if (isNil"IC3D") exitWith {};
+//	drawIcon3D ["\A3\ui_f\data\map\markers\military\pickup_CA.paa", ICONCOLORGREEN, _this,1.51, 1.51, 0, (format ["Assist: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
+//}, _carP] call BIS_fnc_addStackedEventHandler;
 [
-WEST, // Task owner(s)
-"taskGR2a", // Task ID (used when setting task state, destination or description later)
+WEST, 			// Task owner(s)
+"taskGR2a", 	// Task ID (used when setting task state, destination or description later)
 ["Small Green Army team with broken vehicle is requesting help nearby.", "Help Green Soldiers", "Help Green Soldiers"], // Task description
-//[21857.4,10972.3,0], // Task destination
-true // true to set task as current upon creation
-] call SAOKCRTASK;
-_mar = format ["TaskM%1",NUMM];
-NUMM=NUMM+1;
-_marker = [_mar,_carP, "mil_start", [0.8,0.8], "ColorGreen", "Assist Green"] CALL FUNKTIO_CREATEMARKER;
+_carP,			// Task destination
+true,			// true to set task as current upon creation
+-1,				// priority
+true,			// current task?
+"Support",		// 3d marker type
+false			// notification
+] call BIS_fnc_taskCreate;
+//_mar = format ["TaskM%1",NUMM];
+//NUMM=NUMM+1;
+//_marker = [_mar,_carP, "mil_start", [0.8,0.8], "ColorGreen", "Assist Green"] CALL FUNKTIO_CREATEMARKER;
 waitUntil {sleep 5; player distance _carP < 20};
-deletemarker _marker;
-[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
-_nul = ["taskGR2a","SUCCEEDED"] call SAOKCOTASK;
+//deletemarker _marker;
+//[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
+_nul = ["taskGR2a","SUCCEEDED", true] call BIS_fnc_taskSetState;
 _actor1 = [WEST,"I_Soldier_GL_F",150,[1000,1000,0],objNull] CALL FUNKTIO_SPAWNACTOR;
 _n = [
 [getposATL player, player, _actor1],
@@ -1235,27 +1269,31 @@ player sidechat localize "STR_milT6_l5";
 sleep 7;
 gameLogic1 globalchat localize "STR_milT6_l6";
 _posB = [(_posB select 0)+(100 - random 200),(_posB select 1)+(100 - random 200),0];
-NUMM=NUMM+1;
-_someId = format ["IDSAOK%1",NUMM];
-[_someId, "onEachFrame", {
-	if (isNil"IC3D") exitWith {};
-	drawIcon3D ["\A3\Structures_F_Mark\VR\Helpers\Data\VR_Symbol_MARK_WeaponHandling3_CA.paa", ICONCOLORRED, _this,1.51, 1.51, 0, (format ["Find and Take Out Sniper, inside 100m: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
-}, _posB] call BIS_fnc_addStackedEventHandler;
-_mar = format ["TaskM%1",NUMM];
-NUMM=NUMM+1;
-_marker = [_mar,_posB, "mil_destroy", [0.8,0.8], "ColorRed", "Find and Take Out Sniper"] CALL FUNKTIO_CREATEMARKER;
+//NUMM=NUMM+1;
+//_someId = format ["IDSAOK%1",NUMM];
+//[_someId, "onEachFrame", {
+//	if (isNil"IC3D") exitWith {};
+//	drawIcon3D ["\A3\Structures_F_Mark\VR\Helpers\Data\VR_Symbol_MARK_WeaponHandling3_CA.paa", ICONCOLORRED, _this,1.51, 1.51, 0, (format ["Find and Take Out Sniper, inside 100m: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
+//}, _posB] call BIS_fnc_addStackedEventHandler;
+//_mar = format ["TaskM%1",NUMM];
+//NUMM=NUMM+1;
+//_marker = [_mar,_posB, "mil_destroy", [0.8,0.8], "ColorRed", "Find and Take Out Sniper"] CALL FUNKTIO_CREATEMARKER;
 [
 WEST, // Task owner(s)
 "taskGR2b", // Task ID (used when setting task state, destination or description later)
 ["Green soldier have got ambushed by CSAT sniper, which we need to find and take out.", "Find and Take Out Sniper", "Find and Take Out Sniper"], // Task description
-//[21857.4,10972.3,0], // Task destination
-true // true to set task as current upon creation
-] call SAOKCRTASK;
+_posB,			// Task destination
+true,			// true to set task as current upon creation
+-1,				// priority
+true,			// current task?
+"Find",		// 3d marker type
+false			// notification
+] call BIS_fnc_taskCreate;
 _n = ["taskGR2a"] CALL BIS_fnc_deleteTask;
 waitUntil {sleep 5; isNull _cU1 || {!alive _cU1} || {!isNil{_cU1 getvariable "SaOkSurrendeRed"}}};
-deletemarker _marker;
-[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
-_nul = ["taskGR2b","SUCCEEDED"] call SAOKCOTASK;
+//deletemarker _marker;
+//[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
+_nul = ["taskGR2b","SUCCEEDED", true] call BIS_fnc_taskSetState;
 if (alive _gU1) then {
 _n = [
 [getposATL player, player, _gU1],
@@ -1308,13 +1346,18 @@ _nVil = locationposition ([_carP] CALL SAOKNEARESTVIL);_nVil set [2,0];
 gameLogic1 globalchat localize "STR_milT8_l1";
 sleep 7;
 player sidechat localize "STR_milT8_l2";
+[WEST,"taskRES1",["Resistance is asking our help in order to take hold of CSAT officer that is believed to hide in this target village. Our job would be to take out CSAT armor near the village before joining to hunt down the officer.", "Take Out CSAT Armor", "Take Out CSAT Armor"],objnull, false,-1,true,"Default",false] call BIS_fnc_taskCreate;
 [
 WEST, // Task owner(s)
-"taskRES1a", // Task ID (used when setting task state, destination or description later)
+["taskRES1a","taskRES1"], // Task ID (used when setting task state, destination or description later)
 ["Resistance is asking our help in order to take hold of CSAT officer that is believed to hide in this target village. Our job would be to take out CSAT armor near the village before joining to hunt down the officer.", "Take Out CSAT Armor", "Take Out CSAT Armor"], // Task description
-//[21857.4,10972.3,0], // Task destination
-true // true to set task as current upon creation
-] call SAOKCRTASK;
+objnull,//[21857.4,10972.3,0], // Task destination
+true, // true to set task as current upon creation
+-1,
+true,
+"Destroy",
+false
+] call BIS_fnc_taskCreate;
 _start = [_nVil,400,100,"(1 + meadow) * (1 - sea)"] CALL SAOKSEEKPOS;
 _z = ["EAST","T",1,_start] CALL SAOKMOREVEHZONESC;
 _arr = (((_z select 0) CALL SAOKZONEDR) CALL APUFF);
@@ -1322,33 +1365,27 @@ _arr = (((_z select 0) CALL SAOKZONEDR) CALL APUFF);
 DONTSTOREZONES = DONTSTOREZONES + _z;
 NOMOVEZONES = NOMOVEZONES + _z;
 SZONES = SZONES + _z;
-NUMM=NUMM+1;
-_someId = format ["IDSAOK%1",NUMM];
-[_someId, "onEachFrame", {
-	if (isNil"IC3D") exitWith {};
-	drawIcon3D ["\A3\Structures_F_Bootcamp\VR\Helpers\Data\VR_Symbol_launchers_CA.paa", ICONCOLORRED, getmarkerpos _this,1.51, 1.51, 0, (format ["Destroy Armor: %1m",round (getmarkerpos _this distance player)]), 1, SAOKFSI, "TahomaB"];
-}, _z select 0] call BIS_fnc_addStackedEventHandler;
-_mar = format ["TaskM%1",NUMM];
-NUMM=NUMM+1;
-_marker = [_mar,getmarkerpos (_z select 0), "mil_destroy", [0.8,0.8], "ColorRed", "Find and Destroy"] CALL FUNKTIO_CREATEMARKER;
+["taskRES1a",_start] CALL BIS_fnc_taskSetDestination;	// Added for 1.58
 waitUntil {sleep 5; {_x in AllMapMarkers && {getmarkercolor _x == "ColorRed"}} count _z == 0};
-deletemarker _marker;
-[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
 DONTSTOREZONES = DONTSTOREZONES - _z;
 NOMOVEZONES = NOMOVEZONES - _z;
 SZONES = SZONES - _z;
-_nul = ["taskRES1a","SUCCEEDED"] call SAOKCOTASK;
+_nul = ["taskRES1a","SUCCEEDED", true] call BIS_fnc_taskSetState;
 player sidechat localize "STR_milT8_l3";
 sleep 7;
 gameLogic1 globalchat localize "STR_milT8_l4";
 [
 WEST, // Task owner(s)
-"taskRES1b", // Task ID (used when setting task state, destination or description later)
+["taskRES1b","taskRES1"], // Task ID (used when setting task state, destination or description later)
 ["With the armor gone, now we need to hurry and find that CSAT officer. If we find and make him surrender before resistance take him down, we could get more out of him.", "Find CSAT Officer", "Find CSAT Officer"], // Task description
-//[21857.4,10972.3,0], // Task destination
-true // true to set task as current upon creation
-] call SAOKCRTASK;
-_n = ["taskRES1a"] CALL BIS_fnc_deleteTask;
+objnull,//[21857.4,10972.3,0], // Task destination
+true, // true to set task as current upon creation
+-1,
+true,
+"Search",
+false
+] call BIS_fnc_taskCreate;
+//_n = ["taskRES1a"] CALL BIS_fnc_deleteTask;
 _waypoints = [];
 _l = 60;
 _gUnitS = [(_nVil select 0)+_l-(random _l)*2,(_nVil select 1)+_l-(random _l)*2, 0];
@@ -1373,7 +1410,11 @@ _off setvariable ["NoTalkative",1];
 DONTDELGROUPS = DONTDELGROUPS + [_group];
 
 _start = [_nVil,600,300,"(1 + meadow) * (1 - sea)"] CALL SAOKSEEKPOS;
+[WEST,["taskRES1b1","taskRES1b"],["Go to the location from where the attach will start", "Group to start location", "Join the attack"],_start, false,-1,true,"Move",false] call BIS_fnc_taskCreate;
 while {player distance _start < 300} do {_start = [_nVil,700,300,"(1 + meadow) * (1 - sea)"] CALL SAOKSEEKPOS;};
+["taskRES1b1",_start] CALL BIS_fnc_taskSetDestination;	// Added for 1.58
+waituntil {sleep 4; player distance _start < 150};
+_nul = ["taskRES1b1", "SUCCEEDED",true] call BIS_fnc_taskSetState;
 _unitrate = [7,8];
 _random = (_unitrate select 0) + round (random ((_unitrate select 1)-(_unitrate select 0)));
 _classes = [];
@@ -1384,27 +1425,29 @@ _wp1 = _group addWaypoint [_posB, 0];
 [_group, 1] setWaypointType "GUARD";
 FriendlyInf set [count FriendlyInf,_group];
 CantCommand = CantCommand + [_group];
-_marS = format ["sdfamar%1",NUMM];
-NUMM=NUMM+1;
-_mar6 = [_marS,_start,"hd_start",[0.9,0.9],"ColorGreen","Assault Begin Here"] CALL FUNKTIO_CREATEMARKER;
+//_marS = format ["sdfamar%1",NUMM];
+//NUMM=NUMM+1;
+//_mar6 = ["Assault",_start,"hd_start",[0.9,0.9],"ColorGreen","Assault Begin Here"] CALL FUNKTIO_CREATEMARKER;
 _unPo = [(getposATL _off select 0)+ 100 - random 200,(getposATL _off select 1)+ 100 - random 200,0];
-NUMM=NUMM+1;
-_someId = format ["IDSAOK%1",NUMM];
-[_someId, "onEachFrame", {
-	if (isNil"IC3D") exitWith {};
-	drawIcon3D ["\A3\ui_f\data\map\markers\military\unknown_CA.paa", ICONCOLORRED, _this,1.51, 1.51, 0, (format ["Find and Make Captive, inside 100m: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
-}, _unPo] call BIS_fnc_addStackedEventHandler;
-_mar = format ["TaskM%1",NUMM];
-NUMM=NUMM+1;
-_marker = [_mar,_unPo, "mil_destroy", [0.8,0.8], "ColorRed", "Find and Make Captive"] CALL FUNKTIO_CREATEMARKER;
+//NUMM=NUMM+1;
+//_someId = format ["IDSAOK%1",NUMM];
+//[_someId, "onEachFrame", {
+//	if (isNil"IC3D") exitWith {};
+//	drawIcon3D ["\A3\ui_f\data\map\markers\military\unknown_CA.paa", ICONCOLORRED, _this,1.51, 1.51, 0, (format ["Find and Make Captive, inside 100m: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
+//}, _unPo] call BIS_fnc_addStackedEventHandler;
+//_mar = format ["TaskM%1",NUMM];
+//NUMM=NUMM+1;
+[WEST,["taskRES1b2","taskRES1b"],["Find and capture or kill the Officer", "Eliminate CSAT Officer", "Eliminate target"],_unPo, false,-1,true,"Attack",false] call BIS_fnc_taskCreate;
+//_marker = [_mar,_unPo, "mil_destroy", [0.8,0.8], "ColorRed", "Find and Make Captive"] CALL FUNKTIO_CREATEMARKER;
 waitUntil {sleep 4; player distance _posB < 400};
 [getposATL _off, [2,3]] SPAWN SAOKADDPATROL;
 [getposATL _off, [2,3]] SPAWN SAOKADDPATROL;
 waitUntil {sleep 5; isNull _off || {!alive _off} || {!isNil{_off getvariable "SaOkSurrendeRed"}}};
-_nul = ["taskRES1b","SUCCEEDED"] call SAOKCOTASK;
-deletemarker _marker;
-deletemarker _mar6;
-[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
+_nul = ["taskRES1b2","SUCCEEDED", true] call BIS_fnc_taskSetState;
+_nul = ["taskRES1b","SUCCEEDED", true] call BIS_fnc_taskSetState;
+//deletemarker _marker;
+//deletemarker _mar6;
+//[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
 if (isNull _off || {!alive _off}) then {
 _cl = if (isNil"IFENABLED") then {"I_G_Soldier_GL_F"} else {"LIB_SOV_smgunner"};
 if (!isNil"Eridanus") then {_cl = "TEI_UNSC_Marine_Grenadier";};
@@ -1432,7 +1475,8 @@ _n = [
 waitUntil {sleep 2; scriptdone _n};
 _off spawn SAOKCPICK;
 };
-_n = ["taskRES1b"] CALL BIS_fnc_deleteTask;
+//_n = ["taskRES1b"] CALL BIS_fnc_deleteTask;
+_n = ["taskRES"] CALL BIS_fnc_deleteTask;
 CurTaskS = CurTaskS - ["TERES1"];
 [] SPAWN TERES2;
 };
@@ -1448,10 +1492,9 @@ player sidechat localize "STR_milT8_l6";
 WEST, // Task owner(s)
 "taskRES2", // Task ID (used when setting task state, destination or description later)
 ["CSAT forces are striking soon in the village to avenge the capture of their commander. We need to protect the villagers and build guardpost in the village if possible.", "Hold the Village", "Hold the Village"], // Task description
-//[21857.4,10972.3,0], // Task destination
-true // true to set task as current upon creation
-] call SAOKCRTASK;
+,objnull, false,-1,true,"Defend",false] call BIS_fnc_taskCreate;
 _nVil = locationposition (player CALL SAOKNEARESTVIL);_nVil set [2,0];
+["taskRES2",_nVil] CALL BIS_fnc_taskSetDestination;	// Added for 1.58
 sleep 240;
 waitUntil {sleep 5; {alive _x && {isNil{_x getvariable "SaOkSurrendeRed"}} && {side _x == EAST}} count (_nVil nearEntities [["Man"],150]) == 0};
 _nul = ["taskRES2","SUCCEEDED"] call SAOKCOTASK;

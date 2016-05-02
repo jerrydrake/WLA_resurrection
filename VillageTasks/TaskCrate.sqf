@@ -15,6 +15,7 @@ _p = ["CivT8","CivT9"]call RETURNRANDOM;
 _head = "I have a crate that should be delivered to nearby village, but cant find nobody to deliver it";
 _toChoose = ["I see what can I do","We are not delivery boys","Eh, anything else I could do?"];
 _nul = [_head, _toChoose,"S",[["V17"],["V10","V11","V12","JinN7","JinN8"],["V13","V14","V15","V16","V40"]],(missionnamespace getvariable "CivC")] SPAWN FConversationDialog;
+
 //TASK TAKEN
 waitUntil {sleep 0.5; scriptdone _nul};
 if (isNil"LineSelected") exitWith {};
@@ -23,7 +24,6 @@ _rewardT = RewardSelected;
 RewardSelected = nil;
 
 _curV = (player CALL SAOKNEARESTVIL);
-
 _r = 3000;
 _tarV = (nearestLocations [getPosATL player, ["NameVillage","NameCity","NameCityCapital","NameLocal"], _r]) - [_curV];
 while {count _tarV == 0} do {
@@ -38,50 +38,89 @@ _str = "Task";
 [_curV,_str,1] CALL SAOKVILSET;
 _mar = format ["VilTaskM%1",NUMM];
 NUMM=NUMM+1;
-
+_destination = locationposition _tarV;
 _tarVn = name _tarV;
 _crate1 = createVehicle ["C_supplyCrate_F", [(getposATL player select 0)+10-(random 20),(getposATL player select 1)+10-(random 20),0], [], 0, "NONE"];
 _crate1 setdir (random 360);
+_cratepos = getposATL _crate1;
 
-
-_marker = [_mar,getposATL _crate1, "c_unknown", [0.8,0.8], "ColorPink", ("Deliver this crate to "+_tarVn)] CALL FUNKTIO_CREATEMARKER;
+//_marker = [_mar,getposATL _crate1, "c_unknown", [0.8,0.8], "ColorPink", ("Deliver this crate to "+_tarVn)] CALL FUNKTIO_CREATEMARKER;
 _Tid = format ["TaskCIV%1",NUMM];
+_Tid1 = format ["TaskCIV_P1%1",NUMM];
+_Tid2 = format ["TaskCIV_P2%1",NUMM];
 NUMM=NUMM+1;
 _Lna = name _curV;
 _header = format ["Deliver crate in %1 to %2",_Lna,_tarVn];
-[
-WEST, // Task owner(s)
-_Tid, // Task ID (used when setting task state, destination or description later)
-["Deliver the crate to the pointed village by using a small truck. Press shift+9 when near the crate with the truck nearby.<br/><br/><img image='rela.jpg' width='347' height='233'/>", _header, _header], // Task description
-objNull, // Task destination
-true // true to set task as current upon creation
-] call SAOKCRTASK;
+_header1 = format ["Pick up crate in %1",_Lna];
+_header2 = format ["Deliver crate to %2",_tarVn];
 
-_someId = format ["IDSAOK%1",NUMM];
-[_someId, "onEachFrame", {
-	if (isNil"IC3D") exitWith {};
-	drawIcon3D ["\A3\ui_f\data\map\markers\nato\c_unknown.paa", ICONCOLORCIV, _this,1.51, 1.51, 0, (format ["Load Crate to Truck: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
-}, getposATL _crate1] call BIS_fnc_addStackedEventHandler;
+[
+WEST, 			// Task owner(s)
+_Tid,			// Task ID (used when setting task state, destination or description later) or ["taskname","parentname"]
+["Deliver the crate to the pointed village by using a small truck. Press shift+9 when near the crate with the truck nearby.<br/><br/><img image='rela.jpg' width='347' height='233'/>", _header, _header], // Task description
+objnull,		// Task destination
+true,			// true to set task as current upon creation
+-1,				// priority
+true,			// Notification?
+"Move",			// 3d marker type
+false			// Shared?
+] call BIS_fnc_taskCreate;
+
+[
+WEST, 			// Task owner(s)
+[_Tid1,_Tid],			// Task ID (used when setting task state, destination or description later) or ["taskname","parentname"]
+["Pick up here the crate to be delivered", _header1, _header1], // Task description
+_cratepos,		// Task destination
+true,			// true to set task as current upon creation
+-1,				// priority
+true,			// Notification?
+"Move",			// 3d marker type
+false			// Shared?
+] call BIS_fnc_taskCreate;
+
+//_someId = format ["IDSAOK%1",NUMM];
+//[_someId, "onEachFrame", {
+//	if (isNil"IC3D") exitWith {};
+//	drawIcon3D ["\A3\ui_f\data\map\markers\nato\c_unknown.paa", ICONCOLORCIV, _this,1.51, 1.51, 0, (format ["Load Crate to Truck: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
+//}, getposATL _crate1] call BIS_fnc_addStackedEventHandler;
 
 waitUntil {sleep 3; isNull _crate1 || {!alive _crate1} || {!isNil{_crate1 getvariable "AUTOSSA"}}};
-[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
-NUMM=NUMM+1;
-_someId = format ["IDSAOK%1",NUMM];
-[_someId, "onEachFrame", {
-	drawIcon3D ["\A3\ui_f\data\map\groupicons\badge_gs.paa", ICONCOLORCIV, _this,1.51, 1.51, 0, (format ["Transport the Crate Here: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
-}, _mP] call BIS_fnc_addStackedEventHandler;
+_nul = [_Tid1,"SUCCEEDED", true] call BIS_fnc_taskSetState;
+
+[
+WEST, 			// Task owner(s)
+[_Tid2,_Tid],	// Task ID (used when setting task state, destination or description later) or ["taskname","parentname"]
+["Deliver here the crate", _header2, _header2], // Task description
+_destination,	// Task destination
+true,			// true to set task as current upon creation
+-1,				// priority
+true,			// Notification?
+"Move",			// 3d marker type
+false			// Shared?
+] call BIS_fnc_taskCreate;
+
+//[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
+//NUMM=NUMM+1;
+//_someId = format ["IDSAOK%1",NUMM];
+//[_someId, "onEachFrame", {
+//	drawIcon3D ["\A3\ui_f\data\map\groupicons\badge_gs.paa", ICONCOLORCIV, _this,1.51, 1.51, 0, (format ["Transport the Crate Here: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
+//}, _mP] call BIS_fnc_addStackedEventHandler;
 //[_Tid,(getmarkerpos _tarV)] call BIS_fnc_taskSetDestination;
+
 //TASK SUCCESSFULL
 waitUntil {sleep 6; isNull _crate1 || {!alive _crate1} || {(_mP distance _crate1 < 200 && {isNil{_crate1 getvariable "AUTOSSA"}})}};
-deleteMarker _marker;
+//deleteMarker _marker;
 
 if (!isNull _crate1 && {_mP distance _crate1 < 200} && {isNil{_crate1 getvariable "AUTOSSA"}}) then {
 _Lna = _mP CALL NEARESTLOCATIONNAME;
 _header = format ["NATO Sent Delivery Boys? Military Seen Transporting Crates for Villagers in %1",_Lna];
 [_header, date] CALL SAOKEVENTLOG;
 _tarV CALL SAOKVILDATREM;
+
 _n = [_rewardT,(locationposition _curV),150] SPAWN CTreward;
-_nul = [_Tid,"SUCCEEDED"] call SAOKCOTASK;
+_nul = [_Tid2,"SUCCEEDED", true] call BIS_fnc_taskSetState;
+_null = [_Tid,"SUCCEEDED", true] call BIS_fnc_taskSetState;
+
 [] SPAWN {
 
 private ["_actor1","_n","_nul"];
@@ -105,6 +144,7 @@ _nul = [_actor1,""] SPAWN FHideAndDelete;
 _x CALL SAOKIMPREL;
 } foreach [_curV,_tarV];
 };
+
 _curV CALL SAOKVILDATREM;
 [_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
 sleep 15;

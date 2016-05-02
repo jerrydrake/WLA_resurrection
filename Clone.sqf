@@ -261,8 +261,14 @@ _x, // Task ID (used when setting task state, destination or description later)
 (_x call BIS_fnc_taskDescription), // Task description
 (_x call BIS_fnc_taskDestination), // Task destination
 _bol, // true to set task as current upon creation
-false
-] call SAOKCRTASK;
+objnull,		// Task destination
+true,			// true to set task as current upon creation
+-1,				// priority
+false,			// Notification?
+"Default",		// 3d marker type
+false			// Shared?
+] call BIS_fnc_taskCreate;
+
 };
 sleep 0.1;
 } foreach ([_unit] CALL BIS_fnc_tasksUnit);

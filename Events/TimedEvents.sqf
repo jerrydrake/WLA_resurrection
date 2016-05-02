@@ -118,7 +118,14 @@ TKipea = true;
 WEST, // Task owner(s)
 "TaskKipea", // Task ID (used when setting task state, destination or description later)
 ["You are feeling little sick, try to find medicines from houses using Y to pick up objects or stop by at any friendly camp and use wait time function (Shift+1). Finding medicine from houses gives prestige bonus.", "Find Medicine", "Find Medicine"], // Task description
-objNull,"CREATED"  ] call SAOKCRTASK;
+objnull,		// Task destination
+false,			// true to set task as current upon creation
+-1,				// priority
+true,			// Notification?
+"Default",		// 3d marker type
+false			// Shared?
+] call BIS_fnc_taskCreate;
+
 };
 if (random 1 < 0.1 && {!(["TaskVasynyt"] CALL BIS_fnc_taskExists)}) then {
 TVasynyt = true;
@@ -126,7 +133,14 @@ TVasynyt = true;
 WEST, // Task owner(s)
 "TaskVasynyt", // Task ID (used when setting task state, destination or description later)
 ["You are feeling tired. Find a safe place to take nap using wait time function in WLA menu. (Shift+1)", "Take a Rest", "Take a Rest"], // Task description
-objNull,"CREATED"  ] call SAOKCRTASK;
+objnull,		// Task destination
+false,			// true to set task as current upon creation
+-1,				// priority
+true,			// Notification?
+"Default",		// 3d marker type
+false			// Shared?
+] call BIS_fnc_taskCreate;
+
 };
 if (random 1 < 0.25 && {!(["TaskNalka"] CALL BIS_fnc_taskExists)}) then {
 TNalka = true;
@@ -134,8 +148,14 @@ TNalka = true;
 WEST, // Task owner(s)
 "TaskNalka", // Task ID (used when setting task state, destination or description later)
 ["You are getting hungry, try to find food from houses using Y to pick up objects or stop by at any friendly camp and use wait time function in WLA menu (Shift+1). Finding food from houses gives prestige bonus.", "Find Something to Eat", "Find Something to Eat"], // Task description
-objNull,
-"CREATED"  ] call SAOKCRTASK;
+objnull,		// Task destination
+false,			// true to set task as current upon creation
+-1,				// priority
+true,			// Notification?
+"Default",		// 3d marker type
+false			// Shared?
+] call BIS_fnc_taskCreate;
+
 };
 if (random 1 < 0.4 && {!(["TaskJano"] CALL BIS_fnc_taskExists)}) then {
 TJano = true;
@@ -143,7 +163,14 @@ TJano = true;
 WEST, // Task owner(s)
 "TaskJano", // Task ID (used when setting task state, destination or description later)
 ["You are getting thirsty, try to find something to drink from houses using Y to pick up objects or stop by at any friendly camp and use wait time function in WLA menu (Shift+1). Finding something to drink from houses gives prestige bonus.", "Find Something to Drink", "Find Something to Drink"], // Task description
-objNull,"CREATED"  ] call SAOKCRTASK;
+objnull,		// Task destination
+false,			// true to set task as current upon creation
+-1,				// priority
+true,			// Notification?
+"Default",		// 3d marker type
+false			// Shared?
+] call BIS_fnc_taskCreate;
+
 };
 };
 };

@@ -24,16 +24,20 @@ _cent = if (count _this > 0 && {{(_this select 0) distance getmarkerpos _x < 100
 WEST, // Task owner(s)
 "task3", // Task ID (used when setting task state, destination or description later)
 ["AAF will not be able to re-enter the AO until you have cleared this marked airfield. We need to find and disable two enemy anti-air vehicles, disabled all marked vehicles zones in the AO and deal with possible reinforcements. Creating guardpost, or two with AT-launchers, to cut nearby roads could be good thing to do.<br/><br/><img image='airfield.jpg' width='360' height='202.5'/>", "Secure Pointed Airfield", "Secure Pointed Airfield"], // Task description
-objNull, // Task destination
-true // true to set task as current upon creation
-] call SAOKCRTASK;
-NUMM=NUMM+1;
+_cent, // Task destination
+true,			// true to set task as current upon creation
+-1,				// priority
+true,			// Notification?
+"Defend",		// 3d marker type
+false			// Shared?
+] call BIS_fnc_taskCreate;
+//NUMM=NUMM+1;
 //icon = "\A3\ui_f\data\map\markers\military\flag_CA.paa";
-_someId = format ["IDSAOK%1",NUMM];
-[_someId, "onEachFrame", {
-	if (isNil"IC3D") exitWith {};
-	drawIcon3D ["\A3\Structures_F_Mark\VR\Helpers\Data\VR_Symbol_MARK_WeaponHandling1_CA.paa", ICONCOLOR, _this,1.51, 1.51, 0, (format ["Secure This Airfield: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
-}, _cent] call BIS_fnc_addStackedEventHandler;
+//_someId = format ["IDSAOK%1",NUMM];
+//[_someId, "onEachFrame", {
+//	if (isNil"IC3D") exitWith {};
+//	drawIcon3D ["\A3\Structures_F_Mark\VR\Helpers\Data\VR_Symbol_MARK_WeaponHandling1_CA.paa", ICONCOLOR, _this,1.51, 1.51, 0, (format ["Secure This Airfield: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
+//}, _cent] call BIS_fnc_addStackedEventHandler;
 
 
 CurTaskS = CurTaskS - ["MainTasks\Resistance1.sqf"];
@@ -51,11 +55,11 @@ _marker = createMarker [_mar,_cent];
 _marker setMarkerShape "ELLIPSE";
 _marker setMarkerSize [2000, 2000];
 _marker setMarkerColor "ColorRed";
-_marker setMarkerBrush "SOLID";
+_marker setMarkerBrush "FDiagonal";
 
-_mar2 = format ["TTmar%1",NUMM];
-NUMM=NUMM+1;
-_marker2 = [_mar2,_cent, "mil_flag", [0.8,0.8], "ColorRed", "Secure This Airfield"] CALL FUNKTIO_CREATEMARKER;
+//_mar2 = format ["TTmar%1",NUMM];
+//NUMM=NUMM+1;
+//_marker2 = [_mar2,_cent, "mil_flag", [0.8,0.8], "ColorRed", "Secure This Airfield"] CALL FUNKTIO_CREATEMARKER;
 
 sleep 1;
 _start = [_cent, 500,0,"(1 - trees) *(1 - houses) * (1 - sea)"] CALL SAOKSEEKPOS;
@@ -95,10 +99,10 @@ _nul = [_start3,"",(15+random 25)] SPAWN CreateRoadBlock;
 waitUntil {sleep 3; ({alive _x} count (crew (_obj select 0))+(crew (_obj2 select 0)) == 0 || {{alive _x} count [(_obj select 0),(_obj2 select 0)] == 0}) && {{!isnull _x && {(_x getvariable "Mcolor") == "ColorRed"} && {locationposition _x distance _cent < 2000} && {!surfaceisWater (locationposition _x)}} count _mark == 0}};
 pisteet = pisteet + 400;_nul = [400, "From Task"] SPAWN PRESTIGECHANGE;
 deleteMarker _marker;
-deleteMarker _mar2;
+//deleteMarker _marker2;
 "GREEN Arrival" SPAWN SAOKCHAPTERADD;
 DONTDELGROUPS = DONTDELGROUPS - [(_obj select 2)];
-[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
+//[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
 _nul = [4] SPAWN MusicT;
 "GreenHelp" CALL SAOKADDPROG;
 "AAF support also available now in the support menu. Dont forget that you can get choppers and planes to fly by visiting purchase menu near any airfield" SPAWN HINTSAOK;
@@ -107,7 +111,7 @@ waitUntil {sleep 0.1; scriptdone _n};
 [] SPAWN TEGR1;
 CurTaskS set [count CurTaskS, "MainTasks\GreenAirZonesArrive.sqf"];
 CurTaskS set [count CurTaskS, "MainTasks\GreenZonesArrive.sqf"];
-_nul = ["task3","SUCCEEDED"] call SAOKCOTASK;
+_nul = ["task3","SUCCEEDED", true] call BIS_fnc_taskSetState;
 [] SPAWN TERES1;
 ["CSATAIR"] SPAWN SAOKADDRANDOMEVENTS;
 CurTaskS = CurTaskS - [["MainTasks\Resistance1.sqf",_cent]];

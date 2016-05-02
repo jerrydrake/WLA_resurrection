@@ -2,16 +2,27 @@
 [
 WEST, // Task owner(s)
 "task0", // Task ID (used when setting task state, destination or description later)
-["Your primary objective on the AO is to put an end for CSAT presence by working with locals and Green Army. Once the road is more clear we will bring more forces also in and finally liberate the AO by capturing all CSAT camps and making their commanders captive.<br/><br/>CSAT gets, the weaker to strike back, the loss camps they have and the less factories they run to gain resources.<br/><br/><img image='house.jpg' width='346' height='233'/>", (format ["Liberate %1",worldname]), (format ["Liberate %1",worldname])], // Task description
-true
-] call SAOKCRTASK;
+["Your primary objective on the AO is to put an end for enemy presence by working with locals and Green Army. Once the road is more clear we will bring more forces also in and finally liberate the AO by capturing all enemy camps and making their commanders captive.<br/><br/>enemy gets, the weaker to strike back, the loss camps they have and the less factories they run to gain resources.<br/><br/><img image='house.jpg' width='346' height='233'/>", (format ["Liberate %1",worldname]), (format ["Liberate %1",worldname])], // Task description
+objnull,		// Task destination
+true,			// true to set task as current upon creation
+-1,				// priority
+true,			// Notification?
+"Default",		// 3d marker type
+false			// Shared?
+] call BIS_fnc_taskCreate;
+
 
 [
 WEST, // Task owner(s)
 "task1", // Task ID (used when setting task state, destination or description later)
 ["Once landing safely and finding safe spot, create basecamp with 4 tents for your team, using construction truck you received at insertion (Press Shift+C when near the truck). If you lost it call new one (via Shift+1, Support Call). Once building a camp you will receive additional gear drops.<br/><br/><img image='rest2.jpg' width='345' height='208'/>", "Construct Basecamp with 4 Tents", "Construct Basecamp with 4 Tents"], // Task description
-true
-] call SAOKCRTASK;
+objnull,		// Task destination
+true,			// true to set task as current upon creation
+-1,				// priority
+true,			// Notification?
+"Default",		// 3d marker type
+false			// Shared?
+] call BIS_fnc_taskCreate;
 
 [] SPAWN {
 waitUntil {sleep 1; !isNil"StartMission" && {isNil"SAOKRESUMEINPROG"}};
@@ -24,7 +35,7 @@ waitUntil {sleep 4;([(getposATL player)] CALL RETURNGUARDPOST) distance player <
 ([(getposATL player)] CALL RETURNGUARDPOST) setvariable ["Basecamp",1];
 (([(getposATL player)] CALL RETURNGUARDPOST) getvariable "Gmark") setmarkertext " Camp Wolf";
 (([(getposATL player)] CALL RETURNGUARDPOST) getvariable "Gmark") setmarkersize [1,1];
-_nul = ["task1","SUCCEEDED"] call SAOKCOTASK;
+_nul = ["task1","SUCCEEDED", true] call BIS_fnc_taskSetState;
 ["Camp Wolf established", date] CALL SAOKEVENTLOG;
 if (count (units (group player)) > 1) then {
 if ({_x in (missionnamespace getvariable "Progress")} count ["GreenHelp","USHelp"] == 0) then {
@@ -49,7 +60,7 @@ waitUntil {sleep 0.1; scriptdone _n};
 } else {
 
 };
-} else {_nul = ["task1","SUCCEEDED",false] call SAOKCOTASK;};
+} else {_nul = ["task1","SUCCEEDED",false] call BIS_fnc_taskSetState;};
 
 if !("Cratealku" in (missionnamespace getvariable "Progress")) then {
 [] SPAWN {
@@ -64,19 +75,25 @@ _d = _d + 400;
 WEST, // Task owner(s)
 "taskCrate", // Task ID (used when setting task state, destination or description later)
 ["We are getting supply drops at location to have more gear to use. Better to head there with vehicle as soon as possible.", "Receive Gear Drop", "Receive Gear Drop"], // Task description
-true // true to set task as current upon creation
-] call SAOKCRTASK;
-NUMM=NUMM+1;
-_someId = format ["IDSAOKGD%1",NUMM];
-[_someId, "onEachFrame", {
-	if (isNil"IC3D") exitWith {};
-	drawIcon3D ["\A3\ui_f\data\map\vehicleicons\iconParachute_ca.paa", ICONCOLOR, _this,1.51, 1.51, 0, (format ["Receive Gear Drop: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
-}, _start2] call BIS_fnc_addStackedEventHandler;
+_start2,		// Task destination
+true,			// true to set task as current upon creation
+-1,				// priority
+true,			// Notification?
+"Move",		// 3d marker type
+false			// Shared?
+] call BIS_fnc_taskCreate;
+
+//NUMM=NUMM+1;
+//_someId = format ["IDSAOKGD%1",NUMM];
+//[_someId, "onEachFrame", {
+//	if (isNil"IC3D") exitWith {};
+//	drawIcon3D ["\A3\ui_f\data\map\vehicleicons\iconParachute_ca.paa", ICONCOLOR, _this,1.51, 1.51, 0, (format ["Receive Gear Drop: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
+//}, _start2] call BIS_fnc_addStackedEventHandler;
 sleep 20;
 [["WLA","GearGathering"]] call BIS_fnc_advHint;
 waitUntil {sleep 4;_start2 distance player < 500};
 "Cratealku" CALL SAOKADDPROG;
-[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
+//[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
 "You are receiving gear drops from sky. You can move the content with Y-key to your gear storage if having last used vehicle under 100m away" SPAWN HINTSAOK;
 _pos = [(_start2 select 0)+50-(random 100),(_start2 select 1)+50-(random 100),0];
 while {surfaceIsWater _pos} do {sleep 5;_pos = [(_start2 select 0)+50-(random 100),(_start2 select 1)+50-(random 100),0];};
@@ -94,7 +111,7 @@ while {surfaceIsWater _pos} do {sleep 5;_pos = [(_start2 select 0)+50-(random 10
 _nul = [_pos,"",1,((CRATECLAS select 0) call RETURNRANDOM)] SPAWN FSupportDrop;
 };
 ["NATO Gear Drop", date] CALL SAOKEVENTLOG;
-_nul = ["taskCrate","SUCCEEDED"] call SAOKCOTASK;
+_nul = ["taskCrate","SUCCEEDED", true] call BIS_fnc_taskSetState;
 };
 };
 
@@ -120,14 +137,20 @@ if !("AAalku" in (missionnamespace getvariable "Progress")) then {
 WEST, // Task owner(s)
 "taskCamp1", // Task ID (used when setting task state, destination or description later)
 ["Good work, next its time to secure near surroundings area for your basecamp. Take out AA-installation and possible other zones, CSAT have placed inside the marker area. Succeeding this, will allow us to bring you some heavier tools to the camp.", "Take out nearby Anti-Air", "Take out nearby Anti-Air"], // Task description
-true
-] call SAOKCRTASK;
-NUMM=NUMM+1;
-_someId = format ["IDSAOK%1",NUMM];
-[_someId, "onEachFrame", {
-	if (isNil"IC3D") exitWith {};
-	drawIcon3D ["\A3\Structures_F_Bootcamp\VR\Helpers\Data\VR_Symbol_launchers_CA.paa", ICONCOLOR, _this,1.51, 1.51, 0, (format ["Take out Anti-Air and Surroundings: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
-}, _start2] call BIS_fnc_addStackedEventHandler;
+_start2,		// Task destination
+true,			// true to set task as current upon creation
+-1,				// priority
+true,			// Notification?
+"Defend",		// 3d marker type
+false			// Shared?
+] call BIS_fnc_taskCreate;
+
+//NUMM=NUMM+1;
+//_someId = format ["IDSAOK%1",NUMM];
+//[_someId, "onEachFrame", {
+//	if (isNil"IC3D") exitWith {};
+//	drawIcon3D ["\A3\Structures_F_Bootcamp\VR\Helpers\Data\VR_Symbol_launchers_CA.paa", ICONCOLOR, _this,1.51, 1.51, 0, (format ["Take out Anti-Air and Surroundings: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
+//}, _start2] call BIS_fnc_addStackedEventHandler;
 
 _mar = format ["TTmar%1",NUMM];
 NUMM=NUMM+1;
@@ -135,7 +158,7 @@ _marker = createMarker [_mar,_start2];
 _marker setMarkerShape "ELLIPSE";
 _marker setMarkerSize [1000, 1000];
 _marker setMarkerColor "ColorRed";
-_marker setMarkerBrush "BORDER";
+_marker setMarkerBrush "FDiagonal";
 _mark = [];
 _nearbyVZs = nearestLocations [_start2,["Name"], 5000];
 {if (!isNil{_x getvariable "VZ"}) then {_mark pushback _x;};} foreach _nearbyVZs;
@@ -143,8 +166,8 @@ _nearbyVZs = nearestLocations [_start2,["Name"], 5000];
 waitUntil {sleep 10; {!isNull _x && {(_x getvariable "Mcolor") == "ColorRed"} && {locationposition _x distance _start2 < 1000} && {!surfaceisWater (locationposition _x)}} count _mark == 0};
 "AAalku" CALL SAOKADDPROG;
 ["CSAT AA Site Taken Out", date] CALL SAOKEVENTLOG;
-[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
-_nul = ["taskCamp1","SUCCEEDED"] call SAOKCOTASK;
+//[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
+_nul = ["taskCamp1","SUCCEEDED", true] call BIS_fnc_taskSetState;
 pisteet = pisteet + 400;
 _nul = [400, "Enemy Zone CleaRed"] SPAWN PRESTIGECHANGE;
 deletemarker _marker;
@@ -164,13 +187,13 @@ _nul = [_start,"B_APC_Wheeled_01_cannon_F"] SPAWN FSupportDrop;
 WEST, // Task owner(s)
 "task2", // Task ID (used when setting task state, destination or description later)
 ["You will not survive alone. After creating basecamp, start looking for local armed groups to work with. Ask local civilians what they know. (Shift+Y near the civilian)<br/><br/><img image='rela.jpg' width='347' height='233'/>", "Make Contact with Civilians", "Make Contact with Civilians"], // Task description
-true
-] call SAOKCRTASK;
-
-
-
-
-
+objnull,		// Task destination
+true,			// true to set task as current upon creation
+-1,				// priority
+true,			// Notification?
+"Interact",		// 3d marker type
+false			// Shared?
+] call BIS_fnc_taskCreate;
 
 SAOKBRIE = {
 if !(isClass(configFile >> "cfgSounds" >> "Civ1")) then {

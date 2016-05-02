@@ -1,9 +1,9 @@
-overviewText = "The situation on Altis is unclear, the last reports we have indicate a CSAT invasion. The Greek government is unwilling to cooperate and refuses to share any intel they have, but is believed they are preparing an assault on the island to protect their military installations. Your team will be sent there to investigate the islands status so we know what further measures we can take while we get NATO approval to get involved.  (v1.99921)";
+overviewText = "The situation on Isla Duala is unclear, the last reports we have indicate an enemy invasion. The local government is unwilling to cooperate and refuses to share any intel they have, but is believed they are preparing an assault to protect their military installations. Your team will be sent there to investigate the status so we know what further measures we can take while we get NATO approval to get involved.";
 overviewPicture = "pic2.paa";
-OnLoadIntro = "WLA: Amalgamation";
-author="SaOk";
-OnLoadName = "WLA: Amalgamation";
-onLoadMission = "Mission can also be played on many mod maps. See guidance in WLA Menu (Shift+1), Field Manual (ESC) and Map (M) to get started";
+OnLoadIntro = "WLA: Isla Duala";
+author="SaOk modified by Jerrydrake";
+OnLoadName = "WLA: Isla Duala";
+onLoadMission = "The situation on Isla Duala is unclear, the last reports we have indicate a enemy invasion. The local government is unwilling to cooperate and refuses to share any intel they have, but is believed they are preparing an assault to protect their military installations.";
 loadScreen = "pic2.paa";
 showCompass = 1;
 showGPS = 1;
@@ -695,6 +695,15 @@ class RscTitles
 			idc = 311;
 		};
 	};
+};
+
+class CfgTaskEnhancements
+{
+   enable       = 1;            //0: disable new task features (default), 1: enable new task features & add new task markers and task widgets into the map
+   3d           = 1;            //0: do not use new 3D markers (default), 1: replace task waypoints with new 3D markers
+   3dDrawDist   = 10000;        //3d marker draw distance (default: 2000)
+   share        = 1;            //0: do not count assigned players (default), 1: count how many players have the task assigned
+   propagate    = 1;            //0: do not propagate (default), 1: propagate shared tasks to subordinates
 };
 
 #include "Indetities.hpp"

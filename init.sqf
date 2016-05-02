@@ -463,18 +463,19 @@ if (player distance position _x < player distance _lahin) then {_lahin = positio
 } foreach (nearestLocations [getPosATL player, ["NameVillage","NameCity","NameCityCapital"], 9000]); 
 _lahin = [_lahin select 0,_lahin select 1,0];
 if !(["task2"] call BIS_fnc_taskCompleted) then {
-NUMM=NUMM+1;
+//NUMM=NUMM+1;
 //"\A3\ui_f\data\map\markers\nato\c_unknown.paa"
-_someId = format ["IDSAOK%1",NUMM];
-[_someId, "onEachFrame", {
-if (isNil"IC3D") exitWith {};
-drawIcon3D ["\a3\Ui_f\data\GUI\Cfg\CommunicationMenu\instructor_ca.paa", ICONCOLORCIV, _this, 0.9, 0.9, 0, (format ["Speak with ANY Civilian: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
-}, _lahin] call BIS_fnc_addStackedEventHandler;
+//_someId = format ["IDSAOK%1",NUMM];
+//[_someId, "onEachFrame", {
+//if (isNil"IC3D") exitWith {};
+//drawIcon3D ["\a3\Ui_f\data\GUI\Cfg\CommunicationMenu\instructor_ca.paa", ICONCOLORCIV, _this, 0.9, 0.9, 0, (format ["Speak with ANY Civilian: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
+//}, _lahin] call BIS_fnc_addStackedEventHandler;
+["task2",_lahin] CALL BIS_fnc_taskSetDestination;	// Added for 1.58
 ["task2"] call BIS_fnc_taskSetCurrent;
-_someId SPAWN {
-waitUntil {sleep 1; ["task2"] call BIS_fnc_taskCompleted};
-[_this, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
-};
+//_someId SPAWN {
+//waitUntil {sleep 1; ["task2"] call BIS_fnc_taskCompleted};
+//[_this, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
+//};
 [player,player, "PlaV", "V2"]SPAWN SAOKKBTELL;
 [((name player)+": Okay, where is the closest village? We need to find the locals to find out what's happening here."),7] SPAWN SAOKTITLETEXT;
 sleep 5;
@@ -528,17 +529,18 @@ if (player distance position _x < player distance _lahin) then {_lahin = positio
 } foreach (nearestLocations [getPosATL player, ["NameVillage","NameCity","NameCityCapital"], 9000]); 
 _lahin = [_lahin select 0,_lahin select 1,0];
 if !(["task2"] call BIS_fnc_taskCompleted) then {
-NUMM=NUMM+1;
-_someId = format ["IDSAOK%1",NUMM];
-[_someId, "onEachFrame", {
-if (isNil"IC3D") exitWith {};
-drawIcon3D ["\a3\Ui_f\data\GUI\Cfg\CommunicationMenu\instructor_ca.paa", ICONCOLORCIV, _this,1.51, 1.51, 0, (format ["Speak with ANY Civilian: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
-}, _lahin] call BIS_fnc_addStackedEventHandler;
+//NUMM=NUMM+1;
+//_someId = format ["IDSAOK%1",NUMM];
+//[_someId, "onEachFrame", {
+//if (isNil"IC3D") exitWith {};
+//drawIcon3D ["\a3\Ui_f\data\GUI\Cfg\CommunicationMenu\instructor_ca.paa", ICONCOLORCIV, _this,1.51, 1.51, 0, (format ["Speak with ANY Civilian: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
+//}, _lahin] call BIS_fnc_addStackedEventHandler;
+["task2",_lahin] CALL BIS_fnc_taskSetDestination;	// Added for 1.58
 ["task2"] call BIS_fnc_taskSetCurrent;
-_someId SPAWN {
-waitUntil {sleep 1; ["task2"] call BIS_fnc_taskCompleted};
-[_this, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
-};
+//_someId SPAWN {
+//waitUntil {sleep 1; ["task2"] call BIS_fnc_taskCompleted};
+//[_this, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
+//};
 [player,player, "PlaV", "V2"]SPAWN SAOKKBTELL;
 [((name player)+": Okay, where is the closest village? We need to find the locals to find out what's happening here."),7] SPAWN SAOKTITLETEXT;
 sleep 5;
@@ -663,17 +665,18 @@ if (player distance position _x < player distance _lahin) then {_lahin = positio
 } foreach (nearestLocations [getPosATL player, ["NameVillage","NameCity","NameCityCapital"], 9000]); 
 _lahin = [_lahin select 0,_lahin select 1,0];
 if !(["task2"] call BIS_fnc_taskCompleted) then {
-NUMM=NUMM+1;
-_someId = format ["IDSAOK%1",NUMM];
-[_someId, "onEachFrame", {
-if (isNil"IC3D") exitWith {};
-drawIcon3D ["\a3\Ui_f\data\GUI\Cfg\CommunicationMenu\instructor_ca.paa", ICONCOLORCIV, _this,1.51, 1.51, 0, (format ["Speak with ANY Civilian: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
-}, _lahin] call BIS_fnc_addStackedEventHandler;
+//NUMM=NUMM+1;
+//_someId = format ["IDSAOK%1",NUMM];
+//[_someId, "onEachFrame", {
+//if (isNil"IC3D") exitWith {};
+//drawIcon3D ["\a3\Ui_f\data\GUI\Cfg\CommunicationMenu\instructor_ca.paa", ICONCOLORCIV, _this,1.51, 1.51, 0, (format ["Speak with ANY Civilian: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
+//}, _lahin] call BIS_fnc_addStackedEventHandler;
+["task2",_lahin] CALL BIS_fnc_taskSetDestination;	// Added for 1.58
 ["task2"] call BIS_fnc_taskSetCurrent;
-_someId SPAWN {
-waitUntil {sleep 1; ["task2"] call BIS_fnc_taskCompleted};
-[_this, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
-};
+//_someId SPAWN {
+//waitUntil {sleep 1; ["task2"] call BIS_fnc_taskCompleted};
+//[_this, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
+//};
 [player,player, "PlaV", "V2"]SPAWN SAOKKBTELL;
 [((name player)+": Okay, where is the closest village? We need to find the locals to find out what's happening here."),7] SPAWN SAOKTITLETEXT;
 sleep 5;

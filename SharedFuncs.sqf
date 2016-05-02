@@ -443,10 +443,10 @@ if ([_nearest,_str] CALL SAOKVILRET != "Hostile") then {
 SAOKSEEKPOS = {
 private ["_start","_st","_ar","_max","_cen","_rad","_rad2","_blk"];
 _cen = _this select 0;
-_rad = if (count _this > 1 && {typename (_this select 1) == "SCALAR"}) then {_this select 1} else {1000};
-_rad2 = if (count _this > 1 && {typename (_this select 1) == "SCALAR"}) then {_this select 1} else {1000};
+_rad = if (count _this > 1 && {typename (_this select 1) == "SCALAR"}) then {_this select 1} else {100};
+_rad2 = if (count _this > 1 && {typename (_this select 1) == "SCALAR"}) then {_this select 1} else {100};
 _blk = if (count _this > 2 && {typename (_this select 2) == "SCALAR"}) then {_this select 2} else {10};
-if (_rad > 1000 && {_rad - _blk >= 500}) then {_rad = 1000 + (random (_rad - 1000));_rad2 = 500;};
+if (_rad > 100 && {_rad - _blk >= 50}) then {_rad = 100 + (random (_rad - 100));_rad2 = 50;};
 _start = [_cen,(_rad*0.5)+_blk] CALL SAOKSEARCHPOS;
 _max = 0;
 while {surfaceiswater _start && {_max < 5}} do {_start = [_cen,(_rad*0.5)+_blk] CALL SAOKSEARCHPOS;_max = _max + 1;};
@@ -459,10 +459,10 @@ _start
 SAOKSEEKPOSAR = {
 private ["_start","_st","_ar","_max","_cen","_rad","_rad2","_blk"];
 _cen = _this select 0;
-_rad = if (count _this > 1 && {typename (_this select 1) == "SCALAR"}) then {_this select 1} else {1000};
-_rad2 = if (count _this > 1 && {typename (_this select 1) == "SCALAR"}) then {_this select 1} else {1000};
+_rad = if (count _this > 1 && {typename (_this select 1) == "SCALAR"}) then {_this select 1} else {100};
+_rad2 = if (count _this > 1 && {typename (_this select 1) == "SCALAR"}) then {_this select 1} else {100};
 _blk = if (count _this > 2 && {typename (_this select 2) == "SCALAR"}) then {_this select 2} else {10};
-if (_rad > 1000 && {_rad - _blk >= 500}) then {_rad = 1000 + (random (_rad - 1000));_rad2 = 500;};
+if (_rad > 100 && {_rad - _blk >= 50}) then {_rad = 100 + (random (_rad - 100));_rad2 = 50;};
 _start = [_cen,(_rad*0.5)+_blk] CALL SAOKSEARCHPOS;
 _max = 0;
 while {surfaceiswater _start && {_max < 5}} do {_start = [_cen,(_rad*0.5)+_blk] CALL SAOKSEARCHPOS;_max = _max + 1;};
@@ -478,7 +478,7 @@ _cen = _this select 0;
 _rad = _this select 1;
 _rad2 = _this select 1;
 _blk = _this select 2;
-if (_rad > 1000 && {_rad - _blk >= 500}) then {_rad = 1000 + (random (_rad - 1000));_rad2 = 500;};
+if (_rad > 100 && {_rad - _blk >= 50}) then {_rad = 100 + (random (_rad - 100));_rad2 = 50;};
 _start = [_cen,(_rad*0.5)+_blk] CALL SAOKSEARCHPOS;
 _max = 0;
 while {!surfaceiswater _start && {_max < 5}} do {_start = [_cen,(_rad*0.5)+_blk] CALL SAOKSEARCHPOS;_max = _max + 1;};

@@ -57,15 +57,24 @@ WEST, // Task owner(s)
 _Tid, // Task ID (used when setting task state, destination or description later)
 [_desc, _header, _header], // Task description
 objNull, // Task destination
-"CREATED"  ] call SAOKCRTASK;
+true,			// true to set task as current upon creation
+-1,				// priority
+true,			// Notification?
+"Defend",		// 3d marker type
+false			// Shared?
+] call BIS_fnc_taskCreate;
+
 NUMM=NUMM+1;
 _locationAm = + _locationA;
 _locationAm set [2,20];
-_someId = format ["IDSAOK%1",NUMM];
-[_someId, "onEachFrame", {
-	if (isNil"IC3D") exitWith {};
-	drawIcon3D ["\A3\ui_f\data\map\mapcontrol\Quay_CA.paa", ICONCOLORORANGE, _this,1.51, 1.51, 0, (format ["DEFEND BEACH: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
-}, _locationAm] call BIS_fnc_addStackedEventHandler;
+
+[_Tid,_locationAm] CALL BIS_fnc_taskSetDestination;	// Added for 1.58
+
+//_someId = format ["IDSAOK%1",NUMM];
+//[_someId, "onEachFrame", {
+//	if (isNil"IC3D") exitWith {};
+//	drawIcon3D ["\A3\ui_f\data\map\mapcontrol\Quay_CA.paa", ICONCOLORORANGE, _this,1.51, 1.51, 0, (format ["DEFEND BEACH: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
+//}, _locationAm] call BIS_fnc_addStackedEventHandler;
 
 _text = ("Wolf, CSAT is coming over the ocean trying to land near "+_Lna+". If you prevent them breaking through the beach, CSAT would be more unorganized for some time");
 BaseR globalchat _text;
@@ -108,7 +117,7 @@ if (_time < time) then {
 //END2
 _locationA SPAWN SAOKADDCSATGUARDPTOPOS;
 ["ScoreRemoved",["CSAT Captured the Beach",30]] call SAOKNOTIFI;
-_nul = [_Tid,"FAILED"] call SAOKCOTASK;
+_nul = [_Tid,"FAILED",true] call BIS_fnc_taskSetState;
 ["E","CAP"] SPAWN SAOKRADIOMES;
 ["F","LOS",""] SPAWN SAOKRADIOMES;
 deletemarker _mar5;
@@ -125,7 +134,7 @@ _x setvariable ["EndS",1];
 Pgroups pushback _x;
 } foreach _INFgroups;
 ["ScoreAdded",["CSAT Assault on Beach Failed",10]] call SAOKNOTIFI;
-_nul = [_Tid,"SUCCEEDED"] call SAOKCOTASK;
+_nul = [_Tid,"SUCCEEDED", true] call BIS_fnc_taskSetState;
 _tim = (400 + (random 300)) / DIFLEVEL;
 _tim SPAWN SAOKREINFCUTADD;
 deletemarker _mar5;
@@ -175,7 +184,7 @@ if (_time < time) then {
 //END2
 _locationA SPAWN SAOKADDCSATGUARDPTOPOS;
 ["ScoreRemoved",["CSAT Captured the Beach",30]] call SAOKNOTIFI;
-_nul = [_Tid,"FAILED"] call SAOKCOTASK;
+_nul = [_Tid,"FAILED", true] call BIS_fnc_taskSetState;
 ["E","CAP"] SPAWN SAOKRADIOMES;
 ["F","LOS",""] SPAWN SAOKRADIOMES;
 deletemarker _mar5;
@@ -192,7 +201,7 @@ _x setvariable ["EndS",1];
 Pgroups pushback _x;
 } foreach _INFgroups;
 ["ScoreAdded",["CSAT Assault on Beach Failed",10]] call SAOKNOTIFI;
-_nul = [_Tid,"SUCCEEDED"] call SAOKCOTASK;
+_nul = [_Tid,"SUCCEEDED", true] call BIS_fnc_taskSetState;
 _tim = (400 + (random 300)) / DIFLEVEL;
 _tim SPAWN SAOKREINFCUTADD;
 deletemarker _mar5;
@@ -220,7 +229,7 @@ if (count (_F + _E + _G) == 0 || {count (_F + _G) < count _E}) then {
 if (random 1 < 0.5) then {_locationA SPAWN SAOKADDCSATGUARDPTOPOS;};
 ["ScoreRemoved",["CSAT Captured the Beach",30]] call SAOKNOTIFI;
 PERSIANPRESTIGE = PERSIANPRESTIGE + (1000*DIFLEVEL);
-_nul = [_Tid,"FAILED"] call SAOKCOTASK;
+_nul = [_Tid,"FAILED", true] call BIS_fnc_taskSetState;
 ["E","CAP"] SPAWN SAOKRADIOMES;
 ["F","LOS",""] SPAWN SAOKRADIOMES;
 _start = [_locationA,100,30,"(1 - trees) * (1 - sea) * (1 - houses)"] CALL SAOKSEEKPOS;
@@ -228,7 +237,7 @@ _rC = ["C","P","T","V","AA","S"] call RETURNRANDOM;
 ["EAST",_rC,2,_start] SPAWN SAOKMOREVEHZONES;
 } else {
 ["ScoreAdded",["CSAT Assault on Beach Failed",10]] call SAOKNOTIFI;
-_nul = [_Tid,"SUCCEEDED"] call SAOKCOTASK;
+_nul = [_Tid,"SUCCEEDED", true] call BIS_fnc_taskSetState;
 _tim = (200 + (random 100)) / DIFLEVEL;
 _tim SPAWN SAOKREINFCUTADD;
 
@@ -236,6 +245,6 @@ _tim SPAWN SAOKREINFCUTADD;
 deletemarker _mar5;
 };
 };
-[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
+//[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
 sleep 60;
 _n = [_Tid] CALL BIS_fnc_deleteTask;

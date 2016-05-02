@@ -1,4 +1,4 @@
-private ["_Tid2","_nul","_someId","_cPos","_desTD","_Lna","_headerD","_t","_desT","_header","_n","_random","_Tid","_desc","_time","_uCar","_unitrate","_classes","_group","_dead","_camps"];
+private ["_Tid2","_nul","_someId","_cPos","_desTD","_Lna","_headerD","_t","_desT","_header","_n","_random","_Tid","_desc","_time","_uCar","_unitrate","_classes","_group","_dead","_camps","_Tid1"];
 _desT = [];
 _desTD = [];
 _camps = [];
@@ -89,27 +89,46 @@ if (_desTD distance _desT < 1500) exitWith {[] SPAWN TASK_AirTask1;};
 
 
 _Tid = format ["TaskAir%1",NUMM];
+_Tid1 = format ["TaskAirP1_%1",NUMM];
+_Tid2 = format ["TaskAirP2_%1",NUMM];
 NUMM=NUMM+1;
-_desc = "One of our infantry teams need quick transport to AO, pick up them from this location and wait for more instructions. Make sure your chopper have room for 5 units.";
+_desc = "One of our infantry teams need quick transport to AO, pick up them and wait for more instructions. Make sure your chopper have room for 5 units.";
 [
 WEST, // Task owner(s)
 _Tid, // Task ID (used when setting task state, destination or description later)
 [_desc, _header, _header], // Task description
-objNull, // Task destination
-"CREATED"] call SAOKCRTASK;
-NUMM=NUMM+1;
-_someId = format ["IDSAOK%1",NUMM];
-[_someId, "onEachFrame", {
-	if (isNil"IC3D") exitWith {};
-	drawIcon3D ["\A3\Structures_F_Heli\VR\Helpers\Data\VR_Symbol_Heli_Advanced_CA.paa", ICONCOLORBLUE, _this,1.51, 1.51, 0, (format ["PICK UP INFANTRY: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
-}, _desT] call BIS_fnc_addStackedEventHandler;
+objnull,		// Task destination
+false,			// true to set task as current upon creation
+-1,				// priority
+true,			// Notification?
+"Move",			// 3d marker type
+false			// Shared?
+] call BIS_fnc_taskCreate;
+[
+WEST, // Task owner(s)
+[_Tid1,_Tid],	// Task ID (used when setting task state, destination or description later)
+["Pick up units Here", "Pick up here", "Pick up here"], // Task description
+_desT,			// Task destination
+false,			// true to set task as current upon creation
+-1,				// priority
+true,			// Notification?
+"Move",			// 3d marker type
+false			// Shared?
+] call BIS_fnc_taskCreate;
+
+//NUMM=NUMM+1;
+//_someId = format ["IDSAOK%1",NUMM];
+//[_someId, "onEachFrame", {
+//	if (isNil"IC3D") exitWith {};
+//	drawIcon3D ["\A3\Structures_F_Heli\VR\Helpers\Data\VR_Symbol_Heli_Advanced_CA.paa", ICONCOLORBLUE, _this,1.51, 1.51, 0, (format ["PICK UP INFANTRY: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
+//}, _desT] call BIS_fnc_addStackedEventHandler;
 //icon = "\A3\ui_f\data\map\markers\military\pickup_CA.paa";
 _time = time + 600;
-_marS = format ["Aiirmar%1",NUMM];
-NUMM=NUMM+1;
-_mar5 = [_marS,_desT,"mil_pickup",[0.9,0.9],"ColorBlue","Pick Up Infantry"] CALL FUNKTIO_CREATEMARKER;
+//_marS = format ["Aiirmar%1",NUMM];
+//NUMM=NUMM+1;
+//_mar5 = [_marS,_desT,"mil_pickup",[0.9,0.9],"ColorBlue","Pick Up Infantry"] CALL FUNKTIO_CREATEMARKER;
 waitUntil {sleep 3; vehicle player distance _desT < 400 || {_time < time}};
-if (_time < time) exitWith {deletemarker _marS;[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;_nul = [_Tid,"FAILED"] call SAOKCOTASK;sleep 30; _n = [_Tid] CALL BIS_fnc_deleteTask;};
+if (_time < time) exitWith {_nul = [_Tid,"FAILED", true] call BIS_fnc_taskSetState; sleep 30; _n = [_Tid] CALL BIS_fnc_deleteTask;};
 //SPAWN
 _uCar = [FRIENDC1,FRIENDC2,FRIENDC3] call RETURNRANDOM;
 _unitrate = [4,5];
@@ -127,45 +146,50 @@ _bol
 };
 _group SPAWN SAOKAISMOKEBLUE;
 waitUntil {sleep 3; (vehicle player distance _desT < 300 && {(vehicle player) != player} &&  {getposATL (vehicle player) select 2 < 1}) || {_group call _dead}};
-if (_group call _dead) exitWith {deletemarker _marS;[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;_nul = [_Tid,"FAILED"] call SAOKCOTASK;sleep 30; _n = [_Tid] CALL BIS_fnc_deleteTask;};
+if (_group call _dead) exitWith {_nul = [_Tid,"FAILED", true] call BIS_fnc_taskSetState; sleep 30; _n = [_Tid] CALL BIS_fnc_deleteTask;};
 //GET IN
-[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
+//[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
 {_x assignascargo (vehicle player);[_x] ordergetin true;} foreach units _group;
 _vP = (vehicle player);
 waitUntil {sleep 1; !alive _vP || {{alive _x && {!(_x in vehicle player)}} count units _group == 0}};
-if (!alive _vP) exitWith {deletemarker _marS;[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;_nul = [_Tid,"FAILED"] call SAOKCOTASK;sleep 30; _n = [_Tid] CALL BIS_fnc_deleteTask;};
+if (!alive _vP) exitWith {_nul = [_Tid,"FAILED", true] call BIS_fnc_taskSetState; sleep 30; _n = [_Tid] CALL BIS_fnc_deleteTask;};
 //ARE IN
-deletemarker _marS;
-_nul = [_Tid,"SUCCEEDED"] call SAOKCOTASK;
+//deletemarker _marS;
+_nul = ["Part1","SUCCEEDED", true] call BIS_fnc_taskSetState;
 _Tid SPAWN {
 private ["_n"];
 sleep 30; _n = [_this] CALL BIS_fnc_deleteTask;
 };
-_Tid2 = format ["TaskAir%1",NUMM];
-NUMM=NUMM+1;
 _desc = "Now head to this location and drop the infantry safely there.";
 [
 WEST, // Task owner(s)
-_Tid2, // Task ID (used when setting task state, destination or description later)
+[_Tid2,_Tid], // Task ID (used when setting task state, destination or description later)
 [_desc, _headerD, _headerD], // Task description
-objNull, // Task destination
-"CREATED" ] call SAOKCRTASK;
-NUMM=NUMM+1;
-_someId = format ["IDSAOK%1",NUMM];
-[_someId, "onEachFrame", {
-	if (isNil"IC3D") exitWith {};
-	drawIcon3D ["\A3\Structures_F_Heli\VR\Helpers\Data\VR_Symbol_Heli_Basic_CA.paa", ICONCOLORBLUE, _this,1.51, 1.51, 0, (format ["DROP INFANTRY HERE: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
-}, _desTD] call BIS_fnc_addStackedEventHandler;
+_desTD,			// Task destination
+true,			// true to set task as current upon creation
+-1,				// priority
+true,			// Notification?
+"Move",			// 3d marker type
+false			// Shared?
+] call BIS_fnc_taskCreate;
+
+//NUMM=NUMM+1;
+//_someId = format ["IDSAOK%1",NUMM];
+//[_someId, "onEachFrame", {
+//	if (isNil"IC3D") exitWith {};
+//	drawIcon3D ["\A3\Structures_F_Heli\VR\Helpers\Data\VR_Symbol_Heli_Basic_CA.paa", ICONCOLORBLUE, _this,1.51, 1.51, 0, (format ["DROP INFANTRY HERE: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
+//}, _desTD] call BIS_fnc_addStackedEventHandler;
 //icon = "\A3\ui_f\data\map\markers\military\join_CA.paa";
 //AT DESTINATION - EXIT
-_marS = format ["Aiirmar%1",NUMM];
-NUMM=NUMM+1;
-_mar5 = [_marS,_desTD,"mil_join",[0.9,0.9],"ColorBlue","Drop Infantry Here"] CALL FUNKTIO_CREATEMARKER;
+//_marS = format ["Aiirmar%1",NUMM];
+//NUMM=NUMM+1;
+//_mar5 = [_marS,_desTD,"mil_join",[0.9,0.9],"ColorBlue","Drop Infantry Here"] CALL FUNKTIO_CREATEMARKER;
 waitUntil {sleep 3; (vehicle player distance _desTD < 300 && {getposATL (vehicle player) select 2 < 1})  || {_group call _dead} || {!alive _vP}};
-if (_group call _dead || {!alive _vP}) exitWith {deletemarker _marS;[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;_nul = [_Tid2,"FAILED"] call SAOKCOTASK;sleep 30; _n = [_Tid2] CALL BIS_fnc_deleteTask;};
-deletemarker _marS;
-[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
-_nul = [_Tid2,"SUCCEEDED"] call SAOKCOTASK;
+if (_group call _dead || {!alive _vP}) exitWith {_nul = [_Tid,"FAILED", true] call BIS_fnc_taskSetState; sleep 30; _n = [_Tid] CALL BIS_fnc_deleteTask;};
+//deletemarker _marS;
+//[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
+_nul = [_Tid2,"SUCCEEDED", true] call BIS_fnc_taskSetState;
+//_nul = [_Tid,"SUCCEEDED", true] call BIS_fnc_taskSetState;
 pisteet = pisteet + 550;
 _nul = [550, "Transport Reward"] SPAWN PRESTIGECHANGE;
 {unassignvehicle _x;[_x] ordergetin false;_x action ["GetOut",vehicle _x];} foreach units _group;
