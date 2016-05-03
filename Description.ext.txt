@@ -1,7 +1,7 @@
 overviewText = "The situation on #MAPNAME# is unclear, the last reports we have indicate a #FORCE# invasion. The local government is unwilling to cooperate and refuses to share any intel they have, but is believed they are preparing an assault to protect their military installations. Your team will be sent there to investigate the status so we know what further measures we can take while we get NATO approval to get involved.";
 overviewPicture = "pic2.paa";
 OnLoadIntro = "WLA: #MAPNAME#";
-author="SaOk modified by Jerrydrake";
+author="SaOk modified by WLA_resurrection Team";
 OnLoadName = "WLA: #MAPNAME#";
 onLoadMission = "The situation on #MAPNAME# is unclear, the last reports we have indicate a #FORCE# invasion. The local government is unwilling to cooperate and refuses to share any intel they have, but is believed they are preparing an assault to protect their military installations.";
 loadScreen = "pic2.paa";

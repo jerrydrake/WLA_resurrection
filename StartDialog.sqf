@@ -108,6 +108,7 @@ if ({isClass(configFile >> "cfgVehicles" >> _x)} count ["TEI_UNSC_Army_W_Medic"]
 if ({isClass(configFile >> "cfgVehicles" >> _x)} count ["rhs_msv_aa","rhsusf_army_ucp_autorifleman"] > 1) then {lbAdd [1509, "RHS Escalation"];"RHS Escalation" SPAWN SAOKMODTEMP;};
 if ({isClass(configFile >> "cfgVehicles" >> _x)} count ["LIB_GER_unterofficer"] > 0) then {lbAdd [1509, "Iron Front"];"Iron Front" SPAWN SAOKMODTEMP;lbAdd [1509, "Iron Front Fic"];};
 if ({isClass(configFile >> "cfgVehicles" >> _x)} count ["O_mas_cer_Soldier_off_F"] > 0) then {lbAdd [1509, "Chernarus Conflict"];"Chernarus Conflict" SPAWN SAOKMODTEMP;};
+if ({isClass(configFile >> "cfgVehicles" >> _x)} count ["B_mas_it_Soldier_TL_F_v"] > 0) then {lbAdd [1509, "Italian SPECOPS"];"Italian SPECOPS" SPAWN SAOKMODTEMP;};
 lbAdd [1509, "Default"];
 lbSetCurSel [1509, 0];
 lbAdd [1505, "Start Time"];
@@ -207,10 +208,15 @@ _n = [player,["U_mas_cer_B_uniform"],["H_mas_cer_HelmetB"],["V_mas_cer_PlateCarr
 _nul = [player, 1] SPAWN FUNKTIO_NATORUS;
 {_n = [_x,["U_mas_cer_B_uniform"],["H_mas_cer_HelmetB"],["V_mas_cer_PlateCarrierIA1_B"]] SPAWN GearToRandom;_nul = [_x, 1] SPAWN FUNKTIO_NATORUS;} foreach units group player - [player];
 };
-if (!isNil"RHSENABLED" && {isNil"IFENABLED"} && {_load != 1}) then {
+if (!isNil"RHSENABLED" && {isNil"IFENABLED"} && {isNil"SPECOPSENABLED"} && {_load != 1}) then {
 _n = [player,["rhs_uniform_cu_ucp"],["rhsusf_ach_helmet_headset_ucp"],["rhsusf_iotv_ucp_squadleader"]] SPAWN GearToRandom;
 _nul = [player, 1] SPAWN FUNKTIO_NATORUS;
 {_n = [_x,["rhs_uniform_cu_ucp"],["rhsusf_ach_helmet_ucp"],["rhsusf_iotv_ucp"]] SPAWN GearToRandom;_nul = [_x, 1] SPAWN FUNKTIO_NATORUS;} foreach units group player - [player];
+};
+if (!isNil"SPECOPSENABLED" && {isNil"IFENABLED"} && {_load != 1}) then {
+_n = [player,["U_mas_it_B_CombatUniform_veg"],["H_mas_it_helmet_mich_sf_v"],["V_mas_it_PlateCarrier1_rgr_v"]] SPAWN GearToRandom;
+_nul = [player, 1] SPAWN FUNKTIO_NATORUS;
+{_n = [_x,["U_mas_it_B_CombatUniform_veg"],["H_mas_it_helmet_mich_sf_v"],["V_mas_it_ChestrigB_rgr_v"]] SPAWN GearToRandom;_nul = [_x, 1] SPAWN FUNKTIO_NATORUS;} foreach units group player - [player];
 };
 if (!isNil"IFENABLED" && {_load != 1}) then {
 if (!isnull (BackPackContainer player)) then {removeBackpack player;};

@@ -626,8 +626,7 @@ if (_s in ["legs","hands"] && {_b}) then {[(_this select 0),_s,((_this select 0)
 if ((!(_s in ["legs","hands"]) && {(((_this select 0) getHit _s) + _d) > 0.85}) || {_v}) then {
 if (isNil{(_this select 0) getvariable "SAwounded"} && {vehicle (_this select 0) == (_this select 0)}) then {
 (_this select 0) setvariable ["SAwounded",time];(_this select 0) spawn SAOKINJUICON;
-_t = "Wounded TeamMember:"+"<br/>"+ "SPACE to revive"+"<br/>"+"U to drag / ALT+U to carry"+"<br/>"+"CTLR+U to point revive site for AI"; 
-_t SPAWN HINTSAOK;(_this select 0) SPAWN SAOKWOUNDED;if (_s == "legs") then {_s = "body";};[(_this select 0),_s,0.5]spawn SAOKDELAYHIT;
+(_this select 0) SPAWN SAOKWOUNDED;if (_s == "legs") then {_s = "body";};[(_this select 0),_s,0.5]spawn SAOKDELAYHIT;
 } else {
 if (vehicle (_this select 0) == (_this select 0) && {(((_this select 0) getvariable "SAwounded") + 2 < time || {random 1 < 0.1})}) then {
 _kill = true;
