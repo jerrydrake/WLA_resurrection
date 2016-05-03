@@ -214,9 +214,9 @@ _nul = [player, 1] SPAWN FUNKTIO_NATORUS;
 {_n = [_x,["rhs_uniform_cu_ucp"],["rhsusf_ach_helmet_ucp"],["rhsusf_iotv_ucp"]] SPAWN GearToRandom;_nul = [_x, 1] SPAWN FUNKTIO_NATORUS;} foreach units group player - [player];
 };
 if (!isNil"SPECOPSENABLED" && {isNil"IFENABLED"} && {_load != 1}) then {
-_n = [player,["U_mas_it_B_CombatUniform_veg"],["H_mas_it_helmet_mich_sf_v"],["V_mas_it_PlateCarrier1_rgr_v"]] SPAWN GearToRandom;
+_n = [player,["U_mas_it_B_IndUniform2_v"],["H_mas_it_helmet_mich_sf_v"],["V_mas_it_PlateCarrier1_rgr_v"]] SPAWN GearToRandom;
 _nul = [player, 1] SPAWN FUNKTIO_NATORUS;
-{_n = [_x,["U_mas_it_B_CombatUniform_veg_vest"],["H_mas_it_helmet_mich_sf_v"],["V_mas_it_PlateCarrier1_rgr_v"]] SPAWN GearToRandom;_nul = [_x, 1] SPAWN FUNKTIO_NATORUS;} foreach units group player - [player];
+{_n = [_x,["U_mas_it_B_IndUniform1_v"],["H_mas_it_helmet_mich_sf_v"],["V_mas_it_PlateCarrier1_rgr_v"]] SPAWN GearToRandom;_nul = [_x, 1] SPAWN FUNKTIO_NATORUS;} foreach units group player - [player];
 };
 if (!isNil"IFENABLED" && {_load != 1}) then {
 if (!isnull (BackPackContainer player)) then {removeBackpack player;};
