@@ -39,11 +39,11 @@ if (count _this == 0 || {
 	[
 		WEST, // Task owner(s)
 		"taskF", // Task ID (used when setting task state, destination or description later) or ["taskname","parentname"]
-		["CSAT is getting weaker, we have spotted possible convoy carrying CSAT commander. We need to capture him and alive if possible.", "Track Down Fleeing CSAT Commander", "Track Down Fleeing CSAT Commander"], // Task description
+		["Enemy is getting weaker, we have spotted possible convoy carrying CSAT commander. We need to capture him and alive if possible.", "Track Down Fleeing enemy Commander", "Track Down Fleeing enemy Commander"], // Task description
 		objnull, // Task destination
 		true, // true to set task as current upon creation
 		-1, // priority
-		true, // Notification?
+		false, // Notification?
 		"Default", // 3d marker type
 		false // Shared?
 	] call BIS_fnc_taskCreate;
@@ -59,6 +59,8 @@ if (count _this == 0 || {
 		"Destroy", // 3d marker type
 		false // Shared?
 	] call BIS_fnc_taskCreate;
+
+	["taskF", ["Enemy is getting weaker, we have spotted possible convoy carrying enemy commander. We need to capture him and alive if possible.", "Track Down Fleeing enemy Commander", "Track Down Fleeing enemy Commander"]] call BIS_fnc_taskSetDescription;
 
 	_ar = [(ARMEDVEHICLES select 1) call RETURNRANDOM, (ARMEDVEHICLES select 1) call RETURNRANDOM, (ARMEDAA select 1) call RETURNRANDOM, (ARMEDTANKS select 1) call RETURNRANDOM];
 	//_ar = [(ARMEDVEHICLES select 1)call RETURNRANDOM];
@@ -161,7 +163,7 @@ gameLogic1 globalchat localize "STR_milT3_l5";
 [
 	WEST, // Task owner(s)
 	["taskF2", "taskF"], // Task ID (used when setting task state, destination or description later)
-	["CSAT convoy is destroyed, we need to search the site to find possible CSAT commander.", "Investigate the Site", "Investigate the Site"], // Task description
+	["Enemy convoy is destroyed, we need to search the site to find possible enemy commander.", "Investigate the Site", "Investigate the Site"], // Task description
 	_start, // Task destination
 	true, // true to set task as current upon creation
 	-1, // priority
@@ -169,6 +171,8 @@ gameLogic1 globalchat localize "STR_milT3_l5";
 	"Search", // 3d marker type
 	false // Shared?
 ] call BIS_fnc_taskCreate;
+
+["taskF", ["Enemy is getting weaker, we have spotted possible convoy carrying enemy commander. We need to capture him and alive if possible.", "Track Down Fleeing enemy Commander", "Track Down Fleeing enemy Commander"]] call BIS_fnc_taskSetDescription;
 
 //NUMM = NUMM + 1;
 //_someId = format ["IDSAOK%1",NUMM];
@@ -185,22 +189,26 @@ waitUntil {
 //_n = ["taskF1"] CALL BIS_fnc_deleteTask;
 _nul = ["taskF2", "SUCCEEDED", true] call BIS_fnc_taskSetState;
 //[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
+
 _b = false;
 if (player knowsabout _off > 1 || {
 		[_off, player] CALL FUNKTIO_LOS
 	}) then {
 	_b = true;
 };
+_start = [_start] CALL SAOKNEARVILP;
+
+_position = objNull;
+
 if (_b) then { // _b == true;
 	_h = ["You have spotted commander fleeing the wreck site, run after him!", "Run After the Commander", "Run After the Commander"];
-	_position = getPosATL _off;
+	_position = _off;
 } else { // _b == false;
-	_h = ["No sight of CSAT commander near the convoy wrecks, he must continue fleeing. Better check the nearby village.", "Search Nearby Village", "Search Nearby Village"];
+	_h = ["No sight of enemy commander near the convoy wrecks, he must continue fleeing. Better check the nearby village.", "Search Nearby Village", "Search Nearby Village"];
 	_position = _start;
 };
-_start = [_start] CALL SAOKNEARVILP;
-NUMM = NUMM + 1;
-_someId = format["IDSAOK%1", NUMM];
+//NUMM = NUMM + 1;
+//_someId = format["IDSAOK%1", NUMM];
 //if !(_b) then {
 //[_someId, "onEachFrame", {
 //if (isNil"IC3D") exitWith {};
@@ -224,6 +232,7 @@ _someId = format["IDSAOK%1", NUMM];
 	"Destroy", // 3d marker type
 	false // Shared?
 ] call BIS_fnc_taskCreate;
+["taskF", ["Enemy is getting weaker, we have spotted possible convoy carrying enemy commander. We need to capture him and alive if possible.", "Track Down Fleeing enemy Commander", "Track Down Fleeing enemy Commander"]] call BIS_fnc_taskSetDescription;
 
 if (!_b) then {
 	_aika = time + 60;
@@ -236,6 +245,7 @@ if (!_b) then {
 	};
 	if (_aika < time) then {
 		gameLogic1 globalchat localize "STR_milT3_l5b";
+		["taskF3", _off] call BIS_fnc_taskSetDestination;
 		//[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
 		//NUMM = NUMM + 1;
 		//[_someId, "onEachFrame", {
@@ -294,7 +304,7 @@ _aika = time + 300;
 _position = getPosATL _off;
 [
 	WEST, // Task owner(s)
-	"taskF4", // Task ID (used when setting task state, destination or description later)
+	["taskF4", "taskF"], // Task ID (used when setting task state, destination or description later)
 	["We must keep eye on the commander until chopper arrives to pick him up.", "Hold Commander Until Pick Up", "Hold Commander Until Pick Up"], // Task description
 	_position, // Task destination
 	true, // true to set task as current upon creation
@@ -303,6 +313,7 @@ _position = getPosATL _off;
 	"Defend", // 3d marker type
 	false // Shared?
 ] call BIS_fnc_taskCreate;
+["taskF", ["Enemy is getting weaker, we have spotted possible convoy carrying enemy commander. We need to capture him and alive if possible.", "Track Down Fleeing enemy Commander", "Track Down Fleeing enemy Commander"]] call BIS_fnc_taskSetDescription;
 
 waitUntil {
 	sleep 3;

@@ -216,8 +216,14 @@ _nul = [player, 1] SPAWN FUNKTIO_NATORUS;
 if (!isNil"SPECOPSENABLED" && {isNil"IFENABLED"} && {_load != 1}) then {
 _n = [player,["U_mas_it_B_IndUniform2_v"],["H_mas_it_helmet_mich_sf_v"],["V_mas_it_PlateCarrier1_rgr_v"]] SPAWN GearToRandom;
 _nul = [player, 1] SPAWN FUNKTIO_NATORUS;
-{_n = [_x,["U_mas_it_B_IndUniform1_v"],["H_mas_it_helmet_mich_sf_v"],["V_mas_it_PlateCarrier1_rgr_v"]] SPAWN GearToRandom;_nul = [_x, 1] SPAWN FUNKTIO_NATORUS;} foreach units group player - [player];
+{_n = [_x,["U_mas_it_B_IndUniform1_v"],["H_mas_it_helmet_mich_sf_v"],["V_mas_it_PlateCarrier1_rgr_v"]] SPAWN GearToRandom; _nul = [_x, 1] SPAWN FUNKTIO_NATORUS;} foreach units group player - [player];
 };
+// Setting Italian Names
+_names = [["Sergio Tacconi","Sergio","Tacconi"], ["Giorgio Giacobetti","Giorgio","Giacobetti"], ["Astolfo Astri","Astolfo","Astri"], ["Alberto Corona","Alberto","Corona"], ["Renato Astolfi","Renato","Astolfi"], ["Arturo Colaianni","Arturo","Colaianni"], ["Piero Caporossi","Piero","Caporossi"], ["Massimo Costantini","Massimo","Costantini"], ["Giovanni Colarossi","Giovanni","Colarossi"], ["Stefano Ferrari","Stefano","Ferrari"], ["Claudio Polcino","Claudio","Polcino"], ["Mauro Capoleoni","Mauro","Capoleoni"], ["Pietro Vallone","Pietro","Vallone"]];
+if (!isNil"SPECOPSENABLED" && {isNil"IFENABLED"} && {_load != 1}) then {
+{_x setName (_names call RETURNRANDOM);} foreach units group player - [player];
+};
+
 if (!isNil"IFENABLED" && {_load != 1}) then {
 if (!isnull (BackPackContainer player)) then {removeBackpack player;};
 if (isNil"IFSOVIET") then {
