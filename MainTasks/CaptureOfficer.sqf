@@ -2,25 +2,25 @@ private["_c", "_r", "_roads", "_start", "_p", "_ar", "_vz", "_someId", "_wp", "_
 _start = [];
 
 if (count _this == 0 || {
-		typename(_this select 0) == "STRING"
-	}) then {
+			typename(_this select 0) == "STRING"
+		}) then {
 	CurTaskS set[count CurTaskS, "maintasks\CaptureOfficer.sqf"];
 	if (count _this == 0) then {
 		_c = "";
 		_p = SAOKMAPSIZE * 0.5; {
 			if (typename _c == "STRING" || {
-					locationposition _x distance player > locationposition _c distance player
-				}) then {
+						locationposition _x distance player > locationposition _c distance player
+					}) then {
 				_c = _x
 			};
 		}
 		foreach(nearestLocations[[_p, _p, 0], ["CampR"], SAOKMAPSIZE * 0.7]);
 		_start =
-			if (_c != "") then {
-				locationposition _c
-			} else {
-				[(vehicle player), 6000, 2000, "(1 + meadow) * (1 - sea)"] CALL SAOKSEEKPOS
-			};
+		if (_c != "") then {
+			locationposition _c
+		} else {
+			[(vehicle player), 6000, 2000, "(1 + meadow) * (1 - sea)"] CALL SAOKSEEKPOS
+		};
 		_r = 200;
 		_roads = (_start nearRoads _r);
 		while {
@@ -37,27 +37,27 @@ if (count _this == 0 || {
 	};
 
 	[
-		WEST, // Task owner(s)
-		"taskF", // Task ID (used when setting task state, destination or description later) or ["taskname","parentname"]
-		["Enemy is getting weaker, we have spotted possible convoy carrying CSAT commander. We need to capture him and alive if possible.", "Track Down Fleeing enemy Commander", "Track Down Fleeing enemy Commander"], // Task description
-		objnull, // Task destination
-		true, // true to set task as current upon creation
-		-1, // priority
-		false, // Notification?
-		"Default", // 3d marker type
-		false // Shared?
+	WEST, // Task owner(s)
+	"taskF", // Task ID (used when setting task state, destination or description later) or ["taskname","parentname"]
+	["Enemy is getting weaker, we have spotted possible convoy carrying CSAT commander. We need to capture him and alive if possible.", "Track Down Fleeing enemy Commander", "Track Down Fleeing enemy Commander"], // Task description
+	objnull, // Task destination
+	true, // true to set task as current upon creation
+	-1, // priority
+	false, // Notification?
+	"Default", // 3d marker type
+	false // Shared?
 	] call BIS_fnc_taskCreate;
 
 	[
-		WEST, // Task owner(s)
-		["taskF1", "taskF"], // Task ID (used when setting task state, destination or description later)
-		["We need to capture enemy commander alive if possible.", "Stop enemy convoy", "Stop enemy convoy"], // Task description
-		objNull, // Task destination
-		true, // true to set task as current upon creation
-		-1, // priority
-		true, // Notification?
-		"Destroy", // 3d marker type
-		false // Shared?
+	WEST, // Task owner(s)
+	["taskF1", "taskF"], // Task ID (used when setting task state, destination or description later)
+	["We need to capture enemy commander alive if possible.", "Stop enemy convoy", "Stop enemy convoy"], // Task description
+	objNull, // Task destination
+	true, // true to set task as current upon creation
+	-1, // priority
+	true, // Notification?
+	"Destroy", // 3d marker type
+	false // Shared?
 	] call BIS_fnc_taskCreate;
 
 	["taskF", ["Enemy is getting weaker, we have spotted possible convoy carrying enemy commander. We need to capture him and alive if possible.", "Track Down Fleeing enemy Commander", "Track Down Fleeing enemy Commander"]] call BIS_fnc_taskSetDescription;
@@ -66,12 +66,12 @@ if (count _this == 0 || {
 	//_ar = [(ARMEDVEHICLES select 1)call RETURNRANDOM];
 	_vz = "";
 	_vz =
-		if (count _this == 0 || {!((_this select 0) in VEHZONESA)
+	if (count _this == 0 || {!((_this select 0) in VEHZONESA)
 			}) then {
-			[_start, "ColorRed", _ar] CALL AddVehicleZone
-		} else {
-			_this select 0
-		};
+		[_start, "ColorRed", _ar] CALL AddVehicleZone
+	} else {
+		_this select 0
+	};
 	CurTaskS = CurTaskS - ["maintasks\CaptureOfficer.sqf"];
 	CurTaskS set[count CurTaskS, ["maintasks\CaptureOfficer.sqf", _vz]];
 
@@ -107,7 +107,7 @@ if (count _this == 0 || {
 	}
 	do {
 		if (locationposition _vz distance[0, 0, 0] > 100 && {!surfaceisWater(locationposition _vz)
-			}) then {
+				}) then {
 			_start = locationposition _vz;
 		};
 		sleep 4;
@@ -116,18 +116,18 @@ if (count _this == 0 || {
 	//[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
 	SZONES = SZONES - [_vz];
 	CurTaskS = CurTaskS - [
-		["maintasks\CaptureOfficer.sqf", _vz]
+	["maintasks\CaptureOfficer.sqf", _vz]
 	];
 } else {
 	_start = _this select 0;
 };
 CurTaskS set[count CurTaskS, ["maintasks\CaptureOfficer.sqf", _start]];
 _eOc =
-	if (isNil "IFENABLED") then {
-		"O_officer_F"
-	} else {
-		"LIB_SOV_captain"
-	};
+if (isNil "IFENABLED") then {
+	"O_officer_F"
+} else {
+	"LIB_SOV_captain"
+};
 if (!isNil "Eridanus") then {
 	_eOc = "TEI_Ins_URF_Officer";
 };
@@ -138,9 +138,9 @@ if (!isNil "CheConf") then {
 	_eOc = "O_mas_cer_Soldier_off_F";
 };
 _off = leader([_start, EAST, [_eOc],
-	[],
-	[],
-	[0.4, 0.8]
+[],
+[],
+[0.4, 0.8]
 ] call SpawnGroupCustom);
 _off allowdamage false;
 _off setcaptive true;
@@ -161,15 +161,15 @@ player sidechat localize "STR_milT3_l4";
 sleep 7;
 gameLogic1 globalchat localize "STR_milT3_l5";
 [
-	WEST, // Task owner(s)
-	["taskF2", "taskF"], // Task ID (used when setting task state, destination or description later)
-	["Enemy convoy is destroyed, we need to search the site to find possible enemy commander.", "Investigate the Site", "Investigate the Site"], // Task description
-	_start, // Task destination
-	true, // true to set task as current upon creation
-	-1, // priority
-	true, // Notification?
-	"Search", // 3d marker type
-	false // Shared?
+WEST, // Task owner(s)
+["taskF2", "taskF"], // Task ID (used when setting task state, destination or description later)
+["Enemy convoy is destroyed, we need to search the site to find possible enemy commander.", "Investigate the Site", "Investigate the Site"], // Task description
+_start, // Task destination
+true, // true to set task as current upon creation
+-1, // priority
+true, // Notification?
+"Search", // 3d marker type
+false // Shared?
 ] call BIS_fnc_taskCreate;
 
 ["taskF", ["Enemy is getting weaker, we have spotted possible convoy carrying enemy commander. We need to capture him and alive if possible.", "Track Down Fleeing enemy Commander", "Track Down Fleeing enemy Commander"]] call BIS_fnc_taskSetDescription;
@@ -192,8 +192,8 @@ _nul = ["taskF2", "SUCCEEDED", true] call BIS_fnc_taskSetState;
 
 _b = false;
 if (player knowsabout _off > 1 || {
-		[_off, player] CALL FUNKTIO_LOS
-	}) then {
+			[_off, player] CALL FUNKTIO_LOS
+		}) then {
 	_b = true;
 };
 _start = [_start] CALL SAOKNEARVILP;
@@ -222,15 +222,15 @@ if (_b) then { // _b == true;
 //};
 
 [
-	WEST, // Task owner(s)
-	["taskF3", "taskF"], // Task ID (used when setting task state, destination or description later)
-	_h, // Task description
-	_position, // Task destination
-	true, // true to set task as current upon creation
-	-1, // priority
-	true, // Notification?
-	"Destroy", // 3d marker type
-	false // Shared?
+WEST, // Task owner(s)
+["taskF3", "taskF"], // Task ID (used when setting task state, destination or description later)
+_h, // Task description
+_position, // Task destination
+true, // true to set task as current upon creation
+-1, // priority
+true, // Notification?
+"Destroy", // 3d marker type
+false // Shared?
 ] call BIS_fnc_taskCreate;
 ["taskF", ["Enemy is getting weaker, we have spotted possible convoy carrying enemy commander. We need to capture him and alive if possible.", "Track Down Fleeing enemy Commander", "Track Down Fleeing enemy Commander"]] call BIS_fnc_taskSetDescription;
 
@@ -267,26 +267,26 @@ _nul = ["taskF3", "SUCCEEDED", true] call BIS_fnc_taskSetState;
 //dostop _off;
 _off disableAI "move";
 _n = [
-	[getposATL player, player, _off],
-	[],
-	[
-		[
-			[
-				[_off],
-				["Okay, okay. I surrender"], 5
-			]
-		],
-		[
-			[
-				[_off], "Threat me good and I spill the beans", 6
-			]
-		],
-		[
-			[
-				[player], "You will be transported to interrogation in no time", 7
-			]
-		]
-	]
+[getposATL player, player, _off],
+[],
+[
+[
+[
+[_off],
+["Okay, okay. I surrender"], 5
+]
+],
+[
+[
+[_off], "Threat me good and I spill the beans", 6
+]
+],
+[
+[
+[player], "You will be transported to interrogation in no time", 7
+]
+]
+]
 ] SPAWN SAOKCUTSCENE;
 waitUntil {
 	sleep 0.1;
@@ -303,15 +303,15 @@ _aika = time + 300;
 
 _position = getPosATL _off;
 [
-	WEST, // Task owner(s)
-	["taskF4", "taskF"], // Task ID (used when setting task state, destination or description later)
-	["We must keep eye on the commander until chopper arrives to pick him up.", "Hold Commander Until Pick Up", "Hold Commander Until Pick Up"], // Task description
-	_position, // Task destination
-	true, // true to set task as current upon creation
-	-1, // priority
-	true, // Notification?
-	"Defend", // 3d marker type
-	false // Shared?
+WEST, // Task owner(s)
+["taskF4", "taskF"], // Task ID (used when setting task state, destination or description later)
+["We must keep eye on the commander until chopper arrives to pick him up.", "Hold Commander Until Pick Up", "Hold Commander Until Pick Up"], // Task description
+_position, // Task destination
+true, // true to set task as current upon creation
+-1, // priority
+true, // Notification?
+"Defend", // 3d marker type
+false // Shared?
 ] call BIS_fnc_taskCreate;
 ["taskF", ["Enemy is getting weaker, we have spotted possible convoy carrying enemy commander. We need to capture him and alive if possible.", "Track Down Fleeing enemy Commander", "Track Down Fleeing enemy Commander"]] call BIS_fnc_taskSetDescription;
 
@@ -330,7 +330,7 @@ if (_aika < time) then {
 gameLogic1 globalchat localize "STR_milT3_l8";
 //_n = ["taskF3"] CALL BIS_fnc_deleteTask;
 CurTaskS = CurTaskS - [
-	["maintasks\CaptureOfficer.sqf", _start]
+["maintasks\CaptureOfficer.sqf", _start]
 ];
 _nul = ["taskF4", "SUCCEEDED", true] call BIS_fnc_taskSetState;
 _nul = ["taskF", "SUCCEEDED", true] call BIS_fnc_taskSetState;
