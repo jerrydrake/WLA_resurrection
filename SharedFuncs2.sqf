@@ -3429,12 +3429,14 @@ AIRARMCHOP = [
 ["I_Heli_Light_03_F"],
 ["I_Heli_Light_03_F"]
 ];
+
 AIRCARRIERCHOP = [
-["B_mas_it_Heli_Light_01_F", "B_mas_it_Heli_Light_01_armed_F", "B_mas_it_Heli_Transport_02_F", "B_mas_it_Heli_Med_02_F", "B_mas_it_CH_47F", "B_mas_it_Heli_light_03_F", "B_mas_it_Heli_light_03_unarmed_F", "B_mas_it_Heli_light_03_med_F"],
+["B_mas_it_Heli_Light_01_F", "B_mas_it_Heli_Transport_02_F", "B_mas_it_Heli_Med_02_F", "B_mas_it_CH_47F", "B_mas_it_Heli_light_03_F", "B_mas_it_Heli_light_03_unarmed_F", "B_mas_it_Heli_light_03_med_F"],
 ["RHS_Mi8AMT_vdv", "RHS_Mi8mt_vdv", "RHS_Mi8mt_Cargo_vdv", "RHS_Mi8MTV3_vdv", "RHS_Mi8MTV3_FAV_vdv", "RHS_Mi8MTV3_UPK23_vdv", "rhs_ka60_c", "RHS_Mi8AMT_vvsc", "RHS_Mi8AMTSh_vvsc", "RHS_Mi8AMTSh_FAV_vvsc", "RHS_Mi8AMTSh_UPK23_vvsc", "RHS_Mi8mt_vvsc", "RHS_Mi8mt_Cargo_vvsc", "RHS_Mi8MTV3_vvsc", "RHS_Mi8MTV3_FAB_vvsc", "RHS_Mi8MTV3_UPK23_vvsc"],
 ["RHS_Mi8amt_chdkz", "C_Heli_light_01_civil_F", "RHS_Mi8amt_civilian", "I_Heli_light_03_unarmed_F"],
 ["RHS_Mi8amt_chdkz", "C_Heli_light_01_civil_F", "RHS_Mi8amt_civilian", "I_Heli_light_03_unarmed_F"]
 ];
+
 ENEMYC1 = ["rhs_vdv_aa", "rhs_vdv_at", "rhs_vdv_arifleman", "rhs_vdv_efreitor", "rhs_vdv_engineer", "rhs_vdv_grenadier_rpg", "rhs_vdv_strelok_rpg_assist", "rhs_vdv_junior_sergeant", "rhs_vdv_machinegunner", "rhs_vdv_machinegunner_assisstant", "rhs_vdv_marksman", "rhs_vdv_marksman_asval", "rhs_vdv_medic", "rhs_vdv_officer_armored", "rhs_vdv_rifleman", "rhs_vdv_rifleman_asval", "rhs_vdv_grenadier", "rhs_vdv_LAT", "rhs_-vdv_RShG2", "rhs_vdv_segeant"];
 ENEMYC2 = ["rhs_vdv_recon_efreitor", "rhs_vdv_recon_machinegunner_assistant", "rhs_vdv_recon_marksman", "rhs_vdv_recon_marksman_asval", "rhs_vdv_recon_medic", "rhs_vdv_recon_officer", "rhs_vdv_recon_rifleman", "rhs_vdv_recon_rifleman_ak103", "rhs_vdv_recon_rifleman_akms", "rhs_vdv_recon_rifleman_asval", "rhs_vdv_recon_grenadier", "rhs_vdv_recon_rifleman_l", "rhs_vdv_recon_rifleman_lat", "rhs_vdv_recon_rifleman_scout_akm", "rhs_vdv_recon_rifleman_scout", "rhs_vdv_grenadier_scout", "rhs_vdv_recon_arifleman_scout", "rhs_vdv_recon_sergeant"];
 ENEMYC3 = ["rhs_msv_emr_aa", "rhs_msv_emr_at", "rhs_msv_emr_arifleman", "rhs_msv_emr_efreitor", "rhs_msv_emr_engineer", "rhs_msv_emr_engineer", "rhs_msv_emr_grenadier_rpg", "rhs_msv_emr_strelok_rpg_assist", "rhs_msv_emr_junior_sergeant", "rhs_msv_emr_machinegunner_assistant", "rhs_msv_emr_marksman", "rhs_msv_emr_medic", "rhs_msv_emr_officer", "rhs_msv_emr_officer_armored", "rhs_msv_emr_rifleman", "rhs_msv_emr_grenadier", "rhs_msv_emr_LAT", "rhs_msv_emr_RShG2", "rhs_msv_emr_sergeant"];
@@ -3445,7 +3447,9 @@ FRIENDC4 = ["rhs_g_Soldier_AA_F", "rhs_g_Soldier_exp_F", "rhs_g_Crew_F", "rhs_g_
 NORANWEES = true;
 RHSENABLED = true;
 SPECOPSENABLED = true;
-};case "Iron Front": {
+};
+
+case "Iron Front": {
 "Play as Germans against Soviet" SPAWN HINTSAOK;
 lbClear 1503;
 lbAdd [1503, "Recon"];
@@ -3537,6 +3541,7 @@ lbSetPicture [1504,0,"\A3\ui_f\data\map\markers\handdrawn\unknown_CA.paa"];
 lbSetTooltip [1504,0,"Your team begin from green marked location"];
 lbSetCurSel [1504, 0];
 };
+
 case "Iron Front Fic": {
 "Fictional - Play as Americans allied, with Germans and Polish, against Soviet" SPAWN HINTSAOK;
 lbClear 1503;
@@ -3629,6 +3634,7 @@ lbSetTooltip [1504,0,"Your team begin from green marked location"];
 lbSetCurSel [1504, 0];
 };
 };
+
 [] SPAWN {
 private ["_remBad"];
 _remBad = {

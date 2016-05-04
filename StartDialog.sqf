@@ -213,15 +213,35 @@ _n = [player,["rhs_uniform_cu_ucp"],["rhsusf_ach_helmet_headset_ucp"],["rhsusf_i
 _nul = [player, 1] SPAWN FUNKTIO_NATORUS;
 {_n = [_x,["rhs_uniform_cu_ucp"],["rhsusf_ach_helmet_ucp"],["rhsusf_iotv_ucp"]] SPAWN GearToRandom;_nul = [_x, 1] SPAWN FUNKTIO_NATORUS;} foreach units group player - [player];
 };
-if (!isNil"SPECOPSENABLED" && {isNil"IFENABLED"} && {_load != 1}) then {
-_n = [player,["U_mas_it_B_IndUniform2_v"],["H_mas_it_helmet_mich_sf_v"],["V_mas_it_PlateCarrier1_rgr_v"]] SPAWN GearToRandom;
-_nul = [player, 1] SPAWN FUNKTIO_NATORUS;
-{_n = [_x,["U_mas_it_B_IndUniform1_v"],["H_mas_it_helmet_mich_sf_v"],["V_mas_it_PlateCarrier1_rgr_v"]] SPAWN GearToRandom; _nul = [_x, 1] SPAWN FUNKTIO_NATORUS;} foreach units group player - [player];
-};
-// Setting Italian Names
-_names = [["Sergio Tacconi","Sergio","Tacconi"], ["Giorgio Giacobetti","Giorgio","Giacobetti"], ["Astolfo Astri","Astolfo","Astri"], ["Alberto Corona","Alberto","Corona"], ["Renato Astolfi","Renato","Astolfi"], ["Arturo Colaianni","Arturo","Colaianni"], ["Piero Caporossi","Piero","Caporossi"], ["Massimo Costantini","Massimo","Costantini"], ["Giovanni Colarossi","Giovanni","Colarossi"], ["Stefano Ferrari","Stefano","Ferrari"], ["Claudio Polcino","Claudio","Polcino"], ["Mauro Capoleoni","Mauro","Capoleoni"], ["Pietro Vallone","Pietro","Vallone"]];
-if (!isNil"SPECOPSENABLED" && {isNil"IFENABLED"} && {_load != 1}) then {
-{_x setName (_names call RETURNRANDOM);} foreach units group player - [player];
+if (!isNil "SPECOPSENABLED" && {isNil "IFENABLED"} && {_load != 1}) then
+{
+	_n = [player, ["U_mas_it_B_IndUniform1_v","U_mas_it_B_IndUniform2_v"],["H_mas_it_helmet_mich_sf_v"],["V_mas_it_PlateCarrier1_rgr_v"]] SPAWN GearToRandom;
+	_nul = [player, 1] SPAWN FUNKTIO_NATORUS;
+	{
+		_n = [_x, ["U_mas_it_B_IndUniform1_v","U_mas_it_B_IndUniform2_v"],["H_mas_it_helmet_mich_sf_v"],["V_mas_it_PlateCarrier1_rgr_v","V_mas_it_PlateCarrier2_rgr_v", "V_mas_it_PlateCarrierGL_rgr_v"]] SPAWN GearToRandom;
+		// Setting Italian Names
+		_names = [
+			["Sergio Tacconi", "Sergio", "Tacconi"],
+			["Giorgio Giacobetti", "Giorgio", "Giacobetti"],
+			["Astolfo Astri", "Astolfo", "Astri"],
+			["Alberto Corona", "Alberto", "Corona"],
+			["Renato Astolfi", "Renato", "Astolfi"],
+			["Arturo Colaianni", "Arturo", "Colaianni"],
+			["Piero Caporossi", "Piero", "Caporossi"],
+			["Massimo Costantini", "Massimo", "Costantini"],
+			["Giovanni Colarossi", "Giovanni", "Colarossi"],
+			["Stefano Ferrari", "Stefano", "Ferrari"],
+			["Claudio Polcino", "Claudio", "Polcino"],
+			["Mauro Capoleoni", "Mauro", "Capoleoni"],
+			["Pietro Vallone", "Pietro", "Vallone"],
+			["Arturo Brachetti", "Arturo", "Brachetti"],
+			["Gennaro DiCuonzo", "Gennaro", "DiCuonzo"],
+			["Patrizio Roversi", "Patrizio", "Roversi"]
+		];
+		_nul = [_x, 1] spawn FUNKTIO_NATORUS;
+		_x setName(_names call RETURNRANDOM);
+	}
+	foreach units group player - [player];
 };
 
 if (!isNil"IFENABLED" && {_load != 1}) then {
@@ -342,7 +362,7 @@ waitUntil {sleep 2; vehicle player == player};
 if (_Batman == 1) then {
 _group = [getposATL player, WEST, [FRIENDC1 call RETURNRANDOM,FRIENDC1 call RETURNRANDOM,FRIENDC1 call RETURNRANDOM],[],[],[0.8,0.9]] call SpawnGroupCustom;
 _n = [_group,WEST,getposATL (vehicle player),["B_G_Quadbike_01_F",2]] SPAWN VehicleArrival;
-{_n = [_x,["U_B_CTRG_3"],[],[]] SPAWN GearToRandom;if (!isNil"TeDam" && {isNil{_x getvariable "TeDam"}}) then {_x setvariable ["TeDam",1];_eh = _x addEventHandler ["HandleDamage", {_this call SADAME}];_eh = _x addEventHandler ["Explosion", {_this call SADAME}];};} foreach units _group;
+{_n = [_x,[],[],[]] SPAWN GearToRandom;if (!isNil"TeDam" && {isNil{_x getvariable "TeDam"}}) then {_x setvariable ["TeDam",1];_eh = _x addEventHandler ["HandleDamage", {_this call SADAME}];_eh = _x addEventHandler ["Explosion", {_this call SADAME}];};} foreach units _group;
 {_x setcaptive true; _x setbehaviour "CARELESS";} foreach units _group;
 [((name player)+": Watch where you aim, we should be meet team Charlie at any moment. They will join our team"),7] SPAWN SAOKTITLETEXT;
 _l = ["V35","V36"] call RETURNRANDOM;
