@@ -3358,6 +3358,12 @@ AIRCARRIERCHOP = [
 ["RHS_Mi8amt_chdkz", "C_Heli_light_01_civil_F", "RHS_Mi8amt_civilian", "I_Heli_light_03_unarmed_F"],
 ["RHS_Mi8amt_chdkz", "C_Heli_light_01_civil_F", "RHS_Mi8amt_civilian", "I_Heli_light_03_unarmed_F"]
 ];
+CRATECLAS = [
+["rhsusf_weapon_crate","rhsusf_spec_weapons_crate","rhsusf_launcher_crate","rhsusf_gear_crate","rhsusf_mags_crate"]
+,["rhs_weapon_crate","rhs_spec_weapons_crate","rhs_launcher_crate","rhs_gear_crate","rhs_mags_crate"]
+,["rhs_weapon_crate","rhs_spec_weapons_crate","rhs_launcher_crate","rhs_gear_crate","rhs_mags_crate","rhsusf_weapon_crate","rhsusf_spec_weapons_crate","rhsusf_launcher_crate","rhsusf_gear_crate","rhsusf_mags_crate"]
+,["rhs_weapon_crate","rhs_spec_weapons_crate","rhs_launcher_crate","rhs_gear_crate","rhs_mags_crate","rhsusf_weapon_crate","rhsusf_spec_weapons_crate","rhsusf_launcher_crate","rhsusf_gear_crate","rhsusf_mags_crate"]
+];
 ENEMYC1 = ["rhs_vdv_aa", "rhs_vdv_at", "rhs_vdv_arifleman", "rhs_vdv_efreitor", "rhs_vdv_engineer", "rhs_vdv_grenadier_rpg", "rhs_vdv_strelok_rpg_assist", "rhs_vdv_junior_sergeant", "rhs_vdv_machinegunner", "rhs_vdv_machinegunner_assisstant", "rhs_vdv_marksman", "rhs_vdv_marksman_asval", "rhs_vdv_medic", "rhs_vdv_officer_armored", "rhs_vdv_rifleman", "rhs_vdv_rifleman_asval", "rhs_vdv_grenadier", "rhs_vdv_LAT", "rhs_-vdv_RShG2", "rhs_vdv_segeant"];
 ENEMYC2 = ["rhs_vdv_recon_efreitor", "rhs_vdv_recon_machinegunner_assistant", "rhs_vdv_recon_marksman", "rhs_vdv_recon_marksman_asval", "rhs_vdv_recon_medic", "rhs_vdv_recon_officer", "rhs_vdv_recon_rifleman", "rhs_vdv_recon_rifleman_ak103", "rhs_vdv_recon_rifleman_akms", "rhs_vdv_recon_rifleman_asval", "rhs_vdv_recon_grenadier", "rhs_vdv_recon_rifleman_l", "rhs_vdv_recon_rifleman_lat", "rhs_vdv_recon_rifleman_scout_akm", "rhs_vdv_recon_rifleman_scout", "rhs_vdv_grenadier_scout", "rhs_vdv_recon_arifleman_scout", "rhs_vdv_recon_sergeant"];
 ENEMYC3 = ["rhs_msv_emr_aa", "rhs_msv_emr_at", "rhs_msv_emr_arifleman", "rhs_msv_emr_efreitor", "rhs_msv_emr_engineer", "rhs_msv_emr_engineer", "rhs_msv_emr_grenadier_rpg", "rhs_msv_emr_strelok_rpg_assist", "rhs_msv_emr_junior_sergeant", "rhs_msv_emr_machinegunner_assistant", "rhs_msv_emr_marksman", "rhs_msv_emr_medic", "rhs_msv_emr_officer", "rhs_msv_emr_officer_armored", "rhs_msv_emr_rifleman", "rhs_msv_emr_grenadier", "rhs_msv_emr_LAT", "rhs_msv_emr_RShG2", "rhs_msv_emr_sergeant"];

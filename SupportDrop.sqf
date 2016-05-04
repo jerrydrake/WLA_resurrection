@@ -4,7 +4,7 @@ _class = _this select 1;
 if (_class == "") then {_class = _this select 3;};
 _veh = createVehicle ["B_Parachute_02_F", [_pos select 0,_pos select 1,80], [], 0, "NONE"];
 _roina = createVehicle [_class, [_pos select 0,_pos select 1,75], [], 0, "NONE"];
-if (_class in ["Box_mas_ru_rifle_Wps_F","Box_mas_us_rifle_Wps_F","Box_NATO_WpsSpecial_F","Box_NATO_AmmoOrd_F","Box_NATO_WpsLaunch_F","Box_NATO_Grenades_F","Box_NATO_Wps_F","Box_NATO_Ammo_F"]) then {
+if (_class in ["rhsusf_weapon_crate","rhsusf_spec_weapons_crate","rhsusf_launcher_crate","rhsusf_gear_crate","rhsusf_mags_crate","rhs_weapon_crate","rhs_spec_weapons_crate","rhs_launcher_crate","rhs_gear_crate","rhs_mags_crate","Box_mas_ru_rifle_Wps_F","Box_mas_us_rifle_Wps_F","Box_NATO_WpsSpecial_F","Box_NATO_AmmoOrd_F","Box_NATO_WpsLaunch_F","Box_NATO_Grenades_F","Box_NATO_Wps_F","Box_NATO_Ammo_F"]) then {
 _roina addWeaponCargo ["Rangefinder",1];_roina addWeaponCargo ["Laserdesignator",1];_roina addmagazineCargo ["Laserbatteries",1];
 //_roina addWeaponCargo ["B_UavTerminal",1];
 };
