@@ -485,8 +485,10 @@ CantCommand = [];
 	};
 	SAbing = true;
 	if (isNil"InsT" || {InsT == "BOAT"}) then {
+		_ra = ["B_Boat_Armed_01_minigun_F", "B_G_Boat_Transport_01_F"];
+		_raBoat = _ra call RETURNRANDOM;
 		_BoatDir = [_startSea, getmarkerpos "Fac4"] call SAOKDIRT;
-		_obj = createVehicle ["B_Boat_Armed_01_minigun_F",_startSea, [], 0, "CAN_COLLIDE"];
+		_obj = createVehicle [_raBoat,_startSea, [], 0, "CAN_COLLIDE"];
 		_obj setdir _BoatDir;
 		_u = (units group player) - [player];
 		_p = _u call RETURNRANDOM;
