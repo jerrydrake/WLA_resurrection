@@ -27,39 +27,39 @@ if (count _this > 0) then {
 };
 CurTaskS = CurTaskS - ["MainTasks\Task1_ConvertResistance.sqf"];
 CurTaskS = CurTaskS + [
-	["MainTasks\Task1_ConvertResistance.sqf", _start2]
+["MainTasks\Task1_ConvertResistance.sqf", _start2]
 ];
 
 [
-	WEST, // Task owner(s)
-	"taskMT1", // Task ID (used when setting task state, destination or description later)
-	["We will not get resistance to fight for us as long their current leader Fox Crow have the command. Most of the resistance groups are only following him to stay alive. If we manage to kill, or even better make him surrender, a new leader will be chosen who will be most likely the POW we just saved. We would get much of the local groups to our side.", "Kill Fox Crow", "Kill Fox Crow"], // Task description
-	objNull, // Task destination
-	true,			// true to set task as current upon creation
-	-1,				// priority
-	true,			// Notification?
-	"Destroy",		// 3d marker type
-	false			// Shared?
+WEST, // Task owner(s)
+"taskMT1", // Task ID (used when setting task state, destination or description later)
+["We will not get resistance to fight for us as long their current leader Fox Crow have the command. Most of the resistance groups are only following him to stay alive. If we manage to kill, or even better make him surrender, a new leader will be chosen who will be most likely the POW we just saved. We would get much of the local groups to our side.", "Kill Fox Crow", "Kill Fox Crow"], // Task description
+objNull, // Task destination
+true,			// true to set task as current upon creation
+-1,				// priority
+true,			// Notification?
+"Destroy",		// 3d marker type
+false			// Shared?
 ] call BIS_fnc_taskCreate;
 
 _start3 = [_start2, 200, 0, "(1 - sea) * (1 + meadow)", 300] CALL SAOKSEEKPOS;
 _eOc =
-	if (isNil "IFENABLED") then {
-		["O_G_Offroad_01_armed_F", "O_G_Offroad_01_armed_F"]
-	} else {
-		["Lib_SdKfz251_captuRed", "Lib_SdKfz251_captuRed"]
-	};
+if (isNil "IFENABLED") then {
+	["O_G_Offroad_01_armed_F", "O_G_Offroad_01_armed_F"]
+} else {
+	["Lib_SdKfz251_captuRed", "Lib_SdKfz251_captuRed"]
+};
 if (count _this == 0) then {
 	_n = [_start3, "ColorRed", _eOc] CALL AddVehicleZone;
 };
 sleep 1;
 _start3 = [_start2, 200, 0, "(1 - sea) * (1 + meadow)", 300] CALL SAOKSEEKPOS;
 _eOc =
-	if (isNil "IFENABLED") then {
-		["O_G_Offroad_01_armed_F", "O_G_Offroad_01_armed_F"]
-	} else {
-		["Lib_SdKfz251_captuRed", "Lib_SdKfz251_captuRed"]
-	};
+if (isNil "IFENABLED") then {
+	["O_G_Offroad_01_armed_F", "O_G_Offroad_01_armed_F"]
+} else {
+	["Lib_SdKfz251_captuRed", "Lib_SdKfz251_captuRed"]
+};
 if (count _this == 0) then {
 	_n2 = [_start3, "ColorRed", _eOc] CALL AddVehicleZone;
 };
@@ -68,11 +68,11 @@ if (count _this == 0) then {
 	_nul = [_start2, "RES", (15 + random 25)] SPAWN CreateRoadBlock;
 };
 _eOc =
-	if (isNil "IFENABLED") then {
-		"O_G_officer_F"
-	} else {
-		"LIB_SOV_captain"
-	};
+if (isNil "IFENABLED") then {
+	"O_G_officer_F"
+} else {
+	"LIB_SOV_captain"
+};
 if (!isNil "Eridanus") then {
 	_eOc = "TEI_Ins_URF_Officer";
 };
@@ -80,9 +80,9 @@ if (!isNil "CheConf") then {
 	_eOc = "O_mas_cer_Soldier_off_F";
 };
 _group = [_start2, EAST, [_eOc],
-	[],
-	[],
-	[0.4, 0.8]
+[],
+[],
+[0.4, 0.8]
 ] call SpawnGroupCustom;
 _nul = [units _group] SPAWN AICampBehaviour;
 _crowKing = leader _group;
@@ -151,10 +151,10 @@ _car setdir(random 360);
 	_t setspeedmode "FULL";
 	_c setvariable["AmCrate", nil];
 	if (!isnull _t && {
-			alive _t
-		} && {
-			alive _c
-		}) then {
+				alive _t
+			} && {
+				alive _c
+			}) then {
 		_t assignasdriver _c;
 		[_t] ordergetin true;
 		waitUntil {
@@ -185,9 +185,9 @@ _obj addmagazinecargo["7Rnd_408_Mag", 7];
 _obj additemcargo["optic_SOS", 1];
 sleep 5;
 if ({
-		alive _x
-	}
-	count(units(group player)) > 1) then {
+			alive _x
+		}
+		count(units(group player)) > 1) then {
 	[((name player) + ": We should probably check the crate that Acacius mentioned. Got the location marked on map"), 7] SPAWN SAOKTITLETEXT;
 };
 waitUntil {
@@ -210,6 +210,6 @@ sleep 4;
 SA_CUTMRC = compile preprocessfileLineNumbers "Cutscenes\MeetResContact.sqf";
 _nul = [] SPAWN SA_CUTMRC;
 CurTaskS = CurTaskS - [
-	["MainTasks\Task1_ConvertResistance.sqf", _start2]
+["MainTasks\Task1_ConvertResistance.sqf", _start2]
 ];
 DONTDELGROUPS = DONTDELGROUPS - [_group];

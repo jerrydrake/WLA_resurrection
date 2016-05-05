@@ -216,10 +216,15 @@ if (!isNil"NEWG" || {_op}) then {
 	if (!isNil "SPECOPSENABLED" && {isNil "IFENABLED"} && {_load != 1}) then
 	{
 		_n = [player, ["U_mas_it_B_IndUniform1_v","U_mas_it_B_IndUniform2_v"],["H_mas_it_helmet_mich_sf_v"],["V_mas_it_PlateCarrier1_rgr_v"]] SPAWN GearToRandom;
-		_nul = [player, 1] SPAWN FUNKTIO_NATORUS;
+		//_nul = [player, 1] SPAWN FUNKTIO_NATORUS;
+		//{_nul = [_x] spawn FHideAndDelete;} foreach units group player - [player];
+		//sleep 5;
+		//_group = [getposATL player, WEST, [FRIENDC1 call RETURNRANDOM,FRIENDC1 call RETURNRANDOM,FRIENDC1 call RETURNRANDOM],FRIENDC1 call RETURNRANDOM,[],[],[0.8,0.9]] call SpawnGroupCustom;
+		//{_x setcaptive false; _x setbehaviour "AWARE";[_x] joinsilent player;} foreach units _group;
 		{
 			_n = [_x, ["U_mas_it_B_IndUniform1_v","U_mas_it_B_IndUniform2_v"],["H_mas_it_helmet_mich_sf_v"],["V_mas_it_PlateCarrier1_rgr_v","V_mas_it_PlateCarrier2_rgr_v", "V_mas_it_PlateCarrierGL_rgr_v"]] SPAWN GearToRandom;
 			// Setting Italian Names
+			/*
 			_names = [
 			["Sergio Tacconi", "Sergio", "Tacconi"],
 			["Giorgio Giacobetti", "Giorgio", "Giacobetti"],
@@ -237,9 +242,9 @@ if (!isNil"NEWG" || {_op}) then {
 			["Arturo Brachetti", "Arturo", "Brachetti"],
 			["Gennaro DiCuonzo", "Gennaro", "DiCuonzo"],
 			["Patrizio Roversi", "Patrizio", "Roversi"]
-			];
+			];*/
 			_nul = [_x, 1] spawn FUNKTIO_NATORUS;
-			_x setName(_names call RETURNRANDOM);
+			/*_x setName(_names call RETURNRANDOM);*/
 		}
 		foreach units group player - [player];
 	};

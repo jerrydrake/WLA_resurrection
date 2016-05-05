@@ -5,13 +5,13 @@ CurTaskS set [count CurTaskS, "MainTasks\Resistance1.sqf"];
 sleep 10;
 _ARcopy = + AIRFIELDLOCATIONS;
 if ({getmarkercolor _x != "ColorGreen" || {(getmarkercolor (([getmarkerpos _x] CALL RETURNGUARDPOST) getvariable "Gmark")) != "ColorGreen"}} count _ARcopy > 0) then {
-{
-if (getmarkercolor _x == "ColorGreen" || {(getmarkercolor (([getmarkerpos _x] CALL RETURNGUARDPOST) getvariable "Gmark")) == "ColorGreen"}) then {
-if (count _ARcopy > 2) then {
-_ARcopy = _ARcopy - [_x];
-};
-};
-} foreach _ARcopy;
+	{
+		if (getmarkercolor _x == "ColorGreen" || {(getmarkercolor (([getmarkerpos _x] CALL RETURNGUARDPOST) getvariable "Gmark")) == "ColorGreen"}) then {
+			if (count _ARcopy > 2) then {
+				_ARcopy = _ARcopy - [_x];
+			};
+		};
+	} foreach _ARcopy;
 };
 _t = [] CALL SAOKSORTPLAYER;
 _ARcopy = [_ARcopy,[_t],{_input0 distance (getmarkerpos _x)},"ASCEND"] call SAOKSORTBY;
@@ -76,23 +76,23 @@ DONTDELGROUPS = DONTDELGROUPS + [(_obj2 select 2)];
 
 
 if (count (nearestLocations [_cent, ["PostG","PostR"], 700]) < 2) then {
-_start2 = [_cent, 300,0,"(1 - sea) * (1 + meadow)* (1 - hills)"] CALL SAOKSEEKPOS;
-_d = 300;
-while {!([_start2,20] CALL SAOKISFLAT) || {_start2 call SAOKONRUNWAY} || {surfaceiswater _start2}} do {
-_d = _d + 30;
-_start2 = [_cent, _d,0,"(1 - sea) * (1 + meadow)* (1 - hills)"] CALL SAOKSEEKPOS;
-sleep 1;
-};
-_nul = [_start2,"",(15+random 25)] SPAWN CreateRoadBlock;
+	_start2 = [_cent, 300,0,"(1 - sea) * (1 + meadow)* (1 - hills)"] CALL SAOKSEEKPOS;
+	_d = 300;
+	while {!([_start2,20] CALL SAOKISFLAT) || {_start2 call SAOKONRUNWAY} || {surfaceiswater _start2}} do {
+		_d = _d + 30;
+		_start2 = [_cent, _d,0,"(1 - sea) * (1 + meadow)* (1 - hills)"] CALL SAOKSEEKPOS;
+		sleep 1;
+	};
+	_nul = [_start2,"",(15+random 25)] SPAWN CreateRoadBlock;
 
-_start3 = [_cent, 300,0,"(1 - sea) * (1 + meadow)* (1 - hills)",""] CALL SAOKSEEKPOS;
-_d = 300;
-while {_start2 distance _start3 < 40 || {!([_start3,20] CALL SAOKISFLAT)} || {_start3 call SAOKONRUNWAY} || {surfaceiswater _start3}} do {
-_d = _d + 30;
-_start3 = [_cent, _d,0,"(1 - sea) * (1 + meadow)* (1 - hills)",""] CALL SAOKSEEKPOS;
-sleep 1;
-};
-_nul = [_start3,"",(15+random 25)] SPAWN CreateRoadBlock;
+	_start3 = [_cent, 300,0,"(1 - sea) * (1 + meadow)* (1 - hills)",""] CALL SAOKSEEKPOS;
+	_d = 300;
+	while {_start2 distance _start3 < 40 || {!([_start3,20] CALL SAOKISFLAT)} || {_start3 call SAOKONRUNWAY} || {surfaceiswater _start3}} do {
+		_d = _d + 30;
+		_start3 = [_cent, _d,0,"(1 - sea) * (1 + meadow)* (1 - hills)",""] CALL SAOKSEEKPOS;
+		sleep 1;
+	};
+	_nul = [_start3,"",(15+random 25)] SPAWN CreateRoadBlock;
 };
 
 
@@ -118,8 +118,8 @@ CurTaskS = CurTaskS - [["MainTasks\Resistance1.sqf",_cent]];
 sleep 3;
 _start = [(getposATL (vehicle player) select 0) + 1700 - (random 3400),(getposATL (vehicle player) select 1) + 1700 - (random 3400),50];
 while  {_start distance vehicle player < 1500} do {
-sleep 1;
-_start = [(getposATL (vehicle player) select 0) + 1700 - (random 3400),(getposATL (vehicle player) select 1) + 1700 - (random 3400),50];
+	sleep 1;
+	_start = [(getposATL (vehicle player) select 0) + 1700 - (random 3400),(getposATL (vehicle player) select 1) + 1700 - (random 3400),50];
 };
 _di= [_start, player] call SAOKDIRT;
 _random = 3 + floor (random 3);
@@ -134,8 +134,8 @@ _nul = [_start, _cent, _cent, WEST, _di, _tank, 50,_classes,[0.6,0.7],0,1] SPAWN
 sleep 10;
 _start = [(getposATL (vehicle player) select 0) + 1700 - (random 3400),(getposATL (vehicle player) select 1) + 1700 - (random 3400),100];
 while  {_start distance vehicle player < 1500} do {
-sleep 1;
-_start = [(getposATL (vehicle player) select 0) + 1700 - (random 3400),(getposATL (vehicle player) select 1) + 1700 - (random 3400),100];
+	sleep 1;
+	_start = [(getposATL (vehicle player) select 0) + 1700 - (random 3400),(getposATL (vehicle player) select 1) + 1700 - (random 3400),100];
 };
 _class = ["I_Plane_Fighter_03_CAS_F"];
 _pPosi = _cent;

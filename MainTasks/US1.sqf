@@ -4,7 +4,7 @@ _dat = (worldname CALL SAOKMAPDATA);
 _isWater = (_dat select 6);
 _us = ["To get NATO support, we need to capture at least two piers for our use.<br/><br/><img image='arma3pier.jpg' width='360' height='202.5'/>", "Secure 2 Piers for NATO Support", "Secure 2 Piers for NATO Support"];
 if !(_isWater) then {
-_us = ["To get NATO support, we need to capture at least two passages for our use.<br/><br/><img image='arma3pier.jpg' width='360' height='202.5'/>", "Secure 2 Passages for NATO Support", "Secure 2 Passages for NATO Support"];
+	_us = ["To get NATO support, we need to capture at least two passages for our use.<br/><br/><img image='arma3pier.jpg' width='360' height='202.5'/>", "Secure 2 Passages for NATO Support", "Secure 2 Passages for NATO Support"];
 };
 [
 WEST, // Task owner(s)

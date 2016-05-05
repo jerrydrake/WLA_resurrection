@@ -213,13 +213,13 @@ if (!isNil "SAOKCHOSEN" && {
 					[
 						[
 							[player],
-							["We are here to help and kick some CSAT ass, would you care to follow my lead?"], 9
+							["We are here to help and kick some enemy ass, would you care to follow my lead?"], 9
 						]
 					],
 					[
 						[
 							[_actor1],
-							["Of course Stranger, but we better hurry. CSAT may move our man away at any time"], 9
+							["Of course Stranger, but we better hurry. Enemy may move our man away at any time"], 9
 						]
 					],
 					[
@@ -306,7 +306,7 @@ waitUntil {
 	vehicle player distance _animal < 40
 };
 if (vehicle player distance _animal < 40) then {
-	"You will be able to talk with the POW once there isnt any alarmed CSAT soldier inside 80m radius"
+	"You will be able to talk with the POW once there isnt any alarmed enemy soldier inside 80m radius"
 	SPAWN HINTSAOK;
 	_animal dotarget player;
 	_animal dowatch player;
@@ -378,7 +378,7 @@ if (vehicle player distance _animal < 40) then {
 	//deleteMarker _marker;
 	_nul = ["taskRR", "SUCCEEDED", true] call BIS_fnc_taskSetState;
 	_Lna = (getposATL player) CALL NEARESTLOCATIONNAME;
-	_header = format["CSAT Prison Camp Under Attack near %1. Members of Resistance Rumoured to Have Broken Free?", _Lna];
+	_header = format["Enemy Prison Camp Under Attack near %1. Members of Resistance Rumoured to Have Broken Free?", _Lna];
 	[_header, date] CALL SAOKEVENTLOG;
 } else {
 	//deleteMarker _marker;
@@ -409,7 +409,7 @@ _n = [
 		[
 			[
 				[player],
-				["To push CSAT away, there needs to be also local forces to fight against them"], 6
+				["To push enemy away, there needs to be also local forces to fight against them"], 6
 			]
 		],
 		[
@@ -421,7 +421,7 @@ _n = [
 		[
 			[
 				[_animal],
-				["With CSAT connections, he would die before supporting you guys"], 7
+				["With enemy connections, he would die before supporting you guys"], 7
 			]
 		],
 		[
