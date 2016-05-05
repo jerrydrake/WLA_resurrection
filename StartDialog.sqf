@@ -208,45 +208,72 @@ if (!isNil"NEWG" || {_op}) then {
 		_nul = [player, 1] SPAWN FUNKTIO_NATORUS;
 		{_n = [_x,["U_mas_cer_B_uniform"],["H_mas_cer_HelmetB"],["V_mas_cer_PlateCarrierIA1_B"]] SPAWN GearToRandom;_nul = [_x, 1] SPAWN FUNKTIO_NATORUS;} foreach units group player - [player];
 	};
+	// RHS Escalation
 	if (!isNil"RHSENABLED" && {isNil"IFENABLED"} && {isNil"SPECOPSENABLED"} && {_load != 1}) then {
 		_n = [player,["rhs_uniform_cu_ucp"],["rhsusf_ach_helmet_headset_ucp"],["rhsusf_iotv_ucp_squadleader"]] SPAWN GearToRandom;
 		_nul = [player, 1] SPAWN FUNKTIO_NATORUS;
 		{_n = [_x,["rhs_uniform_cu_ucp"],["rhsusf_ach_helmet_ucp"],["rhsusf_iotv_ucp"]] SPAWN GearToRandom;_nul = [_x, 1] SPAWN FUNKTIO_NATORUS;} foreach units group player - [player];
 	};
-	if (!isNil "SPECOPSENABLED" && {isNil "IFENABLED"} && {_load != 1}) then
-	{
-		_n = [player, ["U_mas_it_B_IndUniform1_v","U_mas_it_B_IndUniform2_v"],["H_mas_it_helmet_mich_sf_v"],["V_mas_it_PlateCarrier1_rgr_v"]] SPAWN GearToRandom;
-		//_nul = [player, 1] SPAWN FUNKTIO_NATORUS;
-		//{_nul = [_x] spawn FHideAndDelete;} foreach units group player - [player];
-		//sleep 5;
-		//_group = [getposATL player, WEST, [FRIENDC1 call RETURNRANDOM,FRIENDC1 call RETURNRANDOM,FRIENDC1 call RETURNRANDOM],FRIENDC1 call RETURNRANDOM,[],[],[0.8,0.9]] call SpawnGroupCustom;
-		//{_x setcaptive false; _x setbehaviour "AWARE";[_x] joinsilent player;} foreach units _group;
+	// Italian SPECOPS
+	if (!isNil "SPECOPSENABLED" && {isNil "IFENABLED"} && {_load != 1}) then {
+		// Removing all gear
+		removeAllItems player;
+		removeAllWeapons player;
+		clearWeaponCargo player;
+		clearMagazineCargo player;
+		removeBackpack player;
+		removeVest player;
+		removeHeadgear player;
+		
+		// Assignign Uniforms
+		_uniform = ["U_mas_it_B_IndUniform1_v","U_mas_it_B_IndUniform2_v"] call BIS_fnc_selectRandom;
+		_vest = "V_mas_it_PlateCarrier1_rgr_v";
+		_headgear = "H_mas_it_helmet_mich_sf_v";
+		_backpack = "B_Kitbag_rgr";
+		player forceAddUniform _uniform;
+		player addHeadgear _headgear;
+		player addVest _vest;
+		player addBackpack _backpack;
+
+		// Assigning base equipment
+		player addWeapon "ItemRadio";
+		player addWeapon "ItemMap";
+		player addWeapon "B_UavTerminal";
+		player addWeapon "Laserdesignator";
+		player addWeapon "rhsusf_ANPVS_15";
+		player addWeapon "ItemWatch";
+		player addWeapon "ItemCompass";
+		player addMagazine "Laserbatteries";
+		
+		{ player addItemToVest "FirstAidKit"; } foreach [1,2,3,4,5];
+
+		if (isClass(configFile >> "CfgPatches" >> "ace_main")) then {
+			player addItemToUniform "ACE_MapTools";
+			player addItemToUniform "ACE_Flashlight_XL50";
+			{ player addItemToUniform "ACE_DefusalKit"; } foreach [1,2];
+			player addItemToUniform "ACE_M26_Clacker";
+			player addItemToUniform "ACE_EarPlugs";
+		};
+
+		// Giving Weapons
+		player addWeapon "rhs_weap_m4_carryhandle";
+		player addWeaponItem ["rhs_weap_m4_carryhandle","bipod_01_F_blk"];
+		player addWeaponItem ["rhs_weap_m4_carryhandle", "rhsusf_acc_rotex5_grey"];  
+		player addWeaponItem ["rhs_weap_m4_carryhandle", "optic_Hamr"];
+		player addWeapon "rhsusf_weap_m1911a1";
+		{ player addMagazine "rhs_mag_30Rnd_556x45_M855A1_Stanag"; } foreach [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+		{ player addMagazine "rhsusf_mag_7x45acp_MHP"; } foreach [1,2,3,4,5];
+		{ player addMagazine "SmokeShellGreen"; } foreach [1,2,3];
+		{ player addMagazine "SmokeShellRed"; } foreach [1,2,3];
+		{ player addMagazine "SmokeShellYellow"; } foreach [1,2,3];
+		
+		player addWeapon "rhs_weap_fgm148";
+		{ player addMagazine "rhs_fgm148_magazine_AT"; } foreach [1,2];
+		
 		{
 			_n = [_x, ["U_mas_it_B_IndUniform1_v","U_mas_it_B_IndUniform2_v"],["H_mas_it_helmet_mich_sf_v"],["V_mas_it_PlateCarrier1_rgr_v","V_mas_it_PlateCarrier2_rgr_v", "V_mas_it_PlateCarrierGL_rgr_v"]] SPAWN GearToRandom;
-			// Setting Italian Names
-			/*
-			_names = [
-			["Sergio Tacconi", "Sergio", "Tacconi"],
-			["Giorgio Giacobetti", "Giorgio", "Giacobetti"],
-			["Astolfo Astri", "Astolfo", "Astri"],
-			["Alberto Corona", "Alberto", "Corona"],
-			["Renato Astolfi", "Renato", "Astolfi"],
-			["Arturo Colaianni", "Arturo", "Colaianni"],
-			["Piero Caporossi", "Piero", "Caporossi"],
-			["Massimo Costantini", "Massimo", "Costantini"],
-			["Giovanni Colarossi", "Giovanni", "Colarossi"],
-			["Stefano Ferrari", "Stefano", "Ferrari"],
-			["Claudio Polcino", "Claudio", "Polcino"],
-			["Mauro Capoleoni", "Mauro", "Capoleoni"],
-			["Pietro Vallone", "Pietro", "Vallone"],
-			["Arturo Brachetti", "Arturo", "Brachetti"],
-			["Gennaro DiCuonzo", "Gennaro", "DiCuonzo"],
-			["Patrizio Roversi", "Patrizio", "Roversi"]
-			];*/
 			_nul = [_x, 1] spawn FUNKTIO_NATORUS;
-			/*_x setName(_names call RETURNRANDOM);*/
-		}
-		foreach units group player - [player];
+		} foreach units group player - [player];
 	};
 
 	if (!isNil"IFENABLED" && {_load != 1}) then {
