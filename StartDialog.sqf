@@ -64,7 +64,7 @@ if (!isNil"NEWG" || {_op}) then {
 	lbSetPicture [1502,5,(getText (configfile >> "CfgMarkers" >> "flag_USA" >> "texture"))];
 	lbAdd [1502, "Conan O'Connor"];
 	lbSetPicture [1502,6,(getText (configfile >> "CfgMarkers" >> "flag_UK" >> "texture"))];
-	lbSetCurSel [1502, 6];
+	lbSetCurSel [1502, 0];
 	{
 		lbSetPictureColor [1502, _x, [1, 1, 1, 1]];
 		lbSetPictureColorSelected [1502, _x, [1, 1, 1, 1]];
@@ -99,7 +99,7 @@ if (!isNil"NEWG" || {_op}) then {
 		lbSetPicture [1504,2,"\A3\ui_f\data\map\markers\handdrawn\unknown_CA.paa"];
 		lbSetTooltip [1504,2,"Mission begin randomly with chopper or boat insertion"];
 	};
-	lbSetCurSel [1504, 0];
+	lbSetCurSel [1504, 1];
 	{
 		lbSetPictureColor [1504, _x, [1, 0.5, 0, 1]];
 		lbSetPictureColorSelected [1504, _x, [1, 1, 1, 1]];
@@ -256,18 +256,18 @@ if (!isNil"NEWG" || {_op}) then {
 		};
 
 		// Giving Weapons
-		player addWeapon "rhs_weap_m4_carryhandle";
+		[player,"rhs_weap_m4_carryhandle",1,1] call BIS_fnc_addWeapon;
 		player addWeaponItem ["rhs_weap_m4_carryhandle","bipod_01_F_blk"];
 		player addWeaponItem ["rhs_weap_m4_carryhandle", "rhsusf_acc_rotex5_grey"];  
 		player addWeaponItem ["rhs_weap_m4_carryhandle", "optic_Hamr"];
-		player addWeapon "rhsusf_weap_m1911a1";
+		[player,"rhsusf_weap_m1911a1",1,1] call BIS_fnc_addWeapon;
 		{ player addMagazine "rhs_mag_30Rnd_556x45_M855A1_Stanag"; } foreach [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
 		{ player addMagazine "rhsusf_mag_7x45acp_MHP"; } foreach [1,2,3,4,5];
 		{ player addMagazine "SmokeShellGreen"; } foreach [1,2,3];
 		{ player addMagazine "SmokeShellRed"; } foreach [1,2,3];
 		{ player addMagazine "SmokeShellYellow"; } foreach [1,2,3];
 		
-		player addWeapon "rhs_weap_fgm148";
+		[player,"rhs_weap_fgm148",1] call BIS_fnc_addWeapon;
 		{ player addMagazine "rhs_fgm148_magazine_AT"; } foreach [1,2];
 		
 		{
