@@ -226,8 +226,8 @@ if (!isNil"NEWG" || {_op}) then {
 		
 		// Assignign Uniforms
 		_uniform = "rhs_uniform_cu_ucp";
-		_vest = "V_mas_it_PlateCarrier1_rgr_v";
-		_headgear = "rhsusf_iotv_ucp_squadleader";
+		_vest = "rhsusf_iotv_ucp_squadleader";
+		_headgear = "rhsusf_ach_helmet_headset_ucp";
 		_backpack = "B_Kitbag_rgr";
 		player forceAddUniform _uniform;
 		player addHeadgear _headgear;
