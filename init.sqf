@@ -485,6 +485,7 @@ CantCommand = [];
 	};
 	SAbing = true;
 	if (isNil"InsT" || {InsT == "BOAT"}) then {
+		// Boat insertion
 		_ra = ["B_Boat_Armed_01_minigun_F", "B_G_Boat_Transport_01_F"];
 		_raBoat = _ra call RETURNRANDOM;
 		_BoatDir = [_startSea, getmarkerpos "Fac4"] call SAOKDIRT;
@@ -497,8 +498,8 @@ CantCommand = [];
 		//_p = _u call RETURNRANDOM;
 		//_u = _u - [_p];
 		//_p moveingunner _obj;
-		{_x moveInAny _obj;} foreach _u;
 		player moveindriver _obj;
+		{_x moveInAny _obj;} foreach _u;
 		SAbing = true;
 		sleep 60;
 		"Insertion" SPAWN SAOKCHAPTERADD;
@@ -549,8 +550,6 @@ CantCommand = [];
 			sleep 5;
 			"Following the task waypoint isnt often mandatory"  SPAWN HINTSAOK;
 		};
-
-
 	} else {
 		//Chopper
 		_chop = [0,0,0];
