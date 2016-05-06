@@ -266,431 +266,431 @@ class RscTitles
 	titles[] = {WLAlogo,WLAlogoSC};
 	class WLAlogo
 	{
-	idd=-1;
-	movingEnable=0;
-	duration=5;  
-	fadein=2;    
-	fadeout=2;  
-	name="WLAlogo";
-	controls[]={"WLAp"};
-	class WLAp : SaOkPicture
-	{
-	style=2096;
-    text="WLA.paa";
-	sizeEx = ((1+safeZoneH)/(2.8181))*0.05;
-	x = 0; 
-	y = 0;
-	h = ((1+safeZoneH)/(2.8181))*0.4;
-	w = ((1+safeZoneH)/(2.8181))*0.8; 
-	};
+		idd=-1;
+		movingEnable=0;
+		duration=5;  
+		fadein=2;    
+		fadeout=2;  
+		name="WLAlogo";
+		controls[]={"WLAp"};
+		class WLAp : SaOkPicture
+		{
+			style=2096;
+			text="WLA.paa";
+			sizeEx = ((1+safeZoneH)/(2.8181))*0.05;
+			x = 0; 
+			y = 0;
+			h = ((1+safeZoneH)/(2.8181))*0.4;
+			w = ((1+safeZoneH)/(2.8181))*0.8; 
+		};
 	};
 	class WLAlogoSC
 	{
-	idd=-1;
-	movingEnable=0;
-	duration=12;  
-	fadein=2;    
-	fadeout=2;  
-	name="WLAlogoSC";
-	controls[]={"WLAp"};
-	class WLAp : SaOkPicture
-	{
-	style=2096;
-    text="WLASC.paa";
-	sizeEx = ((1+safeZoneH)/(2.8181))*0.05;
-	x=safeZoneX;
-	y=0.1;
-	h = ((1+safeZoneH)/(2.8181))*0.8;
-	w = ((1+safeZoneH)/(2.8181))*0.8; 
-	};
+		idd=-1;
+		movingEnable=0;
+		duration=12;  
+		fadein=2;    
+		fadeout=2;  
+		name="WLAlogoSC";
+		controls[]={"WLAp"};
+		class WLAp : SaOkPicture
+		{
+			style=2096;
+			text="WLASC.paa";
+			sizeEx = ((1+safeZoneH)/(2.8181))*0.05;
+			x=safeZoneX;
+			y=0.1;
+			h = ((1+safeZoneH)/(2.8181))*0.8;
+			w = ((1+safeZoneH)/(2.8181))*0.8; 
+		};
 	};
 	class Credit0
-   	{
-      idd=-1;
-      movingEnable=true;
-      duration=3;
-      name="Credit0";
-      controls[]={"text1"};
+	{
+		idd=-1;
+		movingEnable=true;
+		duration=3;
+		name="Credit0";
+		controls[]={"text1"};
 
-      class text1
-      {
-         idc = -1;
-         type = 0;
-         style = 2;
-        x = 29 * GUI_GRID_W + GUI_GRID_X;
-		y = 16 * GUI_GRID_H + GUI_GRID_Y;
-		w = 9.5 * GUI_GRID_W;
-		h = 6 * GUI_GRID_H;
-		font = "PuristaMedium";
-		sizeEx = ((1+safeZoneH)/(2.8181))* 0.3;
-		colorBackground[] = {0, 0, 0, 0};
-		colorText[] = {0.9, 0.7, 0.5, 1};
-		text = "WLA";
-      };
-   	}; 
+		class text1
+		{
+			idc = -1;
+			type = 0;
+			style = 2;
+			x = 29 * GUI_GRID_W + GUI_GRID_X;
+			y = 16 * GUI_GRID_H + GUI_GRID_Y;
+			w = 9.5 * GUI_GRID_W;
+			h = 6 * GUI_GRID_H;
+			font = "PuristaMedium";
+			sizeEx = ((1+safeZoneH)/(2.8181))* 0.3;
+			colorBackground[] = {0, 0, 0, 0};
+			colorText[] = {0.9, 0.7, 0.5, 1};
+			text = "WLA";
+		};
+	}; 
 	
 	class Credit1
-   	{
-      idd=-1;
-      movingEnable=true;
-      duration=3;
-      name="Credit1";
-      controls[]={"text1"};
+	{
+		idd=-1;
+		movingEnable=true;
+		duration=3;
+		name="Credit1";
+		controls[]={"text1"};
 
-      class text1
-      {
-         idc = -1;
-         type = 0;
-         style = 2;
-         x = 0.2;
-         y = 0;
-         w = 1;
-         h = 0.04;
-	 font = "PuristaMedium";
-       sizeEx = ((1+safeZoneH)/(2.8181))* 0.05;
-       colorBackground[] = {0, 0, 0, 0};
-   	 colorText[] = {1, 1, 1, 0.8};
-  	 text = "WHOLE LOTTA ALTIS by SaOk";
-      };
-   	};
-   
-   	class Credit2
-   	{
-      idd=-1;
-      movingEnable=true;
-      duration=3;
-      name="Credit2";
-      controls[]={"text1"};
-
-      class text1
-      {
-         idc = -1;
-         type = 0;
-         style = 2;
-         x = 0.2;
-         y = 0.1;
-         w = 1;
-         h = 0.05;
-	font = "PuristaMedium";
-       sizeEx = ((1+safeZoneH)/(2.8181))* 0.05;
-       colorBackground[] = {0, 0, 0, 0};
-   	 colorText[] = {1, 1, 1, 0.8};
-  	 text = "Special Thanks";
-      };
-   	};
-   
-   	class Credit3
-   	{
-      idd=-1;
-      movingEnable=true;
-      duration=3;
-      name="Credit3";
-      controls[]={"text1"};
-
-      class text1
-      {
-         idc = -1;
-         type = 0;
-         style = 2;
-         x = 0.2;
-         y = 0.15;
-         w = 1;
-         h = 0.04;
-		font = "PuristaMedium";
-         sizeEx = ((1+safeZoneH)/(2.8181))* 0.04;
-         colorBackground[] = {0, 0, 0, 0};
-		colorText[] = {1, 1, 1, 0.8};
-		text = "Victor ""[FR Helios]"" Ragot for Extra Music Tracks";
-      };
-   	};
-   
-   	class Credit4
-   	{
-      idd=-1;
-      movingEnable=true;
-      duration=3;
-      name="Credit4";
-      controls[]={"text1"};
-
-      class text1
-      {
-         idc = -1;
-         type = 0;
-         style = 2;
-         x = 0.2;
-         y = 0.20;
-         w = 1;
-         h = 0.04;
-		font = "PuristaMedium";
-         sizeEx = ((1+safeZoneH)/(2.8181))* 0.04;
-         colorBackground[] = {0, 0, 0, 0};
-		colorText[] = {1, 1, 1, 0.8};
-		text = "Benjamin ""Jin"" Pratt for Voices (WIP), Civilians/Player";
-      };
-   	};
-   
-   	class Credit5
-   	{
-      idd=-1;
-      movingEnable=true;
-      duration=3;
-      name="Credit5";
-      controls[]={"text1"};
-
-      class text1
-      {
-         idc = -1;
-         type = 0;
-         style = 2;
-         x = 0.2;
-         y = 0.25;
-         w = 1;
-         h = 0.04;
-		font = "PuristaMedium";
-         sizeEx = ((1+safeZoneH)/(2.8181))* 0.04;
-         colorBackground[] = {0, 0, 0, 0};
-		colorText[] = {1, 1, 1, 0.8};
-		text = """Zafjr"" for Voices (WIP), Intro/Civilians/Soldiers/POWs";
-      };
-   	};
-	class Credit6
-   	{
-      idd=-1;
-      movingEnable=true;
-      duration=3;
-      name="Credit6";
-      controls[]={"text1"};
-
-      class text1
-      {
-         idc = -1;
-         type = 0;
-         style = 2;
-         x = 0.2;
-         y = 0.3;
-         w = 1;
-         h = 0.04;
-		font = "PuristaMedium";
-       sizeEx = ((1+safeZoneH)/(2.8181))* 0.04;
-       colorBackground[] = {0, 0, 0, 0};
-		colorText[] = {1, 1, 1, 0.8};
-		text = "ss3goku0001 for Text Improvements";
-      };
-   	};
-	class Credit9
-   	{
-      idd=-1;
-      movingEnable=true;
-      duration=3;
-      name="Credit9";
-      controls[]={"text1"};
-
-      class text1
-      {
-         idc = -1;
-         type = 0;
-         style = 2;
-         x = 0.2;
-         y = 0.3;
-         w = 1;
-         h = 0.04;
-		font = "PuristaMedium";
-       sizeEx = ((1+safeZoneH)/(2.8181))* 0.04;
-       colorBackground[] = {0, 0, 0, 0};
-		colorText[] = {1, 1, 1, 0.8};
-		text = "For voice-acting and custom music, see instructions in briefing";
-      };
-   	};
-	class Credit7
-   	{
-      idd=-1;
-      movingEnable=true;
-      duration=3;
-      name="Credit7";
-      controls[]={"text1"};
-
-      class text1
-      {
-         idc = -1;
-         type = 0;
-         style = 2;
-         x = 0.2;
-         y = 0.4;
-         w = 1;
-         h = 0.04;
-		font = "PuristaMedium";
-       sizeEx = ((1+safeZoneH)/(2.8181))* 0.04;
-       colorBackground[] = {0, 0, 0, 0};
-		colorText[] = {1, 1, 1, 0.8};
-		text = "MISSION IS WORK IN PROGRESS, BUT ALREADY PLAYABLE";
+		class text1
+		{
+			idc = -1;
+			type = 0;
+			style = 2;
+			x = 0.2;
+			y = 0;
+			w = 1;
+			h = 0.04;
+			font = "PuristaMedium";
+			sizeEx = ((1+safeZoneH)/(2.8181))* 0.05;
+			colorBackground[] = {0, 0, 0, 0};
+			colorText[] = {1, 1, 1, 0.8};
+			text = "WHOLE LOTTA ALTIS by SaOk";
 		};
-   	};
-	class Credit8
-   	{
-      idd=-1;
-      movingEnable=true;
-      duration=3;
-      name="Credit8";
-      controls[]={"text1"};
+	};
 
-      class text1
-      {
-         idc = -1;
-         type = 0;
-         style = 2;
-         x = 0.2;
-         y = 0.6;
-         w = 1;
-         h = 0.04;
-	 font = "PuristaMedium";
-     sizeEx = ((1+safeZoneH)/(2.8181))* 0.04;
-     colorBackground[] = {0, 0, 0, 0};
-   	 colorText[] = {1, 1, 1, 0.8};
-  	 text = "If YOU end up enjoying this mission, please VOTE in MAKEARMANOTWAR.COM";
-      };
-   	};
+	class Credit2
+	{
+		idd=-1;
+		movingEnable=true;
+		duration=3;
+		name="Credit2";
+		controls[]={"text1"};
+
+		class text1
+		{
+			idc = -1;
+			type = 0;
+			style = 2;
+			x = 0.2;
+			y = 0.1;
+			w = 1;
+			h = 0.05;
+			font = "PuristaMedium";
+			sizeEx = ((1+safeZoneH)/(2.8181))* 0.05;
+			colorBackground[] = {0, 0, 0, 0};
+			colorText[] = {1, 1, 1, 0.8};
+			text = "Special Thanks";
+		};
+	};
+
+	class Credit3
+	{
+		idd=-1;
+		movingEnable=true;
+		duration=3;
+		name="Credit3";
+		controls[]={"text1"};
+
+		class text1
+		{
+			idc = -1;
+			type = 0;
+			style = 2;
+			x = 0.2;
+			y = 0.15;
+			w = 1;
+			h = 0.04;
+			font = "PuristaMedium";
+			sizeEx = ((1+safeZoneH)/(2.8181))* 0.04;
+			colorBackground[] = {0, 0, 0, 0};
+			colorText[] = {1, 1, 1, 0.8};
+			text = "Victor ""[FR Helios]"" Ragot for Extra Music Tracks";
+		};
+	};
+
+	class Credit4
+	{
+		idd=-1;
+		movingEnable=true;
+		duration=3;
+		name="Credit4";
+		controls[]={"text1"};
+
+		class text1
+		{
+			idc = -1;
+			type = 0;
+			style = 2;
+			x = 0.2;
+			y = 0.20;
+			w = 1;
+			h = 0.04;
+			font = "PuristaMedium";
+			sizeEx = ((1+safeZoneH)/(2.8181))* 0.04;
+			colorBackground[] = {0, 0, 0, 0};
+			colorText[] = {1, 1, 1, 0.8};
+			text = "Benjamin ""Jin"" Pratt for Voices (WIP), Civilians/Player";
+		};
+	};
+
+	class Credit5
+	{
+		idd=-1;
+		movingEnable=true;
+		duration=3;
+		name="Credit5";
+		controls[]={"text1"};
+
+		class text1
+		{
+			idc = -1;
+			type = 0;
+			style = 2;
+			x = 0.2;
+			y = 0.25;
+			w = 1;
+			h = 0.04;
+			font = "PuristaMedium";
+			sizeEx = ((1+safeZoneH)/(2.8181))* 0.04;
+			colorBackground[] = {0, 0, 0, 0};
+			colorText[] = {1, 1, 1, 0.8};
+			text = """Zafjr"" for Voices (WIP), Intro/Civilians/Soldiers/POWs";
+		};
+	};
+	class Credit6
+	{
+		idd=-1;
+		movingEnable=true;
+		duration=3;
+		name="Credit6";
+		controls[]={"text1"};
+
+		class text1
+		{
+			idc = -1;
+			type = 0;
+			style = 2;
+			x = 0.2;
+			y = 0.3;
+			w = 1;
+			h = 0.04;
+			font = "PuristaMedium";
+			sizeEx = ((1+safeZoneH)/(2.8181))* 0.04;
+			colorBackground[] = {0, 0, 0, 0};
+			colorText[] = {1, 1, 1, 0.8};
+			text = "ss3goku0001 for Text Improvements";
+		};
+	};
+	class Credit9
+	{
+		idd=-1;
+		movingEnable=true;
+		duration=3;
+		name="Credit9";
+		controls[]={"text1"};
+
+		class text1
+		{
+			idc = -1;
+			type = 0;
+			style = 2;
+			x = 0.2;
+			y = 0.3;
+			w = 1;
+			h = 0.04;
+			font = "PuristaMedium";
+			sizeEx = ((1+safeZoneH)/(2.8181))* 0.04;
+			colorBackground[] = {0, 0, 0, 0};
+			colorText[] = {1, 1, 1, 0.8};
+			text = "For voice-acting and custom music, see instructions in briefing";
+		};
+	};
+	class Credit7
+	{
+		idd=-1;
+		movingEnable=true;
+		duration=3;
+		name="Credit7";
+		controls[]={"text1"};
+
+		class text1
+		{
+			idc = -1;
+			type = 0;
+			style = 2;
+			x = 0.2;
+			y = 0.4;
+			w = 1;
+			h = 0.04;
+			font = "PuristaMedium";
+			sizeEx = ((1+safeZoneH)/(2.8181))* 0.04;
+			colorBackground[] = {0, 0, 0, 0};
+			colorText[] = {1, 1, 1, 0.8};
+			text = "MISSION IS WORK IN PROGRESS, BUT ALREADY PLAYABLE";
+		};
+	};
+	class Credit8
+	{
+		idd=-1;
+		movingEnable=true;
+		duration=3;
+		name="Credit8";
+		controls[]={"text1"};
+
+		class text1
+		{
+			idc = -1;
+			type = 0;
+			style = 2;
+			x = 0.2;
+			y = 0.6;
+			w = 1;
+			h = 0.04;
+			font = "PuristaMedium";
+			sizeEx = ((1+safeZoneH)/(2.8181))* 0.04;
+			colorBackground[] = {0, 0, 0, 0};
+			colorText[] = {1, 1, 1, 0.8};
+			text = "If YOU end up enjoying this mission, please VOTE in MAKEARMANOTWAR.COM";
+		};
+	};
 
 	class MyRscTitle
 	{
-	  	idd=-1;
-	  	movingEnable=0;
-	  	duration=10e30;
-	  	name="title1";
+		idd=-1;
+		movingEnable=0;
+		duration=10e30;
+		name="title1";
 		onLoad = "uiNamespace setVariable ['d_MyRscTitle', _this select 0]";
-	  	controls[]={"text1"};
-	  	class text1 : MyRscStructuredText
+		controls[]={"text1"};
+		class text1 : MyRscStructuredText
 		{
 			idc = 301;
 		};
 	};
 	class MyRscTitle2
 	{
-	  	idd=-1;
-	  	movingEnable=0;
-	  	duration=10e30;
-	  	name="title1";
+		idd=-1;
+		movingEnable=0;
+		duration=10e30;
+		name="title1";
 		onLoad = "uiNamespace setVariable ['d2_MyRscTitle', _this select 0]";
-	  	controls[]={"text1"};
-	  	class text1 : MyRscStructuredText2
+		controls[]={"text1"};
+		class text1 : MyRscStructuredText2
 		{
 			idc = 302;
 		};
 	};
 	class MyRscTitle3
 	{
-	  	idd=-1;
-	  	movingEnable=0;
-	  	duration=10e30;
-	  	name="title1";
+		idd=-1;
+		movingEnable=0;
+		duration=10e30;
+		name="title1";
 		onLoad = "uiNamespace setVariable ['d3_MyRscTitle', _this select 0]";
-	  	controls[]={"text1"};
-	  	class text1 : MyRscStructuredText3
+		controls[]={"text1"};
+		class text1 : MyRscStructuredText3
 		{
 			idc = 303;
 		};
 	};
 	class MyRscTitle4
 	{
-	  	idd=-1;
-	  	movingEnable=0;
-	  	duration=10e30;
-	  	name="title1";
+		idd=-1;
+		movingEnable=0;
+		duration=10e30;
+		name="title1";
 		onLoad = "uiNamespace setVariable ['d4_MyRscTitle', _this select 0]";
-	  	controls[]={"text1"};
-	  	class text1 : MyRscStructuredText4
+		controls[]={"text1"};
+		class text1 : MyRscStructuredText4
 		{
 			idc = 304;
 		};
 	};
 	class MyRscTitle5
 	{
-	  	idd=-1;
-	  	movingEnable=0;
-	  	duration=4;
-	  	name="title1";
+		idd=-1;
+		movingEnable=0;
+		duration=4;
+		name="title1";
 		onLoad = "uiNamespace setVariable ['d5_MyRscTitle', _this select 0]";
-	  	controls[]={"text1"};
-	  	class text1 : MyRscStructuredText5
+		controls[]={"text1"};
+		class text1 : MyRscStructuredText5
 		{
 			idc = 305;
 		};
 	};
 	class MyRscTitle6
 	{
-	  	idd=-1;
-	  	movingEnable=0;
-	  	duration=10e30;
-	  	name="title1";
+		idd=-1;
+		movingEnable=0;
+		duration=10e30;
+		name="title1";
 		onLoad = "uiNamespace setVariable ['d6_MyRscTitle', _this select 0]";
-	  	controls[]={"text1"};
-	  	class text1 : MyRscStructuredText6
+		controls[]={"text1"};
+		class text1 : MyRscStructuredText6
 		{
 			idc = 306;
 		};
 	};
 	class MyRscTitle7
 	{
-	  	idd=-1;
-	  	movingEnable=0;
-	  	duration=10e30;
-	  	name="title1";
+		idd=-1;
+		movingEnable=0;
+		duration=10e30;
+		name="title1";
 		onLoad = "uiNamespace setVariable ['d7_MyRscTitle', _this select 0]";
-	  	controls[]={"text1"};
-	  	class text1 : MyRscStructuredText7
+		controls[]={"text1"};
+		class text1 : MyRscStructuredText7
 		{
 			idc = 307;
 		};
 	};
 	class MyRscTitle8
 	{
-	  	idd=-1;
-	  	movingEnable=0;
-	  	duration=15;
-	  	name="title1";
+		idd=-1;
+		movingEnable=0;
+		duration=15;
+		name="title1";
 		onLoad = "uiNamespace setVariable ['d8_MyRscTitle', _this select 0]";
-	  	controls[]={"text1"};
-	  	class text1 : MyRscStructuredText8
+		controls[]={"text1"};
+		class text1 : MyRscStructuredText8
 		{
 			idc = 308;
 		};
 	};
 	class MyRscTitle9
 	{
-	  	idd=-1;
-	  	movingEnable=0;
-	  	duration=15;
-	  	name="title1";
+		idd=-1;
+		movingEnable=0;
+		duration=15;
+		name="title1";
 		onLoad = "uiNamespace setVariable ['d9_MyRscTitle', _this select 0]";
-	  	controls[]={"text1"};
-	  	class text1 : MyRscStructuredText9
+		controls[]={"text1"};
+		class text1 : MyRscStructuredText9
 		{
 			idc = 309;
 		};
 	};
 	class MyRscTitle10
 	{
-	  	idd=-1;
-	  	movingEnable=0;
-	  	duration=8;
-	  	name="title1";
+		idd=-1;
+		movingEnable=0;
+		duration=8;
+		name="title1";
 		onLoad = "uiNamespace setVariable ['d10_MyRscTitle', _this select 0]";
-	  	controls[]={"text1"};
-	  	class text1 : MyRscStructuredText10
+		controls[]={"text1"};
+		class text1 : MyRscStructuredText10
 		{
 			idc = 310;
 		};
 	};
 	class MyRscTitle11
 	{
-	  	idd=-1;
-	  	movingEnable=0;
-	  	duration=2;
+		idd=-1;
+		movingEnable=0;
+		duration=2;
 		fadein=0;    
-	    fadeout=2;  
-	  	name="title1";
+		fadeout=2;  
+		name="title1";
 		onLoad = "uiNamespace setVariable ['d11_MyRscTitle', _this select 0]";
-	  	controls[]={"text1"};
-	  	class text1 : MyRscStructuredText11
+		controls[]={"text1"};
+		class text1 : MyRscStructuredText11
 		{
 			idc = 311;
 		};
@@ -699,11 +699,11 @@ class RscTitles
 
 class CfgTaskEnhancements
 {
-   enable       = 1;            //0: disable new task features (default), 1: enable new task features & add new task markers and task widgets into the map
-   3d           = 1;            //0: do not use new 3D markers (default), 1: replace task waypoints with new 3D markers
-   3dDrawDist   = 10000;        //3d marker draw distance (default: 2000)
-   share        = 1;            //0: do not count assigned players (default), 1: count how many players have the task assigned
-   propagate    = 1;            //0: do not propagate (default), 1: propagate shared tasks to subordinates
+	enable       = 1;            //0: disable new task features (default), 1: enable new task features & add new task markers and task widgets into the map
+	3d           = 1;            //0: do not use new 3D markers (default), 1: replace task waypoints with new 3D markers
+	3dDrawDist   = 2000;        //3d marker draw distance (default: 2000)
+	share        = 1;            //0: do not count assigned players (default), 1: count how many players have the task assigned
+	propagate    = 1;            //0: do not propagate (default), 1: propagate shared tasks to subordinates
 };
 
 #include "Indetities.hpp"

@@ -143,16 +143,20 @@ then {
 			};
 			if ((lbText [1500, (lbCurSel 1500)]) == "Gear Drop") then {
 				
-				lbAdd [1501, "AFRF Ammo"];
-				lbAdd [1501, "AFRF Gear"];
-				lbAdd [1501, "AFRF Launchers"];
-				lbAdd [1501, "AFRF Special Weapons"];
-				lbAdd [1501, "AFRF Weapons"];
-				lbAdd [1501, "USF Ammo"];
-				lbAdd [1501, "USF Gear"];
-				lbAdd [1501, "USF Launchers"];
-				lbAdd [1501, "USF Special Weapons"];
-				lbAdd [1501, "USF Weapons"];
+				if (isClass(configFile >> "cfgVehicles" >> "rhs_weapon_crate")) then {
+					lbAdd [1501, "AFRF Ammo"];
+					lbAdd [1501, "AFRF Gear"];
+					lbAdd [1501, "AFRF Launchers"];
+					lbAdd [1501, "AFRF Special Weapons"];
+					lbAdd [1501, "AFRF Weapons"];
+				};
+				if (isClass(configFile >> "cfgVehicles" >> "rhsusf_weapon_crate")) then {
+					lbAdd [1501, "USF Ammo"];
+					lbAdd [1501, "USF Gear"];
+					lbAdd [1501, "USF Launchers"];
+					lbAdd [1501, "USF Special Weapons"];
+					lbAdd [1501, "USF Weapons"];
+				};
 				lbAdd [1501, "Basic Weapons"];
 				lbAdd [1501, "Grenades"];
 				lbAdd [1501, "Launchers"];
