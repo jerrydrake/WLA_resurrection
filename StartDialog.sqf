@@ -244,12 +244,12 @@ if (!isNil"NEWG" || {_op}) then {
 		player addWeapon "ItemCompass";
 		player addMagazine "Laserbatteries";
 		
-		{ player addItemToVest "FirstAidKit"; } foreach [1,2,3,4,5];
+		for [{_i = 0},{_i < 5},{_i = _i+1}] do { player addItemToVest "FirstAidKit"; };
 
 		if (isClass(configFile >> "CfgPatches" >> "ace_main")) then {
 			player addItemToUniform "ACE_MapTools";
 			player addItemToUniform "ACE_Flashlight_XL50";
-			{ player addItemToUniform "ACE_DefusalKit"; } foreach [1,2];
+			for [{_i = 0},{_i < 2},{_i = _i+1}] do { player addItemToUniform "ACE_DefusalKit"; };
 			player addItemToUniform "ACE_M26_Clacker";
 			player addItemToUniform "ACE_EarPlugs";
 		};
@@ -260,14 +260,14 @@ if (!isNil"NEWG" || {_op}) then {
 		player addWeaponItem ["rhs_weap_m4_carryhandle", "rhsusf_acc_rotex5_grey"];  
 		player addWeaponItem ["rhs_weap_m4_carryhandle", "optic_Hamr"];
 		[player,"rhsusf_weap_m1911a1",1,1] call BIS_fnc_addWeapon;
-		{ player addMagazine "rhs_mag_30Rnd_556x45_M855A1_Stanag"; } foreach [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
-		{ player addMagazine "rhsusf_mag_7x45acp_MHP"; } foreach [1,2,3,4,5];
-		{ player addMagazine "SmokeShellGreen"; } foreach [1,2,3];
-		{ player addMagazine "SmokeShellRed"; } foreach [1,2,3];
-		{ player addMagazine "SmokeShellYellow"; } foreach [1,2,3];
+		for [{_i = 0},{_i < 15},{_i = _i+1}] do { player addMagazine "rhs_mag_30Rnd_556x45_M855A1_Stanag"; };
+		for [{_i = 0},{_i < 5},{_i = _i+1}] do { player addMagazine "rhsusf_mag_7x45acp_MHP"; };
+		for [{_i = 0},{_i < 3},{_i = _i+1}] do { player addMagazine "SmokeShellGreen"; };
+		for [{_i = 0},{_i < 3},{_i = _i+1}] do { player addMagazine "SmokeShellRed"; };
+		for [{_i = 0},{_i < 3},{_i = _i+1}] do { player addMagazine "SmokeShellYellow"; };
 		
 		[player,"rhs_weap_fgm148",1] call BIS_fnc_addWeapon;
-		{ player addMagazine "rhs_fgm148_magazine_AT"; } foreach [1,2];
+		for [{_i = 0},{_i < 2},{_i = _i+1}] do { player addMagazine "rhs_fgm148_magazine_AT"; };
 
 		{
 			_n = [_x,["rhs_uniform_cu_ucp"],["rhsusf_ach_helmet_ucp"],["rhsusf_iotv_ucp"]] SPAWN GearToRandom;
@@ -305,12 +305,12 @@ if (!isNil"NEWG" || {_op}) then {
 		player addWeapon "ItemCompass";
 		player addMagazine "Laserbatteries";
 		
-		{ player addItemToVest "FirstAidKit"; } foreach [1,2,3,4,5];
+		for [{_i = 0},{_i < 5},{_i = _i+1}] do { player addItemToVest "FirstAidKit"; };
 
 		if (isClass(configFile >> "CfgPatches" >> "ace_main")) then {
 			player addItemToUniform "ACE_MapTools";
 			player addItemToUniform "ACE_Flashlight_XL50";
-			{ player addItemToUniform "ACE_DefusalKit"; } foreach [1,2];
+			for [{_i = 0},{_i < 2},{_i = _i+1}] do { player addItemToUniform "ACE_DefusalKit"; };
 			player addItemToUniform "ACE_M26_Clacker";
 			player addItemToUniform "ACE_EarPlugs";
 		};
@@ -321,14 +321,14 @@ if (!isNil"NEWG" || {_op}) then {
 		player addWeaponItem ["rhs_weap_m4_carryhandle", "rhsusf_acc_rotex5_grey"];  
 		player addWeaponItem ["rhs_weap_m4_carryhandle", "optic_Hamr"];
 		[player,"rhsusf_weap_m1911a1",1,1] call BIS_fnc_addWeapon;
-		{ player addMagazine "rhs_mag_30Rnd_556x45_M855A1_Stanag"; } foreach [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
-		{ player addMagazine "rhsusf_mag_7x45acp_MHP"; } foreach [1,2,3,4,5];
-		{ player addMagazine "SmokeShellGreen"; } foreach [1,2,3];
-		{ player addMagazine "SmokeShellRed"; } foreach [1,2,3];
-		{ player addMagazine "SmokeShellYellow"; } foreach [1,2,3];
+		for [{_i = 0},{_i < 15},{_i = _i+1}] do { player addMagazine "rhs_mag_30Rnd_556x45_M855A1_Stanag"; };
+		for [{_i = 0},{_i < 5},{_i = _i+1}] do { player addMagazine "rhsusf_mag_7x45acp_MHP"; };
+		for [{_i = 0},{_i < 3},{_i = _i+1}] do { player addMagazine "SmokeShellGreen"; };
+		for [{_i = 0},{_i < 3},{_i = _i+1}] do { player addMagazine "SmokeShellRed"; };
+		for [{_i = 0},{_i < 3},{_i = _i+1}] do { player addMagazine "SmokeShellYellow"; };
 		
 		[player,"rhs_weap_fgm148",1] call BIS_fnc_addWeapon;
-		{ player addMagazine "rhs_fgm148_magazine_AT"; } foreach [1,2];
+		for [{_i = 0},{_i < 2},{_i = _i+1}] do { player addMagazine "rhs_fgm148_magazine_AT"; };
 		
 		{
 			_n = [_x, ["U_mas_it_B_IndUniform1_v","U_mas_it_B_IndUniform2_v"],["H_mas_it_helmet_mich_sf_v"],["V_mas_it_PlateCarrier1_rgr_v","V_mas_it_PlateCarrier2_rgr_v", "V_mas_it_PlateCarrierGL_rgr_v"]] SPAWN GearToRandom;

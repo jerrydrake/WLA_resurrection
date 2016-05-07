@@ -17,7 +17,7 @@ STR_milEND1_l3b,"Papa Bear, I am ready for extraction once reaching the point. O
 STR_milEND1_l4,"Understood, Wolf. Pick up is on the way. Out"
 STR_milEND1_l4b,"Understood, Wolf. Call us when there. Out"
 Section [New Tasks] 
-STR_milT2_l1,"Papa Bear to Wolf, one of our blackfoot teams have been shot down. Search the crash site once you can. We need to get our pilots away from there asap. Over"
+STR_milT2_l1,"Papa Bear to Wolf, one of our gunship teams have been shot down. Search the crash site once you can. We need to get our pilots away from there asap. Over"
 STR_milT2_l2,"Wolf to Papa Bear, we are at the crashsite. No sight of pilots neither dead or alive, but we will look around. Over"
 STR_milT2_l3,"Understood, Wolf. Out"
 STR_milT2_l4,"Wolf to Papa Bear, the pilots were taken from the crash site by CSAT. Their current location remains unknown. Over"
