@@ -63,22 +63,24 @@ do {
 };
 _nul = [_start2, "", (15 + random 25)] SPAWN CreateRoadBlock;
 [
-	WEST, // Task owner(s)
-	"taskRR", // Task ID (used when setting task state, destination or description later)
-	["We were told there is one man held in nearby CSAT outpost that is connected to resistance activity. If we save him, that could lead us work with resistance troops.", "Rescue POW", "Rescue POW"], // Task description
-	_start, // Task destination
-	true,			// true to set task as current upon creation
-	-1,				// priority
-	true,			// Notification?
-	"Defend",		// 3d marker type
-	false			// Shared?
+WEST, // Task owner(s)
+"taskRR", // Task ID (used when setting task state, destination or description later)
+["We were told there is one man held in nearby CSAT outpost that is connected to resistance activity. If we save him, that could lead us work with resistance troops.", "Rescue POW", "Rescue POW"], // Task description
+_start, // Task destination
+true,			// true to set task as current upon creation
+-1,				// priority
+true,			// Notification?
+"Defend",		// 3d marker type
+false			// Shared?
 ] call BIS_fnc_taskCreate;
 
-sleep 20;
-SAOKCHOSEN = [];
-_actor1 = [CIVILIAN, (CIVS1 call RETURNRANDOM), 150, [1000, 1000, 0], objNull] CALL FUNKTIO_SPAWNACTOR;
-SAOKanswer1 = {
-	switch _this do {
+if ((AlreadyDone find "TaskJoin") == 0) then {
+	// I haven't joined resistance team yet
+	sleep 20;
+	SAOKCHOSEN = [];
+	_actor1 = [CIVILIAN, (CIVS1 call RETURNRANDOM), 150, [1000, 1000, 0], objNull] CALL FUNKTIO_SPAWNACTOR;
+	SAOKanswer1 = {
+		switch _this do {
 		case 0:
 			{
 				"Not far from here, I show you it on a map"
@@ -87,10 +89,10 @@ SAOKanswer1 = {
 			{
 				"Suit yourself, stupid lowlife"
 			};
+		};
 	};
-};
-SAOKanswer2 = {
-	switch _this do {
+	SAOKanswer2 = {
+		switch _this do {
 		case 0:
 			{
 				"Thank you, villager"
@@ -99,76 +101,69 @@ SAOKanswer2 = {
 			{
 				"Walk away!"
 			};
+		};
 	};
-};
-_n = [
+	_n = [
 	[getposATL player, player, _actor1],
 	[],
 	[
-		[
-			[
-				[_actor1], "Hey, I heard you are heading to help one of our friends?", 6
-			]
-		],
-		[
-			[
-				[_actor1],
-				["There is two armed locals planning to do the exact same. Maybe you guys could team up?"], 7
-			]
-		],
-		[
-			[
-				[player], "", 6, ["Sounds interesting, where could I find them?", "Get lost, I dont fall for you traps"]
-			]
-		],
-		[
-			[
-				[_actor1], {
-					(SAOKCHOSEN SELECT 0) CALL SAOKanswer1
-				},
-				6
-			]
-		],
-		[
-			[
-				[player], {
-					(SAOKCHOSEN SELECT 0) CALL SAOKanswer2
-				},
-				5
-			]
-		]
+	[
+	[
+	[_actor1], "Hey, I heard you are heading to help one of our friends?", 6
 	]
-] SPAWN SAOKCUTSCENE;
-waitUntil {
-	sleep 0.1;
-	scriptdone _n
-};
-SAOKanswer1 = nil;
-SAOKanswer2 = nil;
-_nul = [_actor1, ""] SPAWN FHideAndDelete;
+	],
+	[
+	[
+	[_actor1], ["There is two armed locals planning to do the exact same. Maybe you guys could team up?"], 7
+	]
+	],
+	[
+	[
+	[player], "", 6, ["Sounds interesting, where could I find them?", "Get lost, I dont fall for you traps"]
+	]
+	],
+	[
+	[
+	[_actor1], {(SAOKCHOSEN SELECT 0) CALL SAOKanswer1},6
+	]
+	],
+	[
+	[
+	[player], {
+		(SAOKCHOSEN SELECT 0) CALL SAOKanswer2
+	},
+	5
+	]
+	]
+	]
+	] SPAWN SAOKCUTSCENE;
+	waitUntil {
+		sleep 0.1;
+		scriptdone _n
+	};
+	SAOKanswer1 = nil;
+	SAOKanswer2 = nil;
+	_nul = [_actor1, ""] SPAWN FHideAndDelete;
 
-if (!isNil "SAOKCHOSEN" && {
-		count SAOKCHOSEN > 0
-	} && {
-		(SAOKCHOSEN SELECT 0) == 0
-	}) then {
-	_start SPAWN {
-		private["_d", "_st", "_start2", "_actor1", "_n", "_actor2", "_marS", "_mar5", "_obj", "_obj2", "_nul"];
-		_start2 = [getposATL player, 2300, 300, "(1 - sea) * (1 + trees) * (1 + forest)", ""] CALL SAOKSEEKPOS;
-		_d = 2300;
-		while {
-			_start2 distance player < 300 || {
-				surfaceiswater _start2
+	if ( !isNil "SAOKCHOSEN" && { count SAOKCHOSEN > 0 } && { (SAOKCHOSEN SELECT 0) == 0 } ) then {
+		// I agreed to meet resistance team
+		_start SPAWN {
+			private["_d", "_st", "_start2", "_actor1", "_n", "_actor2", "_marS", "_mar5", "_obj", "_obj2", "_nul"];
+			_start2 = [getposATL player, 2300, 300, "(1 - sea) * (1 + trees) * (1 + forest)", ""] CALL SAOKSEEKPOS;
+			_d = 2300;
+			while {
+				_start2 distance player < 300 || {
+					surfaceiswater _start2
+				}
 			}
-		}
-		do {
-			sleep 0.1;
-			_d = _d + 10;
-			_start2 = [getposATL player, _d, 300, "(1 - sea) * (1 + trees) * (1 + forest)", ""] CALL SAOKSEEKPOS;
-		};
-		//_TidS = format["Hmar%1", NUMM];
-		//NUMM = NUMM + 1;
-		[
+			do {
+				sleep 0.1;
+				_d = _d + 10;
+				_start2 = [getposATL player, _d, 300, "(1 - sea) * (1 + trees) * (1 + forest)", ""] CALL SAOKSEEKPOS;
+			};
+			//_TidS = format["Hmar%1", NUMM];
+			//NUMM = NUMM + 1;
+			[
 			WEST, 				// Task owner(s)
 			["TaskJoin", "taskRR"],	// Task ID (used when setting task state, destination or description later) or ["taskname","parentname"]
 			["Join with Locals for assault on POW camp", "Join with Locals", "Join with Locals"],	// Task description
@@ -178,86 +173,89 @@ if (!isNil "SAOKCHOSEN" && {
 			true,			// Notification?
 			"Move",			// 3d marker type
 			false			// Shared?
-		] call BIS_fnc_taskCreate;
+			] call BIS_fnc_taskCreate;
 
-		//_mar5 = [_marS, _start2, "mil_join", [0.7, 0.7], "ColorBlack", "Join with Locals"] CALL FUNKTIO_CREATEMARKER;
-		_obj = createVehicle["FirePlace_burning_F", _start2, [], 0, "NONE"];
-		_tT = "Land_TentDome_F";
-		if (!isNil "IFENABLED") then {
-			_tT = "Land_TentA_F";
-		};
-		_obj2 = createVehicle[_tT, [(_start2 select 0) - 4, (_start2 select 1) + 4, 0], [], 0, "NONE"];
-		waitUntil {
-			sleep 5;
-			player distance _start2 < 20 || {
-				vehicle player distance _this < 250
-			}
-		};
-		if (player distance _start2 < 20) then {
-			_actor1 = [WEST, (FRIENDC4 call RETURNRANDOM), 150, [1000, 1000, 0], objNull] CALL FUNKTIO_SPAWNACTOR;
-			_n = [
+			//_mar5 = [_marS, _start2, "mil_join", [0.7, 0.7], "ColorBlack", "Join with Locals"] CALL FUNKTIO_CREATEMARKER;
+			_obj = createVehicle["FirePlace_burning_F", _start2, [], 0, "NONE"];
+			_tT = "Land_TentDome_F";
+			if (!isNil "IFENABLED") then {
+				_tT = "Land_TentA_F";
+			};
+			_obj2 = createVehicle[_tT, [(_start2 select 0) - 4, (_start2 select 1) + 4, 0], [], 0, "NONE"];
+			waitUntil {
+				sleep 5;
+				player distance _start2 < 20 || {
+					vehicle player distance _this < 250
+				}
+			};
+			if (player distance _start2 < 20) then {
+				_actor1 = [WEST, (FRIENDC4 call RETURNRANDOM), 150, [1000, 1000, 0], objNull] CALL FUNKTIO_SPAWNACTOR;
+				_n = [
 				[getposATL player, player, _actor1],
 				[],
 				[
-					[
-						[
-							[player], "Hello there, planning to help your friend to escape from cell?", 6
-						]
-					],
-					[
-						[
-							[_actor1],
-							["How did you know? Who are you?"], 5
-						]
-					],
-					[
-						[
-							[player],
-							["We are here to help and kick some enemy ass, would you care to follow my lead?"], 9
-						]
-					],
-					[
-						[
-							[_actor1],
-							["Of course Stranger, but we better hurry. Enemy may move our man away at any time"], 9
-						]
-					],
-					[
-						[
-							[player],
-							["I agree, lets go"], 4
-						]
-					]
+				[
+				[
+				[player], "Hello there, planning to help your friend to escape from cell?", 6
 				]
-			] SPAWN SAOKCUTSCENE;
-			waitUntil {
-				sleep 0.1;
-				scriptdone _n
+				],
+				[
+				[
+				[_actor1],
+				["How did you know? Who are you?"], 5
+				]
+				],
+				[
+				[
+				[player],
+				["We are here to help and kick some enemy ass, would you care to follow my lead?"], 9
+				]
+				],
+				[
+				[
+				[_actor1],
+				["Of course Stranger, but we better hurry. Enemy may move our man away at any time"], 9
+				]
+				],
+				[
+				[
+				[player],
+				["I agree, lets go"], 4
+				]
+				]
+				]
+				] SPAWN SAOKCUTSCENE;
+				waitUntil {
+					sleep 0.1;
+					scriptdone _n
+				};
+				_start2 = [getposATL player, 100, 0, "(1 - sea) * (1 + trees) * (1 + forest)", ""] CALL SAOKSEEKPOS;
+				_actor2 = [WEST, (FRIENDC4 call RETURNRANDOM), 150, _start2, objNull] CALL FUNKTIO_SPAWNACTOR; {
+					_x setcaptive false;
+					_x setbehaviour "AWARE";
+					_x enableAI "AUTOTARGET";
+					_x enableAI "TARGET";
+					[_x] join player;
+				}
+				foreach[_actor1, _actor2];
 			};
-			_start2 = [getposATL player, 100, 0, "(1 - sea) * (1 + trees) * (1 + forest)", ""] CALL SAOKSEEKPOS;
-			_actor2 = [WEST, (FRIENDC4 call RETURNRANDOM), 150, _start2, objNull] CALL FUNKTIO_SPAWNACTOR; {
-				_x setcaptive false;
-				_x setbehaviour "AWARE";
-				_x enableAI "AUTOTARGET";
-				_x enableAI "TARGET";
-				[_x] join player;
-			}
-			foreach[_actor1, _actor2];
-		};
-		_nul = [
+			_nul = [
 			[_obj, _obj2], 120
-		] SPAWN FUNKTIO_WAD;
-		_nil = ["TaskJoin", "SUCCEEDED", true] call BIS_fnc_taskSetState;
-		_nil = ["TaskJoin"] call BIS_fnc_deleteTask;
-		//deletemarker _mar5;
+			] SPAWN FUNKTIO_WAD;
+			_nil = ["TaskJoin", "SUCCEEDED", true] call BIS_fnc_taskSetState;
+			AlreadyDone set[count AlreadyDone, "TaskJoin"];
+			_nil = ["TaskJoin"] call BIS_fnc_deleteTask;
+			//deletemarker _mar5;
+		};
+	} else {
+		// I disagreed to meet resistance team
+		[] SPAWN SAOKLOWERRELVIL;
+		"Local villagers remember your insulting behaviour"
+		SPAWN HINTSAOK;
+		_Lna = (getposATL player) CALL NEARESTLOCATIONNAME;
+		_header = format["Locals Furious in %1, After Visit of Unfriendly Unknown English Speaking Military Units", _Lna];
+		[_header, date] CALL SAOKEVENTLOG;
 	};
-} else {
-	[] SPAWN SAOKLOWERRELVIL;
-	"Local villagers remember your insulting behaviour"
-	SPAWN HINTSAOK;
-	_Lna = (getposATL player) CALL NEARESTLOCATIONNAME;
-	_header = format["Locals Furious in %1, After Visit of Unfriendly Unknown English Speaking Military Units", _Lna];
-	[_header, date] CALL SAOKEVENTLOG;
 };
 waitUntil {
 	sleep 4;
@@ -283,9 +281,9 @@ do {
 	_na = _na + 1;
 	_stP = _pLoc call RETURNRANDOM;
 	if ({
-			leader _x distance _stP < 10
-		}
-		count DONTDELGROUPS == 0) then {
+				leader _x distance _stP < 10
+			}
+			count DONTDELGROUPS == 0) then {
 		_ran = CIVS1 call RETURNRANDOM;
 		_gr = creategroup civilian;
 		_an = _gr createUnit[_ran, _stP, [], 0, "form"];
@@ -330,13 +328,13 @@ if (vehicle player distance _animal < 40) then {
 			})
 		} && {
 			({
-					alive _x && {
-						side _x == EAST
-					} && {
-						behaviour _x == "COMBAT"
-					}
+				alive _x && {
+					side _x == EAST
+				} && {
+					behaviour _x == "COMBAT"
 				}
-				count((getposATL player) nearEntities[["Man"], 50]) < 3)
+			}
+			count((getposATL player) nearEntities[["Man"], 50]) < 3)
 		}
 	};
 	ODOTTANUT = nil;
@@ -393,62 +391,62 @@ foreach _ggg;
 _towerr setvariable["DontRemove", nil];
 _animal disableAI "MOVE";
 _n = [
-	[getposATL _animal, player, _animal],
-	[],
-	[
-		[
-			[
-				[_animal], "", 4
-			]
-		],
-		[
-			[
-				[_animal], "I will continue alone from here. Could I do anything for you in return?", 7
-			]
-		],
-		[
-			[
-				[player],
-				["To push enemy away, there needs to be also local forces to fight against them"], 6
-			]
-		],
-		[
-			[
-				[_animal],
-				["I am afraid that is not possible with our current leader Fox Crow"], 7
-			]
-		],
-		[
-			[
-				[_animal],
-				["With enemy connections, he would die before supporting you guys"], 7
-			]
-		],
-		[
-			[
-				[_animal],
-				["But if you take him out or take him captive, I would likely to replace him..."], 7
-			]
-		],
-		[
-			[
-				[player],
-				["...and you would support us, I see. Well we better get going"], 6
-			]
-		],
-		[
-			[
-				[_animal],
-				["I will show you where to meet me once you got rid of the target"], 7
-			]
-		],
-		[
-			[
-				[_animal],
-				["Also remembering now one weapon cache that could help you bringing him down"], 7
-			]
-		]
-	]
+[getposATL _animal, player, _animal],
+[],
+[
+[
+[
+[_animal], "", 4
+]
+],
+[
+[
+[_animal], "I will continue alone from here. Could I do anything for you in return?", 7
+]
+],
+[
+[
+[player],
+["To push enemy away, there needs to be also local forces to fight against them"], 6
+]
+],
+[
+[
+[_animal],
+["I am afraid that is not possible with our current leader Fox Crow"], 7
+]
+],
+[
+[
+[_animal],
+["With enemy connections, he would die before supporting you guys"], 7
+]
+],
+[
+[
+[_animal],
+["But if you take him out or take him captive, I would likely to replace him..."], 7
+]
+],
+[
+[
+[player],
+["...and you would support us, I see. Well we better get going"], 6
+]
+],
+[
+[
+[_animal],
+["I will show you where to meet me once you got rid of the target"], 7
+]
+],
+[
+[
+[_animal],
+["Also remembering now one weapon cache that could help you bringing him down"], 7
+]
+]
+]
 ] SPAWN SAOKCUTSCENE;
 waitUntil {
 	sleep 0.1;
@@ -458,5 +456,6 @@ _nul = [_animal, ""] SPAWN FHideAndDelete;
 //sleep 5;
 _nul = [] execVM "MainTasks\Task1_ConvertResistance.sqf";
 [] SPAWN SAOKCIV1;
+AlreadyDone = AlreadyDone - ["TaskJoin"];
 CurTaskS = CurTaskS - ["VillageTasks\TaskFindRes2.sqf"];
 //[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
