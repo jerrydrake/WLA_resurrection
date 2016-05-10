@@ -90,17 +90,23 @@ SAOKGREENREQ = {
 };
 
 SAOKUSREQ = {
+	// This task is given from the file "Cutscenes\USSitRep.sqf". It is to gain more pisteet or more military camps. At the end it is assigned task "MainTasks\US1.sqf".
 	CurTaskS set [count CurTaskS, "SAOKUSREQ"];
 	[
-	WEST, // Task owner(s)
-	"taskUSREQ1", // Task ID (used when setting task state, destination or description later)
-	["Before NATO will come in with more forces, we need to prepare the AO for them by holding at least quarter of the military camps or grow prestige value over 4000.", "NATO: Grow Prestige or Expand", "NATO: Grow Prestige or Expand"], // Task description
-	//_start, // Task destination
-	true // true to set task as current upon creation
-	] call SAOKCRTASK;
+		WEST, // Task owner(s)
+		"taskUSREQ1", // Task ID (used when setting task state, destination or description later)
+		["Before NATO will come in with more forces, we need to prepare the AO for them by holding at least quarter of the military camps or grow prestige value over 4000.", "NATO: Grow Prestige or Expand", "NATO: Grow Prestige or Expand"], // Task description
+		objnull,		// Task destination
+		true,			// true to set task as current upon creation
+		-1,				// priority
+		true,			// Notification?
+		"Interact",		// 3d marker type
+		false			// Shared?
+	] call BIS_fnc_taskCreate;
+	
 	_p = SAOKMAPSIZE*0.5;
 	waitUntil {sleep 10; pisteet > 4000 || {((( count (nearestLocations [[_p,_p,0], ["CampB"], SAOKMAPSIZE*0.7])) * 4) >=  count (nearestLocations [[_p,_p,0], ["CampR"], SAOKMAPSIZE*0.7]))}};
-	_nul = ["taskUSREQ1","SUCCEEDED"] call SAOKCOTASK;
+	_nul = ["taskUSREQ1","SUCCEEDED",true] call BIS_fnc_taskSetState;
 	_actor1 = [WEST,"B_recon_JTAC_F",150,[1000,1000,0],objNull] CALL FUNKTIO_SPAWNACTOR;
 	_li = "Understood, we will head to capture the two right away";
 	_li2 = "Thats the spirit, good luck";

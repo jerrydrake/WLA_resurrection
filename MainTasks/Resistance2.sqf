@@ -1,6 +1,7 @@
 // This task is called from SAOKRESREQ in TaskEvents.sqf. It is the request to capture any currently enemy-controlled camp. At the end two main tasks are available:
-//	1) "Cutscenes\MeetRes.sqf" : to meet the head of local resistance;
+//	1) "Cutscenes\MeetRes.sqf" : to meet the head of local resistance. This is only a cutscene.
 //	2) "Cutscenes\USSitRep.sqf" : to make a SitRep with NATO.
+
 private ["_now","_nul","_start"];
 CurTaskS set [count CurTaskS, "MainTasks\Resistance2.sqf"];
 [] SPAWN SAOKFREEMORTAR;
