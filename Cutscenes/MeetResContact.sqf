@@ -1,7 +1,5 @@
 CurTaskS = CurTaskS + ["Cutscenes\MeetResContact.sqf"];
 
-
-
 _start2 = [player,800,300,"(1 + meadow)  * (1 - sea) * (1 - hills)",""] CALL SAOKSEEKPOS;
 _d = 800;
 while {surfaceiswater _start2} do {
@@ -14,28 +12,18 @@ _obj = createVehicle ["FirePlace_burning_F", _start2, [], 0, "NONE"];
 _obj2 = createVehicle ["Land_TentA_F",[(_start2 select 0) - 4, (_start2 select 1) + 4, 0], [], 0, "NONE"]; 
 
 [
-WEST, // Task owner(s)
-"taskMEET1", // Task ID (used when setting task state, destination or description later)
-["Our target is dead, we should head to meet Georgopoulos to get current sitrep from him.", "Meet Georgopoulos", "Meet Georgopoulos"], // Task description
-_start2, // Task destination
-true, // true to set task as current upon creation
--1,
-true,
-"Interact",
-false
+	WEST, // Task owner(s)
+	"taskMEET1", // Task ID (used when setting task state, destination or description later)
+	["Our target is dead, we should head to meet Georgopoulos to get current sitrep from him.", "Meet Georgopoulos", "Meet Georgopoulos"], // Task description
+	_start2, // Task destination
+	true, // true to set task as current upon creation
+	-1,
+	true,
+	"Interact",
+	false
 ] call BIS_fnc_taskCreate;
-//NUMM=NUMM+1;
-//_someId = format ["IDSAOK%1",NUMM];
-//[_someId, "onEachFrame", {
-//	if (isNil"IC3D") exitWith {};
-//	drawIcon3D ["\a3\Ui_f\data\GUI\Cfg\CommunicationMenu\instructor_ca.paa", ICONCOLORBLUE, _this,1.51, 1.51, 0, (format ["Meet Georgopoulos: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
-//}, _start2] call BIS_fnc_addStackedEventHandler;
-//_mar = format ["MainTaskM%1",NUMM];
-//NUMM=NUMM+1;
-//_marker = [_mar,_start2, "mil_flag", [0.8,0.8], "ColorBlue", "Meet Georgopoulos"] CALL FUNKTIO_CREATEMARKER;
+
 waitUntil {sleep 5; vehicle player distance _start2 < 60};
-//[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
-//deletemarker _marker;
 
 _nul = ["taskMEET1","SUCCEEDED", true] call BIS_fnc_taskSetState;
 _nul = [4] SPAWN MusicT;

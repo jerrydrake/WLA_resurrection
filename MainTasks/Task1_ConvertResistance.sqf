@@ -31,15 +31,15 @@ CurTaskS = CurTaskS + [
 ];
 
 [
-WEST, // Task owner(s)
-"taskMT1", // Task ID (used when setting task state, destination or description later)
-["We will not get resistance to fight for us as long their current leader Fox Crow have the command. Most of the resistance groups are only following him to stay alive. If we manage to kill, or even better make him surrender, a new leader will be chosen who will be most likely the POW we just saved. We would get much of the local groups to our side.", "Kill Fox Crow", "Kill Fox Crow"], // Task description
-objNull, // Task destination
-true,			// true to set task as current upon creation
--1,				// priority
-true,			// Notification?
-"Destroy",		// 3d marker type
-false			// Shared?
+	WEST, // Task owner(s)
+	"taskMT1", // Task ID (used when setting task state, destination or description later)
+	["We will not get resistance to fight for us as long their current leader Fox Crow have the command. Most of the resistance groups are only following him to stay alive. If we manage to kill, or even better make him surrender, a new leader will be chosen who will be most likely the POW we just saved. We would get much of the local groups to our side.", "Kill Fox Crow", "Kill Fox Crow"], // Task description
+	objNull, // Task destination
+	true,			// true to set task as current upon creation
+	-1,				// priority
+	true,			// Notification?
+	"Destroy",		// 3d marker type
+	false			// Shared?
 ] call BIS_fnc_taskCreate;
 
 _start3 = [_start2, 200, 0, "(1 - sea) * (1 + meadow)", 300] CALL SAOKSEEKPOS;
@@ -93,32 +93,20 @@ NUMM = NUMM + 1;
 
 ["taskMT1", _crowKing] call BIS_fnc_taskSetDestination;
 [
-WEST, 			// Task owner(s)
-["taskMT2","taskMT1"],		// Task ID (used when setting task state, destination or description later) or ["taskname","parentname"]
-["Find the crate with sniper rifle to kill Fox Crow", "Find the crate", "Find the crate"],	// Task description
-objnull,		// Task destination
-true,			// true to set task as current upon creation
--1,				// priority
-true,			// Notification?
-"Search",		// 3d marker type
-false			// Shared?
+	WEST, 			// Task owner(s)
+	["taskMT2","taskMT1"],		// Task ID (used when setting task state, destination or description later) or ["taskname","parentname"]
+	["Find the crate with sniper rifle to kill Fox Crow", "Find the crate", "Find the crate"],	// Task description
+	objnull,		// Task destination
+	true,			// true to set task as current upon creation
+	-1,				// priority
+	true,			// Notification?
+	"Search",		// 3d marker type
+	false			// Shared?
 ] call BIS_fnc_taskCreate;
 
-
-//_someId = format["IDSAOK%1", NUMM];
-//[_someId, "onEachFrame", {
-//	if (isNil "IC3D") exitWith {};
-//	drawIcon3D["\A3\Structures_F_Mark\VR\Helpers\Data\VR_Symbol_MARK_WeaponHandling3_CA.paa", ICONCOLORRED, getposATL _this, 1.51, 1.51, 0, (format["Neutralize Fox Crow: %1m", round(_this distance player)]), 1, SAOKFSI, "TahomaB"];
-//}, _crowKing] call BIS_fnc_addStackedEventHandler;
-//_mar = format["MainTaskM%1", NUMM];
-//NUMM = NUMM + 1;
-//_marker = [_mar, getposATL _crowKing, "mil_destroy", [0.8, 0.8], "ColorRed", "Find and Kill Fox Crow"] CALL FUNKTIO_CREATEMARKER;
 sleep 1;
 _size = 1200;
 _start4 = [_start2, 1200, 300, "(1 - sea) * (1 + trees)* (1 - hills)", ""] CALL SAOKSEEKPOS;
-//_mar2 = format["MainTaskM%1", NUMM];
-//NUMM = NUMM + 1;
-//_marker = [_mar2, _start4, "mil_flag", [0.5, 0.5], "ColorGreen", "Crate with Sniper-Rifle"] CALL FUNKTIO_CREATEMARKER;
 
 ["taskMT2", _start4] call BIS_fnc_taskSetDestination;
 
@@ -130,7 +118,8 @@ _start3 = [_start2, 100, 0, "(1 - sea) * (1 + meadow)", 300] CALL SAOKSEEKPOS;
 _car = createVehicle[(CIVVEH call RETURNRANDOM), _start3, [], 0, "NONE"];
 _car setvariable["AmCrate", 1];
 _car setdir(random 360);
-//ESCAPE
+
+// CROW IS ESCAPING
 [_crowKing, _car] SPAWN {
 	private["_t", "_c"];
 	_t = _this select 0;
@@ -201,10 +190,9 @@ waitUntil {
 
 _obj setvariable["AmCrate", nil];
 _car setvariable["AmCrate", nil];
-//deletemarker _mar;
-//deletemarker _mar2;
+
 _nul = ["taskMT1", "SUCCEEDED", true] call BIS_fnc_taskSetState;
-//[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
+
 sleep 4;
 //_nul = [] execvm "Cutscenes\MeetResContact.sqf";
 SA_CUTMRC = compile preprocessfileLineNumbers "Cutscenes\MeetResContact.sqf";

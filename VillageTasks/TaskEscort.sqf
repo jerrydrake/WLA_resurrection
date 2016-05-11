@@ -27,13 +27,10 @@ if !([(player CALL SAOKNEARESTVIL),"Task"] CALL SAOKVILCON) then {
 		RewardSelected = nil;
 		_str = "Task"; 
 		[_nV,_str,1] CALL SAOKVILSET;
-		//_mar = format ["VilTaskM%1",NUMM];
-		//NUMM=NUMM+1;
 		_home = _mP;
 		_home = [_home,400,10,"(1 + meadow) * (1 - sea)"] CALL SAOKSEEKPOS;
 		_h = _nV;
 		_mP = [(_home select 0),(_home select 1)+5,0];
-		//_marker = [_mar,_mP, "c_unknown", [0.8,0.8], "ColorPink", "Defend the village until chopper have picked the villager away"] CALL FUNKTIO_CREATEMARKER;
 		_Tid = format ["TaskCIV%1",NUMM];
 		_Tid1 = format ["TaskCIV%1_P1",NUMM];
 		_Tid2 = format ["TaskCIV%1_P2",NUMM];
@@ -75,13 +72,7 @@ if !([(player CALL SAOKNEARESTVIL),"Task"] CALL SAOKVILCON) then {
 			false			// Shared?
 		] call BIS_fnc_taskCreate;
 	
-		//_someId = format ["IDSAOK%1",NUMM];
-		//[_someId, "onEachFrame", {
-		//	if (isNil"IC3D") exitWith {};
-		//	drawIcon3D ["\A3\ui_f\data\map\markers\nato\c_unknown.paa", ICONCOLORCIV, getposATL _this,1.51, 1.51, 0, (format ["Meet the villager: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
-		//}, _civ] call BIS_fnc_addStackedEventHandler;
 		waitUntil {sleep 3; isNull _civ || {!alive _civ} || {player distance _civ < 20} || {surfaceisWater getposATL _civ}};
-		//[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
 		if (alive _civ) then {
 			_civ setunitpos "AUTO";
 			_n = [
@@ -132,12 +123,6 @@ if !([(player CALL SAOKNEARESTVIL),"Task"] CALL SAOKVILCON) then {
 		};
 
 		[_Tid2,_civ] CALL BIS_fnc_taskSetDestination;
-		//NUMM=NUMM+1;
-		//_someId = format ["IDSAOK%1",NUMM];
-		//[_someId, "onEachFrame", {
-		//	if (isNil"IC3D") exitWith {};
-		//	drawIcon3D ["\A3\ui_f\data\map\markers\nato\c_unknown.paa", ICONCOLORCIV, getposATL _this,1.51, 1.51, 0, (format ["Protect the villager: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
-		//}, _civ] call BIS_fnc_addStackedEventHandler;
 		_civ setunitpos "MIDDLE";
 		//hint "Hint: Use construction truck near the village";
 
@@ -169,7 +154,6 @@ if !([(player CALL SAOKNEARESTVIL),"Task"] CALL SAOKVILCON) then {
 			};
 			
 			_startC = [(getmarkerpos "WestChopStart") select 0, (getmarkerpos "WestChopStart") select 1, 50];
-			//_ra = "B_Heli_Transport_01_F";
 			_chop = [_startC, 180, _ra, WEST] call SPAWNVEHICLE;
 			CantCommand set [count CantCommand,_chop select 2];
 			{_x allowdamage false;_x setcaptive true;} foreach (units (_chop select 2) + [(_chop select 0)]);
@@ -218,7 +202,6 @@ if !([(player CALL SAOKNEARESTVIL),"Task"] CALL SAOKVILCON) then {
 		};
 		waitUntil {sleep 6; isNull _civ || {!alive _civ} || {_civ distance _home > 150}};
 		_nV CALL SAOKVILDATREM;
-		//deleteMarker _marker;
 		if (alive _civ) then {
 			_Lna = _home CALL NEARESTLOCATIONNAME;
 			_header = format ["Leader of Local Protesters Moved to Safe Location from %1",_Lna];
@@ -238,7 +221,6 @@ if !([(player CALL SAOKNEARESTVIL),"Task"] CALL SAOKVILCON) then {
 			//FAILED TASK
 			["ScoreRemoved",["Civilian died",40]] call SAOKNOTIFI;
 		};
-		//[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
 		sleep 15;
 		_nul = [_Tid,"SUCCEEDED",true] call BIS_fnc_taskSetState;
 		_n = [_Tid] CALL BIS_fnc_deleteTask;
