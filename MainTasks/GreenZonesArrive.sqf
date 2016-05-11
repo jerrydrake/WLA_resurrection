@@ -5,11 +5,13 @@ _ranZ = PierMarkers call RETURNRANDOM;
 _locat = getmarkerpos _ranZ;
 
 _Tid = format ["TaskOff%1",NUMM];
-
 NUMM=NUMM+1;
+
+CurTaskS set [count CurTaskS, "MainTasks\GreenZonesArrive.sqf"];
+
 _Lna = _locat CALL NEARESTLOCATIONNAME;
 _header = format ["Help Green Forces to enter near %1",_Lna];
-_desc =("CSAT are blocking Green Army vehicles to go ashore at this pier. Taking out CSAT zones inside 2km radius would bring some green armored vehicle zones to this area");
+_desc =("Enemy forces are blocking Green Army vehicles to go ashore at this pier. Taking out enemy forces inside 2km radius would bring some green armored vehicle zones to this area");
 [
 	WEST, // Task owner(s)
 	_Tid, // Task ID (used when setting task state, destination or description later)
@@ -77,5 +79,6 @@ _classs = ARMEDVEHICLES select 2;
 _classs = [_classs call RETURNRANDOM,_classs call RETURNRANDOM];
 _n = [_star, "ColorGreen",_classs] CALL AddVehicleZone;
 sleep 60;
+
 _n = [_Tid] CALL BIS_fnc_deleteTask;
 deletemarker _marker;

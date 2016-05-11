@@ -109,8 +109,6 @@ _nul = [4] SPAWN MusicT;
 _n = ["Green"] SPAWN SAOKSPAWNBIGCAMP;
 waitUntil {sleep 0.1; scriptdone _n};
 [] SPAWN TEGR1;
-CurTaskS set [count CurTaskS, "MainTasks\GreenAirZonesArrive.sqf"];
-CurTaskS set [count CurTaskS, "MainTasks\GreenZonesArrive.sqf"];
 _nul = ["task3","SUCCEEDED", true] call BIS_fnc_taskSetState;
 [] SPAWN TERES1;
 ["CSATAIR"] SPAWN SAOKADDRANDOMEVENTS;
