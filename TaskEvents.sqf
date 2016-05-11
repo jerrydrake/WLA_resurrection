@@ -5,7 +5,7 @@ SAOKRESREQ = {
 	[
 		WEST, // Task owner(s)
 		"taskRESREQ1", // Task ID (used when setting task state, destination or description later)
-		["Local resistance is badly scattered and unorganized. We need to gather more men under Georgopoulos' command. There have been armed locals in this village constantly fighting against CSAT forces. If we help them against the persians, they would probably be willing to work together. Clear or make captive all CSAT units inside 150m from the village center.", "Fight with Locals", "Fight with Locals"], // Task description
+		["Local resistance is badly scattered and unorganized. We need to gather more men under Georgopoulos' command. There have been armed locals in this village constantly fighting against enemy forces. If we help them against the local enemy presence, they would probably be willing to work together. Clear or make captive all enemy units inside 150m from the village center.", "Fight with Locals", "Fight with Locals"], // Task description
 		_nVil,			// Task destination
 		true,			// true to set task as current upon creation
 		-1,				// priority
