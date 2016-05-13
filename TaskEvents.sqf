@@ -227,7 +227,7 @@ SAOKFFT = {
 			//	drawIcon3D ["\A3\Structures_F_Bootcamp\VR\Helpers\Data\VR_Symbol_placeables_CA.paa", ICONCOLORRED, getmarkerpos _this,1.51, 1.51, 0, (format ["Disable Mortar: %1m",round (getmarkerpos _this distance player)]), 1, SAOKFSI, "TahomaB"];
 			//}, _this] call BIS_fnc_addStackedEventHandler;
 			waitUntil {sleep 2; !(_this in VEHZONESA) || {getmarkercolor _this != "ColorRed"}};
-			//[_SubTid,"SUCCEEDED",true] call BIS_fnc_taskSetState;
+			[_SubTid,"SUCCEEDED",true] call BIS_fnc_taskSetState;
 			//[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
 		};
 		sleep 0.1;

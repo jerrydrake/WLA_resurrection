@@ -43,10 +43,26 @@ while {count _cars < 4 && {_max < 10}} do {
 	_max = _max + 1;
 	_pRan = (_roads call RETURNRANDOM);
 	_pos = getposATL _pRan;
+	NUMM=NUMM+1;
+	_SubTid = format ["TaskBob_P%1",NUMM];
+
+	[
+		WEST, // Task owner(s)
+		[_SubTid,_Tid], // Task ID (used when setting task state, destination or description later)
+		["Remove blocades on the road", "Remove blocade", "Remove Block"], // Task description
+		_pos,			// Task destination
+		true,			// true to set task as current upon creation
+		-1,				// priority
+		true,			// Notification?
+		"Interact",		// 3d marker type
+		false			// Shared?
+	] call BIS_fnc_taskCreate;
+		
 	if ({_x distance _pos < 10} count _cars == 0) then {
 		_veh = createVehicle [["C_SUV_01_F","C_Van_01_box_F","C_Van_01_transport_F","C_Hatchback_01_sport_F","C_Hatchback_01_F","C_Offroad_01_F","C_Quadbike_01_F"] call RETURNRANDOM, _pos, [], 0, "NONE"];
 		_ro = (roadsConnectedTo _pRan); 
 		_dir = random 360;
+		
 		if (count _ro > 0) then {_ro = _ro call RETURNRANDOM; _dir = ([getposATL _ro,getposATL _pRan] call SAOKDIRT) + ([90,270] call RETURNRANDOM);};
 		_veh setdir _dir;
 		_veh setpos _pos;
@@ -55,9 +71,9 @@ while {count _cars < 4 && {_max < 10}} do {
 		_veh setvariable ["Spos",_pos];
 		_cars set [count _cars, _veh];
 		_mar = format ["CarM%1",NUMM];
-		NUMM=NUMM+1;
-		_marker = [_mar,getposATL _veh, "mil_flag", [0.8,0.8], "ColorRed", "Push the Car Away"] CALL FUNKTIO_CREATEMARKER;
-		[_marker, _veh] SPAWN {waitUntil {sleep 4; isNull (_this select 1) || {!isOnroad (getposATL (_this select 1))} || {((_this select 1) distance (getmarkerpos (_this select 0)) > 15)}};deletemarker (_this select 0); if !(isNull (_this select 1)) then {"Car Blockade Erased" SPAWN HINTSAOK;};};
+		//NUMM=NUMM+1;
+		//_marker = [_mar,getposATL _veh, "mil_flag", [0.8,0.8], "ColorRed", "Push the Car Away"] CALL FUNKTIO_CREATEMARKER;
+		_veh SPAWN {waitUntil {sleep 4; isNull _this || {!isOnroad (getposATL _this)} || {(_this distance _pos > 15)}};[_SubTid,"SUCCEEDED",true] call BIS_fnc_taskSetState; if !(isNull _this) then {"Car Blockade Erased" SPAWN HINTSAOK;};};
 	};
 	sleep 0.1;
 };
