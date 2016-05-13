@@ -330,6 +330,10 @@ if (!isNil"NEWG" || {_op}) then {
 		[player,"rhs_weap_fgm148",1] call BIS_fnc_addWeapon;
 		for [{_i = 0},{_i < 2},{_i = _i+1}] do { player addMagazine "rhs_fgm148_magazine_AT"; };
 		
+		if (isClass(configFile >> "CfgPatches" >> "ARC_Units")) then {
+			[player,"ARC_CallSign_Smiley02"] call BIS_fnc_setUnitInsignia;
+			_insignia = player call BIS_fnc_getUnitInsignia;
+		};
 		{
 			_n = [_x, ["U_mas_it_B_IndUniform1_v","U_mas_it_B_IndUniform2_v"],["H_mas_it_helmet_mich_sf_v"],["V_mas_it_PlateCarrier1_rgr_v","V_mas_it_PlateCarrier2_rgr_v", "V_mas_it_PlateCarrierGL_rgr_v"]] SPAWN GearToRandom;
 			_nul = [_x, 1] spawn FUNKTIO_NATORUS;

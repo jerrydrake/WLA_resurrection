@@ -71,7 +71,7 @@ sleep 5;
 _aika = time + 90;
 waitUntil {sleep 0.2;([_roina, _veh] call SAOKCOLLISION) || {(getposATL _roina select 2) < 2} || {(getposASL _roina select 2) < 2} || {_aika < time}};
 detach _roina;
-sleep 1;
+sleep 10;
 deletevehicle _veh;
 
 if (count _this > 2) then {

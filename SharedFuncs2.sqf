@@ -1697,6 +1697,7 @@ SAOKEJECT = {
 		waitUntil {isNull _unit || {getposATL _unit select 2 < 20}};
 		_unit allowdamage false;
 		waitUntil {isNull _unit || {getposATL _unit select 2 < 1}};
+		_unit action ["Eject", vehicle _unit];	// Under Test
 		if (getposATL _unit select 2 > 1) then {
 			vehicle _unit disableCollisionWith _veh; 
 		};

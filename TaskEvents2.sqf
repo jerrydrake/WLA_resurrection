@@ -36,15 +36,15 @@ SAOKCIV1 = {
 	if (_n == 0) then {
 		_start = [(vehicle player),4000,600,"(1 + trees) * (1 + forest)"] CALL SAOKSEEKPOS;
 		[
-		WEST, // Task owner(s)
-		"taskCIV1", // Task ID (used when setting task state, destination or description later)
-		["Civilian have been reported to be taken in woods by enemy units and no sight of him since. We could try to find him.", "Find Missing Civilian", "Find Missing Civilian"], // Task description
-		_start,		// Task destination
-		true,			// true to set task as current upon creation
-		-1,				// priority
-		true,			// Notification?
-		"Find",		// 3d marker type
-		false			// Shared?
+			WEST, // Task owner(s)
+			"taskCIV1", // Task ID (used when setting task state, destination or description later)
+			["Civilian have been reported to be taken in woods by enemy units and no sight of him since. We could try to find him.", "Find Missing Civilian", "Find Missing Civilian"], // Task description
+			_start,		// Task destination
+			true,			// true to set task as current upon creation
+			-1,				// priority
+			true,			// Notification?
+			"Find",		// 3d marker type
+			false			// Shared?
 		] call BIS_fnc_taskCreate;
 		//NUMM=NUMM+1;
 		//_someId = format ["IDSAOK%1",NUMM];
@@ -157,25 +157,25 @@ SAOKUSEX1 = {
 		// Insert Task here !!!!!!!!!!!!!
 		[_actor1] joinSilent player;
 		[
-		WEST, 			// Task owner(s)
-		"OfficerTransport",		// Task ID (used when setting task state, destination or description later) or ["taskname","parentname"]
-		["An officer has asked you to escort him to his destination.", "Bring the Officer alive here", "Bring the Officer alive here"],	// Task description
-		_nC,		// Task destination
-		true,			// true to set task as current upon creation
-		-1,				// priority
-		true,			// Notification?
-		"Move",		// 3d marker type
-		false			// Shared?
+			WEST, 			// Task owner(s)
+			"OfficerTransport",		// Task ID (used when setting task state, destination or description later) or ["taskname","parentname"]
+			["An officer has asked you to escort him to his destination.", "Bring the Officer alive here", "Bring the Officer alive here"],	// Task description
+			_nC,		// Task destination
+			true,			// true to set task as current upon creation
+			-1,				// priority
+			true,			// Notification?
+			"Move",		// 3d marker type
+			false			// Shared?
 		] call BIS_fnc_taskCreate;
 
-		NUMM=NUMM+1;
-		_someId = format ["IDSAOK%1",NUMM];
-		[_someId, "onEachFrame", {
-			if (isNil"IC3D") exitWith {};
-			drawIcon3D ["\A3\ui_f\data\map\markers\military\circle_CA.paa", ICONCOLORBLUE, _this,1.51, 1.51, 0, (format ["Bring the Officer alive here: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
-		}, _nC] call BIS_fnc_addStackedEventHandler;
+		//NUMM=NUMM+1;
+		//_someId = format ["IDSAOK%1",NUMM];
+		//[_someId, "onEachFrame", {
+		//	if (isNil"IC3D") exitWith {};
+		//	drawIcon3D ["\A3\ui_f\data\map\markers\military\circle_CA.paa", ICONCOLORBLUE, _this,1.51, 1.51, 0, (format ["Bring the Officer alive here: %1m",round (_this distance player)]), 1, SAOKFSI, "TahomaB"];
+		//}, _nC] call BIS_fnc_addStackedEventHandler;
 		waitUntil {sleep 6; isNull _actor1 || {!alive _actor1} || {vehicle _actor1 == _actor1 && {_actor1 distance _nC < 50}}};
-		[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
+		//[_someId, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
 		if (isNull _actor1 || {!alive _actor1}) then {
 			["OfficerTransport", "FAILED", true] call BIS_fnc_taskSetState;
 		} else {
@@ -282,11 +282,11 @@ SAOKUSEX2 = {
 		sleep 7;
 		gameLogic1 globalchat localize "STR_milT9_l6";
 	};
-	//[] SPAWN SAOKUSEX3;	// Deleted Jerrydrake: seems an empty container
+	[] SPAWN SAOKUSEX3;
 	CurTaskS = CurTaskS - ["SAOKUSEX2"];
 };
 
-//SAOKUSEX3 = {CurTaskS = CurTaskS + ["SAOKUSEX3"];};	// Deleted Jerrydrake: seems an empty container
+SAOKUSEX3 = {CurTaskS = CurTaskS + ["SAOKUSEX3"];};
 
 //PILOT/CREW MISSING
 SAOKEX1 = {
@@ -303,15 +303,15 @@ SAOKEX1 = {
 	if ((locationposition ([_l] CALL SAOKNEARESTVIL)) distance _l < 3000) then {_p pushback 2;};
 	_taskId = format ["TASKIDSAOK%1",NUMM];
 	[
-	WEST, // Task owner(s)
-	_taskId, // Task ID (used when setting task state, destination or description later)
-	_h, // Task description
-	_l,		// Task destination
-	true,			// true to set task as current upon creation
-	-1,				// priority
-	true,			// Notification?
-	"Defend",		// 3d marker type
-	false			// Shared?
+		WEST, // Task owner(s)
+		_taskId, // Task ID (used when setting task state, destination or description later)
+		_h, // Task description
+		_l,		// Task destination
+		true,			// true to set task as current upon creation
+		-1,				// priority
+		true,			// Notification?
+		"Defend",		// 3d marker type
+		false			// Shared?
 	] call BIS_fnc_taskCreate;
 	//NUMM=NUMM+1;
 	//_someId = format ["IDSAOK%1",NUMM];
