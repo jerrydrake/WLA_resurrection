@@ -224,6 +224,12 @@ _boatinspos = [[2825.56,24074.4,0],[5618.7,24394.6,0],[10788,24970.3,0],[15326.4
 AIRFIELDLOCATIONS = ["AirC","AirC_1","AirC_2","AirC_3","AirC_4","AirC_5"];
 {_x setMarkerColor "ColorOrange";_x setMarkerType "Empty";_x setMarkerShape "ICON";_x setmarkertype "u_installation";_x setmarkersize [0.7,0.7]; _x setmarkertext " Airfield";} foreach AIRFIELDLOCATIONS;
 
+if (isClass(configFile >> "CfgPatches" >> "ARC_Units")) then {
+	[player,"ARC_CallSign_Smiley02"] call BIS_fnc_setUnitInsignia;
+	_insignia = player call BIS_fnc_getUnitInsignia;
+};
+
+
 _isWater = true;
 _openH = true;
 if (worldname != "Altis") then {
