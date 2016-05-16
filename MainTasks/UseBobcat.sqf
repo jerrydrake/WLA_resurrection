@@ -1,15 +1,17 @@
-//[] SPAWN TASK_Bobcat... This task, to remove barricades, is a random task called by random task generator
+//TASK_Bobcat... This task, to remove barricades, is a random task called by random task generator
 
 private ["_loc","_v","_vil","_vp","_ro","_dir","_veh","_mar","_marker","_max","_pRan","_pos","_start","_roads","_Tid","_Lna","_header","_desc","_mar2","_cars","_nul","_n"];
+//player sidechat "I'm Starting...";
 _loc = "";
 _vil = (nearestLocations [getPosATL player, ["NameVillage","NameCity","NameCityCapital"], 20000]);
 while {count _vil > 0 && {typename _loc == "STRING"}} do {
 	_v = _vil call RETURNRANDOM;
 	_vil = _vil - [_v];
 	_vp = locationposition _v;
-	if ([_vp] CALL SAOKNEARVILRELA in ["Hostile","Angry"] && {{getmarkercolor _x in ["ColorGreen","ColorPink"] && {getmarkerpos _x distance _vp < 3000}} count FacMarkers + PierMarkers > 0}) then {_loc = _v;};
+	if ([_vp] CALL SAOKNEARVILRELA in ["Hostile","Angry"] && {{getmarkercolor _x in ["ColorGreen","ColorPink","ColorBlue"] && {getmarkerpos _x distance _vp < 3500}} count FacMarkers+PierMarkers+StoMarkers+StoMarkers > 0}) then {_loc = _v;};
 	sleep 0.1;
 };
+player sidechat "I'm here...";
 if (typename _loc == "STRING" || {{str _loc == _x select 0} count AMBbattles > 0}) exitWith {};
 AMBbattles pushback [str _loc,"BOB"];
 _start = locationposition _loc;
@@ -17,6 +19,7 @@ _roads = (_start nearRoads 80);
 if (count _roads == 0) exitWith {};
 SUPF = SUPF * 0.75;
 _Tid = format ["TaskBob%1",NUMM];
+player sidechat "Can start the task...";
 NUMM=NUMM+1;
 _Lna = _start CALL NEARESTLOCATIONNAME;
 _header = format ["Remove Blockades in %1",_Lna];
@@ -29,7 +32,7 @@ _desc = "Furious civilians have begun to block roads in this village, slowing do
 	true,			// true to set task as current upon creation
 	-1,				// priority
 	true,			// Notification?
-	"Default",		// 3d marker type
+	"Move",			// 3d marker type
 	false			// Shared?
 ] call BIS_fnc_taskCreate;
 
@@ -44,8 +47,7 @@ while {count _cars < 4 && {_max < 10}} do {
 	_pRan = (_roads call RETURNRANDOM);
 	_pos = getposATL _pRan;
 	NUMM=NUMM+1;
-	_SubTid = format ["TaskBob_P%1",NUMM];
-
+	_SubTid = format ["%1_P%2",_Tid,NUMM];
 	[
 		WEST, // Task owner(s)
 		[_SubTid,_Tid], // Task ID (used when setting task state, destination or description later)
@@ -70,10 +72,10 @@ while {count _cars < 4 && {_max < 10}} do {
 		_veh getvariable ["AmCrate",1];
 		_veh setvariable ["Spos",_pos];
 		_cars set [count _cars, _veh];
-		_mar = format ["CarM%1",NUMM];
+		//_mar = format ["CarM%1",NUMM];
 		//NUMM=NUMM+1;
 		//_marker = [_mar,getposATL _veh, "mil_flag", [0.8,0.8], "ColorRed", "Push the Car Away"] CALL FUNKTIO_CREATEMARKER;
-		_veh SPAWN {waitUntil {sleep 4; isNull _this || {!isOnroad (getposATL _this)} || {(_this distance _pos > 15)}};[_SubTid,"SUCCEEDED",true] call BIS_fnc_taskSetState; if !(isNull _this) then {"Car Blockade Erased" SPAWN HINTSAOK;};};
+		_veh SPAWN {waitUntil {sleep 4; {isNull _this} || {!isOnroad (getposATL _this)} || {(_this distance _pos > 15)}};_nul = [_SubTid,"SUCCEEDED",true] call BIS_fnc_taskSetState; if !(isNull _this) then {"Car Blockade Erased" SPAWN HINTSAOK;};};
 	};
 	sleep 0.1;
 };

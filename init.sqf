@@ -45,6 +45,7 @@ RESERVEAMARKS = [];
 MAXACTIVEV = 2;
 ACTIVEZ = [];
 PSHOT = 0;
+_insignia = [];
 if (productVersion select 2 > 132) then {
 	_n = [] execVM "SlingFuncs.sqf";
 };
